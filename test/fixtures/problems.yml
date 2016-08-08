@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+example_problem:
+  name: HackTheArch
+  description: Help us hack the arch!
+  category: NetEx
+  points: 50
+  solution: answer
+  correct_message: Correct!
+  false_message: Incorrect
+  visible: true
+  hints: "1,2,3"
+  solution_case_sensitive: true
+
+example_problem_2:
+  name: HackTheArch2
+  description: Help us hack the arch again!
+  category: NetEx
+  points: 100
+  solution: answer
+  correct_message: Correct!
+  false_message: Incorrect
+  hints: 1
+  visible: true
+  solution_case_sensitive: true

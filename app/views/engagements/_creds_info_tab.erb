@@ -1,0 +1,29 @@
+<div class="pTop5 pBot5">
+	<%= link_to "Add new", "#", id: "new-cred-link", class: "pull-right btn btn-primary btn-xs" %>
+	<span class="clearfix"></span>
+</div>
+<table class="table" id="credsTabView" data-eng-id=<%= @engagement.id %> >
+	<thead> 
+		<tr>
+			<th>IP</th>
+			<th>PWDump</th>
+			<th>Password</th>
+			<th>Description</th>
+			<th>Actions</th>
+		</tr>
+	</thead> 
+	<tbody>
+		<% @engagement.engagement_creds.each do |engagement_cred| %>
+		<tr>
+			<td><%= engagement_cred.ip %></td>
+			<td><%= engagement_cred.pwdump %></td>
+			<td><%= engagement_cred.password %></td>
+			<td><%= engagement_cred.description %></td>
+			<td>
+				<%= link_to "Delete", "#", class: "delete-cred-link", "data-obj-id" => engagement_cred.id %>
+			</td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+<%= link_to "Export CSV", engagement_engagement_creds_path(@engagement.id, format: :csv), class: "btn btn-primary pull-right" %>

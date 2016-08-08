@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ref_id: MyString
+  ref_author: MyText
+  ref_title: MyString
+  ref_section: MyString
+  ref_edition: MyString
+  ref_publisher: MyString
+  ref_pubdate: 2016-06-16
+  ref_date: 2016-06-16
+  ref_link: MyString
+  referable_id: 1
+  referable_type: MyString
+
+two:
+  ref_id: MyString
+  ref_author: MyText
+  ref_title: MyString
+  ref_section: MyString
+  ref_edition: MyString
+  ref_publisher: MyString
+  ref_pubdate: 2016-06-16
+  ref_date: 2016-06-16
+  ref_link: MyString
+  referable_id: 1
+  referable_type: MyString

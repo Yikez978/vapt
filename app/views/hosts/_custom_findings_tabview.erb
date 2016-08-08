@@ -1,0 +1,64 @@
+<div class="pTop5 pBot5">
+	<%= link_to 'Add new', 'javascript:void(0);', id: 'new-custom-finding-link', class: 'pull-right btn btn-primary btn-xs' %>
+	<span class="clearfix"></span>
+</div>
+<table class="table table-striped" id="customFindingsTabview" data-eng-main-id="<%= eng_main_id %>" >
+	<thead>
+		<tr>
+			<th>Host</th>
+			<th>Port</th>
+			<th>Service</th>
+			<th>Severity</th>
+			<th>Description</th>
+			<th>Level of Access</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% unless custom_findings.blank? %>
+			<% custom_findings.each do |custom_finding| %>
+				<tr>
+					<td class="pRelative">
+						<span class="pointer eHover">
+							<%= best_in_place custom_finding, :host, url: engagement_engagement_main_custom_finding_path(@engagement_main.engagement, @engagement_main, custom_finding) %>
+						</span>
+						<i class="glyphicon glyphicon-pencil editIcon"></i>
+					</td>
+					<td class="pRelative">
+						<span class="pointer eHover">
+							<%= best_in_place custom_finding, :port, url: engagement_engagement_main_custom_finding_path(@engagement_main.engagement, @engagement_main, custom_finding) %>
+						</span>
+						<i class="glyphicon glyphicon-pencil editIcon"></i>
+					</td>
+					<td class="pRelative">
+						<span class="pointer eHover">
+							<%= best_in_place custom_finding, :service, url: engagement_engagement_main_custom_finding_path(@engagement_main.engagement, @engagement_main, custom_finding) %>
+						</span>
+						<i class="glyphicon glyphicon-pencil editIcon"></i>
+					</td>
+					<td class="pRelative">
+						<span class="pointer eHover">
+							<%= best_in_place custom_finding, :severity, url: engagement_engagement_main_custom_finding_path(@engagement_main.engagement, @engagement_main, custom_finding), as: :select, collection: [["0", "Info"], ["1", "Low"], ["2", "Medium"], ["3", "High"], ["4", "Critical"]] %>
+						</span>
+						<i class="glyphicon glyphicon-pencil editIcon"></i>
+					</td>
+					<td class="pRelative">
+						<span class="pointer eHover">
+							<%= best_in_place custom_finding, :desc, url: engagement_engagement_main_custom_finding_path(@engagement_main.engagement, @engagement_main, custom_finding), as: :textarea %>
+						</span>
+						<i class="glyphicon glyphicon-pencil editIcon"></i>
+					</td>
+					<td class="pRelative">
+						<span class="pointer eHover">
+							<%= best_in_place custom_finding, :level_of_access, url: engagement_engagement_main_custom_finding_path(@engagement_main.engagement, @engagement_main, custom_finding), as: :select, collection: [["user", "User"], ["system", "System"], ["admin", "Admin"], ["domain", "Domain"], ["root", "Root"]] %>
+						</span>
+						<i class="glyphicon glyphicon-pencil editIcon"></i>
+					</td>
+					<td>
+						<%= link_to "Delete", "javascript:void(0);", class: "delete-custom-finding-link", "data-obj-id" => custom_finding.id %>
+					</td>
+				</tr>
+			<% end %>
+		<% end %>
+	</tbody>
+</table>

@@ -1,0 +1,36 @@
+<table class="table" id="metasploit_host_table">
+	<thead>
+		<th>IP Address</th>
+		<th>Name</th>
+		<th>OS Name</th>
+		<th>Version</th>
+		<th>Purpose</th>
+		<th>Services</th>
+		<th>Vulns</th>
+		<th>Notes</th>
+		<th>Updated</th>
+		<th>Status</th>
+	</thead>
+	<tbody>
+		<% metasploit_report.metasploit_hosts.each do |host| %>
+			<tr>
+				<td>
+				<%= link_to host.address, engagement_metasploit_host_view_path(engagement.id, host.id) %>
+				</td>
+				<td><%= host.name %></td>
+				<td><%= host.os_name %></td>
+				<td><%= host.os_sp %></td>
+				<td><%= host.purpose %></td>
+				<td><%= host.service_count %></td>
+				<td><%= host.vuln_count %></td>
+				<td><%= host.note_count %></td>
+				<td><%= host.metasploit_updated_at %></td>
+				<td>
+					<span class="label label-success">
+						<%= host.state %>
+					</span>
+				</td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

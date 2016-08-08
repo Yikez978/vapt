@@ -1,0 +1,6 @@
+$("#nessusListHolder").html("<%= escape_javascript(render partial: 'engagements/nessus_tabview', locals: {nessus_policy: @nessus_policy, engagement: @engagement}) %>"); 
+
+// redraw datatable
+$('#nessusDataTable').dataTable({
+	responsive: true
+});

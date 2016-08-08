@@ -1,0 +1,51 @@
+<div class="enumerated-services">
+  <% f.object.to_h.each do |key, enumerated_service| %> <!-- enumerated services (i.e., each of the servers we have found)-->
+  <%= f.fields_for key do |service_discovered| %>
+  <div class="field enumerations_toggle">
+    <%= service_discovered.label :server %>
+    <%= service_discovered.text_field :server, value: enumerated_service[:server] %>
+
+    <%= service_discovered.label :tcp, 'TCP Ports' %>
+    <%= service_discovered.text_field :tcp, value: enumerated_service[:tcp] %>
+
+    <%= service_discovered.label :udp, 'UDP Ports' %>
+    <%= service_discovered.text_field :udp, value: enumerated_service[:udp] %>
+    <hr>
+  </div>
+  <% end %>
+  <% end %>
+</div>
+
+<a class="btn btn-primary" onclick="addNewEnumeratedService()">Add New Enumerated Service</a>
+<hr>
+
+<script type="text/javascript">
+  var guid = function() {
+    function s4() {
+      return Math.floor((1 + Math.random()) * 0x10000)
+        .toString(16)
+        .substring(1);
+    }
+
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+    s4() + '-' + s4() + s4() + s4();
+  }
+
+  function addNewEnumeratedService(e) {
+    var enumServices = $('.enumerated-services');
+    var newGuid = guid();
+    $('<hr>').appendTo(enumServices);
+
+    // Server
+    $('<label for="report_options_enumerations_' + newGuid + '_server">Server</label>').appendTo(enumServices);
+    $('<input value="" type="text" name="report[options][enumerations][' + newGuid + '][server]" id="report_options_enumerations_' + newGuid + '_server">').appendTo(enumServices);
+
+    // TCP Ports
+    $('<label for="report_options_enumerations_' + newGuid + '_tcp">TCP Ports</label>').appendTo(enumServices);
+    $('<input value="" type="text" name="report[options][enumerations][' + newGuid + '][tcp]" id="report_options_enumerations_' + newGuid + '_tcp">').appendTo(enumServices);
+
+    // UDP Ports
+    $('<label for="report_options_enumerations_' + newGuid + '_udp">UDP Ports</label>').appendTo(enumServices);
+    $('<input value="" type="text" name="report[options][enumerations][' + newGuid + '][udp]" id="report_options_enumerations_' + newGuid + '_udp">').appendTo(enumServices);
+  }
+</script>

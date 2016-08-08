@@ -1,0 +1,109 @@
+<div class="row">
+	<div class="well text-center">
+		<div>
+			<%= link_to "Create New Engagement", new_engagement_path, class: "btn btn-primary mRight9 mBot9 vTop" %>
+			<%= link_to "Create New Site Wide Engagement", new_site_wide_engagement_path, class: "btn btn-primary" %>
+		</div>
+		
+	</div>
+	<div>
+		<h3 class="text-center mBot25">Engagements I Joined</h3><hr>
+		<%= content_tag :div do %>
+			<table class="engagement_datatable table table-striped">
+				<thead>
+					<tr>
+						<th>Engagement Name</th>
+						<th>Start Date</th>
+						<th>End Date</th>
+						<th>Status</th>
+						<th>Type</th>
+						<th>Site Wide</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @engagements.each do |engagement| %>
+						<tr>
+							<td>
+								<%= link_to engagement.engagement_name, engagement_path(engagement.id) %>
+							</td>
+							<td>
+								<%= engagement.start_date %>
+							</td>
+							<td>
+								<%= engagement.end_date %>
+							</td>
+							<td>
+								<%= engagement.aasm_state %>
+							</td>
+							<td>
+								<%= engagement.engagement_type.name %>
+							</td>
+							<td>
+								<%= engagement.is_site_wide_engagement %>
+							</td>
+							<td>
+								<%= link_to "Leave", engagement_status_path(engagement.id), class: "btn btn-danger btn-xs", method: :delete, data: {confirm: "Are you sure ?"} %>
+							</td>
+						</tr>
+					<% end %>
+				</tbody>
+			</table>
+		<% end %>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<h3 class="text-center mBot25">Engagements created by me</h3><hr>
+		
+		<table class="engagement_datatable table table-striped">
+			<thead>
+				<tr>
+					<th>Engagement Name</th>
+					<th>Start Date</th>
+					<th>End Date</th>
+					<th>Status</th>
+					<th>Type</th>
+					<th>Site Wide</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @user_created_engagements.each do |engagement| %>
+					<tr>
+						<td>
+							<%= link_to engagement.engagement_name, engagement_path(engagement.id) %>
+						</td>
+						<td>
+							<%= engagement.start_date %>
+						</td>
+						<td>
+							<%= engagement.end_date %>
+						</td>
+						<td>
+							<%= engagement.aasm_state %>
+						</td>
+						<td>
+							<%= engagement.engagement_type.name %>
+						</td>
+						<td>
+							<%= engagement.is_site_wide_engagement %>
+						</td>
+						<td>
+							<%= link_to("Edit", edit_engagement_path(engagement.id), class: "btn btn-info btn-xs") if !engagement.completed? %>
+							<%= link_to("Cancel", engagement_path(engagement.id), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs") if !engagement.completed? %>
+							<%= link_to((engagement.active? ? "On Hold" : "Activate"), 
+												(engagement.active? ? on_hold_engagement_path(engagement.id) : activate_engagement_path(engagement.id)), 
+												remote: true, 
+												class: "btn btn-warning btn-xs", 
+												id: "active_onhold_engagement_#{engagement.id}_link"
+												) if (engagement.active? || engagement.on_hold?) %>
+						</td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+		
+	</div>
+</div>		

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  module_target_id: 1
+  name: MyString
+  index: 1
+
+two:
+  module_target_id: 1
+  name: MyString
+  index: 1

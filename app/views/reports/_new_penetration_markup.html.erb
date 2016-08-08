@@ -1,0 +1,64 @@
+<!-- this allows us to use a simple link_to styled like a button -->
+<style>
+.visited-white:visited {
+  color: white;
+}
+</style>
+
+<div class="field well">
+  <div class="form-group">
+    <%= label_tag :vulnerability %>
+    <%= text_field_tag make_name_tag('vulnerability', vulnerability_id), existing_penetration[:vulnerability], class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= label_tag :system_vulnerable %>
+    <%= text_field_tag make_name_tag('system_vulnerable', vulnerability_id), existing_penetration[:system_vulnerable], class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= label_tag :vulnerability_explanation %>
+    <%= cktext_area make_name_tag('vulnerability_explanation', vulnerability_id), existing_penetration[:vulnerability_explanation], rows: 4, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= label_tag :vulnerability_fix %>
+    <%= cktext_area make_name_tag('vulnerability_fix', vulnerability_id), existing_penetration[:vulnerability_fix], rows: 4, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= label_tag :severity %>
+    <%= select_tag make_name_tag('severity', vulnerability_id), options_for_select(Report.severity_levels), class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= label_tag :proof_of_concept_code %>
+    <%= text_area_tag make_name_tag('proof_of_concept_code', vulnerability_id), existing_penetration[:proof_of_concept_code], rows: 10, class: 'form-control' %>
+  </div>
+
+
+  <%= label_tag 'Screenshots' %>
+  <div>
+    <% @screenshots.where(vulnerability_id: vulnerability_id.to_s).each do |screenshot| %>
+    <div class="screenshot">
+      <%= image_tag screenshot.file.url %>
+      <p><%= screenshot.caption %></p>
+      <%= link_to 'Delete Screenshot', screenshot_path(screenshot), method: :delete, class: 'delete btn btn-danger' %>
+    </div>
+    <% end %>
+
+    <% if @screenshots.where(vulnerability_id: vulnerability_id.to_s).count.zero? %>
+      <p>You don't have any screenshots for this penetration yet.</p>
+    <% end %>
+  </div>
+
+  <div>
+    <br />
+    <%= link_to 'Add a screenshot', new_screenshot_path(report_id: report.id, vulnerability_id: vulnerability_id.to_s), target: '_blank', class: 'button btn btn-success visited-white mBot9 vTop' %>
+    <%= link_to 'Remove this penetration', remove_penetration_path(report.id, vulnerability_id.to_s), class: 'remove-penetration button btn btn-warning visited-white',  data: { penetration_id: vulnerability_id } %>
+  </div>
+
+  
+  
+
+</div>

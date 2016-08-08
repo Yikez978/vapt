@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ip: MyString
+  mac: MyString
+  host_name: MyString
+  os: MyString
+  service_port: MyString
+  service_protocol: MyString
+  service_name: MyString
+  service_banner: MyString
+
+two:
+  ip: MyString
+  mac: MyString
+  host_name: MyString
+  os: MyString
+  service_port: MyString
+  service_protocol: MyString
+  service_name: MyString
+  service_banner: MyString

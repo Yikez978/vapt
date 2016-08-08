@@ -1,0 +1,2 @@
+module MetasploitHostViewsHelper
+end

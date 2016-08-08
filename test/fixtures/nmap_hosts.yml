@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nmap_report_id: 1
+  ip: MyString
+  ipv4: MyString
+  ipv6: MyString
+  address: MyString
+  mac: MyString
+  vendor: MyString
+
+two:
+  nmap_report_id: 1
+  ip: MyString
+  ipv4: MyString
+  ipv6: MyString
+  address: MyString
+  mac: MyString
+  vendor: MyString
