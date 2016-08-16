@@ -65,7 +65,7 @@ Configure APP
 - bundle install
 - cp config/database.example.yml config/database.yml
 - vi config/database
-(Edit p rake db:create RAILS_ENV=production
+- db:create RAILS_ENV=production
 - rake db:migrate RAILS_ENV=production
 - rake db:seed RAILS_ENV=production
 - mkdir /tmp/pids
