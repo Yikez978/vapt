@@ -32,30 +32,30 @@ Git Clone project
 
 sudo yum install update
 -------------------
-git clone https://github.com/anpseftis/vapt.git
+- git clone https://github.com/anpseftis/vapt.git
 
-Install required packages
+- Install required packages
 --------------------------------
 sudo yum install -y git-core zlib zlib-devel gcc-c++ patch readline readline-devel libyaml-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison curl sqlite-devel libicu-devel ImageMagick ImageMagick-devel libxslt libxslt-devel libxml2-devel mariadb-server mariadb-devel postgresql-libs postgresql-devel file-devel rake epel-release nodejs npm nodejs redis
 
 Start Services
 -------------------------------
-sudo systemctl start mariadb
-sudo systemctl enable mariadb.service
-sudo systemctl start redis.service
+- sudo systemctl start mariadb
+- sudo systemctl enable mariadb.service
+- sudo systemctl start redis.service
 
 Setup RVM & Ruby
 ----------------------------------
-curl -#LO https://rvm.io/mpapis.asc
-gpg --import mpapis.asc
-curl -sSL https://get.rvm.io | bash -s stable
-source ~/.rvm/scripts/rvm
-git config --global url."https://".insteadOf git://
-cd /etc/opt/
-rvm requirements
-rvm install 2.2.2
-gem install bundler
-gem install passenger
+- curl -#LO https://rvm.io/mpapis.asc
+- gpg --import mpapis.asc
+- curl -sSL https://get.rvm.io | bash -s stable
+- source ~/.rvm/scripts/rvm
+- git config --global url."https://".insteadOf git://
+- cd /etc/opt/
+- rvm requirements
+- rvm install 2.2.2
+- gem install bundler
+- gem install passenger
 Configure APP
 --------------------------------------
 cd /hack-the-arch
