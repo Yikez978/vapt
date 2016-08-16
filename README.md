@@ -29,6 +29,8 @@ CentOS
 Download CentOS 7 Minamal build
 Prior to seting up it is important that you create a user and add them into the wheel / sudoers group. DO NOT RUN THIS AS ROOT.
 Git Clone project
+
+sudo yum install update
 -------------------
 git clone https://github.com/anpseftis/vapt.git
 
