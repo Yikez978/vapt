@@ -72,7 +72,6 @@ Configure APP
 - bundle exec rake tmp:create
 - cd lib
 - git clone https://github.com/offensive-security/exploit-database.git
-assword for DB)
 
 Populate Databases
 -----------------------------------------
