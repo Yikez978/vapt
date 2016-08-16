@@ -56,40 +56,43 @@ Setup RVM & Ruby
 - rvm install 2.2.2
 - gem install bundler
 - gem install passenger
+
 Configure APP
 --------------------------------------
-cd /hack-the-arch
-rvm --default use 2.2.2
-gem install bundler
-bundle install
-cp config/database.example.yml config/database.yml
-vi config/database
+- cd /hack-the-arch
+- rvm --default use 2.2.2
+- gem install bundler
+- bundle install
+- cp config/database.example.yml config/database.yml
+- vi config/database
 (Edit p rake db:create RAILS_ENV=production
-rake db:migrate RAILS_ENV=production
-rake db:seed RAILS_ENV=production
-mkdir /tmp/pids
-bundle exec rake tmp:create
-cd lib
-git clone https://github.com/offensive-security/exploit-database.git
+- rake db:migrate RAILS_ENV=production
+- rake db:seed RAILS_ENV=production
+- mkdir /tmp/pids
+- bundle exec rake tmp:create
+- cd lib
+- git clone https://github.com/offensive-security/exploit-database.git
 assword for DB)
+
 Populate Databases
 -----------------------------------------
 *Note: The path to the .xml needs to be the full path
-rails c production
-PopulateExploit.populate_exploits_from_exploit_db
-CveDatabase.populate_data_from_csv_xml("~/Downloads/allitems.xml")
-CweWeaknessCatalog.populate_data_from_cwe_xml("~/Downloads/cwec_v2.9.xml")
+- rails c production
+- PopulateExploit.populate_exploits_from_exploit_db
+- CveDatabase.populate_data_from_csv_xml("~/Downloads/allitems.xml")
+- CweWeaknessCatalog.populate_data_from_cwe_xml("~/Downloads/cwec_v2.9.xml")
+
 Config Risu
 --------------------------------------------
-vi risu.cfg
+- vi risu.cfg
 (Edit password and change deployment to production)
-risu --create-tables
+- risu --create-tables
 
 Start Server
 --------------------------------
-passenger start -p 3000 -b 0.0.0.0 -e production -d
+- passenger start -p 3000 -b 0.0.0.0 -e production -d
 
-Install & Prepare background worker & queue 
+- Install & Prepare background worker & queue 
 -------------------------------------------------
 * Note:	Install & run redis on default redis port, make sure it is running after system boot.
 a.	sudo yum install redis
