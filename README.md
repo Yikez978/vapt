@@ -95,24 +95,25 @@ Start Server
 - Install & Prepare background worker & queue 
 -------------------------------------------------
 * Note:	Install & run redis on default redis port, make sure it is running after system boot.
-a.	sudo yum install redis
-b.	sudp systemctl start redis.service 
-c.	redis-cli (to check if installed and running redis)
+- sudo yum install redis
+- sudp systemctl start redis.service 
+- redis-cli (to check if installed and running redis)
 Run sidekiq service as background demon
-a.	bundle exec sidekiq -e production –d
+------------------------------------------
+- bundle exec sidekiq -e production –d
 
 Turn On Registration: In HTA Directory
 ---------------------------------------------------
-•	rails c production
-•	setting = Setting.find_by(name: "registration_active")
-•	setting.value = "1"
-•	setting.save
+- rails c production
+- setting = Setting.find_by(name: "registration_active")
+- setting.value = "1"
+- setting.save
 Turn Off Registration: 
 -----------------------------------------------------
-•	rails c production
-•	setting = Setting.find_by(name: "registration_active")
-•	setting.value = "0"
-•	setting.save
+- rails c production
+- setting = Setting.find_by(name: "registration_active")
+- setting.value = "0"
+- setting.save
 
 
 
