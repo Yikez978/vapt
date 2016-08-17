@@ -95,7 +95,7 @@ Start Server
 -------------------------------------------------
 * Note:	Install & run redis on default redis port, make sure it is running after system boot.
 - sudo yum install redis
-- sudp systemctl start redis.service 
+- sudo systemctl start redis.service 
 - redis-cli (to check if installed and running redis)
 Run sidekiq service as background demon
 ------------------------------------------
