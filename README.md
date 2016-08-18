@@ -107,7 +107,8 @@ Turn On Registration: In HTA Directory
 - setting = Setting.find_by(name: "registration_active")
 - setting.value = "1"
 - setting.save
-Turn Off Registration: 
+
+Turn Off Registration:
 -----------------------------------------------------
 - rails c production
 - setting = Setting.find_by(name: "registration_active")
