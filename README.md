@@ -101,7 +101,7 @@ Run sidekiq service as background demon
 ------------------------------------------
 - bundle exec sidekiq -e production –d
 
-Turn On Registration: In HTA Directory
+Turn On Registration: In VAPT Directory
 ---------------------------------------------------
 - rails c production
 - setting = Setting.find_by(name: "registration_active")
