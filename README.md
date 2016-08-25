@@ -40,6 +40,7 @@ sudo yum install -y git-core zlib zlib-devel gcc-c++ patch readline readline-dev
 
 Start Services
 -------------------------------
+- sudo yum update
 - sudo systemctl start mariadb
 - sudo systemctl enable mariadb.service
 - sudo systemctl start redis.service
