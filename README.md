@@ -59,7 +59,7 @@ Setup RVM & Ruby
 
 Configure APP
 --------------------------------------
-- cd /hack-the-arch
+- cd /vapt
 - rvm --default use 2.2.2
 - gem install bundler
 - bundle install
