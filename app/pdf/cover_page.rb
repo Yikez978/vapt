@@ -11,7 +11,7 @@ module CoverPage
     text @student_name, align: :center, size: 18
     text todays_date, align: :center, size: 14
     move_down 30
-    image Rails.root.join('app', 'assets', 'images', 'mcpa-black.png'), fit: [450, 450], position: :center
+    image Rails.root.join('app', 'assets', 'images', 'logo.png'), fit: [450, 450], position: :center
   end
 
   private
