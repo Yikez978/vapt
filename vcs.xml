@@ -14,8 +14,16 @@
           <option name="url" value="https://github.com/GoodWorkLabs/hack-the-arch.git" />
           <option name="userName" value="" />
         </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="git@github.com:GoodWorkLabs/hack-the-arch.git" />
+          <option name="userName" value="" />
+        </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="https://github.com/anpseftis/hack-the-arch.git" />
+          <option name="userName" value="" />
+        </UrlAndUserName>
       </list>
     </option>
-    <option name="cloneParentDir" value="$USER_HOME$/RubymineProjects" />
+    <option name="cloneParentDir" value="$USER_HOME$/RubymineProjects/" />
   </component>
 </application>
