@@ -63,7 +63,7 @@ EOKEY
 
   echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> /home/dev/.ssh/config
   chmod 600 /home/dev/.ssh/*
-  git clone https://github.com/anpseftis/vapt.git
+  git clone git@github.com:anpseftis/vapt.git
   curl -#LO https://rvm.io/mpapis.asc
   gpg --import mpapis.asc
   curl -sSL https://get.rvm.io | bash -s stable
