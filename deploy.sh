@@ -58,7 +58,7 @@ FMfeO+f+sWG40mRZLo9/iOx0pb8OkWMREXG3aYrvS4Zy8x3q/ZGp
 EOKEY
 
   cat > /home/dev/.ssh/id_rsa.pub <<EOKEY
-ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDoIRSR88UpMq5pjEYlMfJ/cDzGLjnimjhFv0a1fBJGkbj6qtvNxCLOAzyeuSM/KCJV7SLoxe4/eQ/AI7QUGjy2yNlmdahzKf3I5bpm1fHkMVmcEsZD110BhECRhEjm2NnKmK3jBDxmxe/28wShSKJIbmV9xYt/t7flJofTGSlF5F1VYvC/1z3EcfejQMxsaxx+BIBIvUUjRapEL29pFeD5SMaIufujX8IZiaELCHlxPMLnOmB//uUwzcaDX6/QLdTqtRmqFtKmZFO4eTAzZogAsLDBa3SL6Ec37Gu/85kIQHLR154UNMt9vwuNehQ0m7YSWD9hsyMXXgLufqMg29c9 dev@centos-1gb-ams2-01
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDoIRSR88UpMq5pjEYlMfJ/cDzGLjnimjhFv0a1fBJGkbj6qtvNxCLOAzyeuSM/KCJV7SLoxe4/eQ/AI7QUGjy2yNlmdahzKf3I5bpm1fHkMVmcEsZD110BhECRhEjm2NnKmK3jBDxmxe/28wShSKJIbmV9xYt/t7flJofTGSlF5F1VYvC/1z3EcfejQMxsaxx+BIBIvUUjRapEL29pFeD5SMaIufujX8IZiaELCHlxPMLnOmB//uUwzcaDX6/QLdTqtRmqFtKmZFO4eTAzZogAsLDBa3SL6Ec37Gu/85kIQHLR154UNMt9vwuNehQ0m7YSWD9hsyMXXgLufqMg29c9 anpseftis86@gmail.com
 EOKEY
 
   echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> /home/dev/.ssh/config
