@@ -24,7 +24,13 @@ Download Needed Files
 Unzip the zip file
 2. Download XML from  http://cve.mitre.org/data/downloads/index.html , to your download folder.
 
-CentOS
+CentOS 7 Deploy Script
+------------------
+Clone the git hub
+run ./deploy.sh
+sit back and watch the magic happen!
+
+CentOS - Build it out yourself
 ------------------
 Download CentOS 7 Minamal build
 Prior to seting up it is important that you create a user and add them into the wheel / sudoers group. DO NOT RUN THIS AS ROOT.
@@ -102,16 +108,3 @@ Run sidekiq service as background demon
 ------------------------------------------
 - bundle exec sidekiq -e production –d
 
-Turn On Registration: In VAPT Directory
----------------------------------------------------
-- rails c production
-- setting = Setting.find_by(name: "registration_active")
-- setting.value = "1"
-- setting.save
-
-Turn Off Registration:
------------------------------------------------------
-- rails c production
-- setting = Setting.find_by(name: "registration_active")
-- setting.value = "0"
-- setting.save
