@@ -14,7 +14,7 @@ yum install -y redis
 systemctl enable mariadb
 systemctl restart mariadb
 systemctl restart redis
-#mysqladmin -u root password vapt
+mysqladmin -u root password vapt
 systemctl restart mariadb
 
 useradd -G wheel dev
