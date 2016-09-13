@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  engagement_name: MyString
+  OCB_number: MyString
+
+two:
+  engagement_name: MyString
+  OCB_number: MyString

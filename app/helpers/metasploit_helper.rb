@@ -1,0 +1,2 @@
+module MetasploitHelper
+end

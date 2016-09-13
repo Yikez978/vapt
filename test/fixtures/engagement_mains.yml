@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  host: MyString
+  ports: MyString
+  services: MyString
+  vulns: MyString
+  exploits: MyString
+  host_name: MyString
+  purpose: 
+  os: MyString
+  user_id: MyString
+
+two:
+  host: MyString
+  ports: MyString
+  services: MyString
+  vulns: MyString
+  exploits: MyString
+  host_name: MyString
+  purpose: 
+  os: MyString
+  user_id: MyString

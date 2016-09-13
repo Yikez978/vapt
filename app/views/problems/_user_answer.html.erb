@@ -1,0 +1,14 @@
+<% if @user_answers %>
+	<h3> User Answer </h3>
+	<% user_answer = @user_answers.where(problem_id: @problem.id).last %>
+	Explanation: <%= user_answer.explanation %>
+<% elsif @all_user_answers %>
+	<% @all_user_answers.where(problem_id: @problem.id).each do |user_answer| %>
+	
+<% current_user = @users.find(user_answer.user_id) %>
+
+	<p>
+		<%= current_user.fname %>  <%= current_user.lname %>: <%= user_answer.explanation %> </p>
+	<% end %>
+
+<% end %>

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ip: MyString
+  pwdump: MyText
+  password: MyString
+  description: MyText
+  user_id: 1
+  engagement_id: 1
+
+two:
+  ip: MyString
+  pwdump: MyText
+  password: MyString
+  description: MyText
+  user_id: 1
+  engagement_id: 1

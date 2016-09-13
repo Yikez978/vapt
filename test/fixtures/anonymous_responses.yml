@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  anonymous_question_id: 1
+  value: MyText
+
+two:
+  anonymous_question_id: 1
+  value: MyText

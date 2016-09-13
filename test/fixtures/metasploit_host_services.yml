@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  service_id: 1
+  metasploit_host_id: 1
+  metasploit_created_at: 2016-07-06 14:08:57
+  metasploit_updated_at: 2016-07-06 14:08:57
+  port: 1
+  proto: MyString
+  state: MyString
+  name: MyString
+  info: MyText
+
+two:
+  service_id: 1
+  metasploit_host_id: 1
+  metasploit_created_at: 2016-07-06 14:08:57
+  metasploit_updated_at: 2016-07-06 14:08:57
+  port: 1
+  proto: MyString
+  state: MyString
+  name: MyString
+  info: MyText

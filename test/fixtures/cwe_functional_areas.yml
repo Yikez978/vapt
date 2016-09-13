@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  functional_area: MyString
+  functionable_id: 1
+  functionable_type: MyString
+
+two:
+  functional_area: MyString
+  functionable_id: 1
+  functionable_type: MyString

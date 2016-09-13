@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  prevalence: MyString
+  name: MyString
+  technology_classable_id: 1
+  technology_classable_type: MyString
+
+two:
+  prevalence: MyString
+  name: MyString
+  technology_classable_id: 1
+  technology_classable_type: MyString

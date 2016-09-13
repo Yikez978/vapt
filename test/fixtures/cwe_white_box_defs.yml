@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  definition_block: MyText
+  box_defiable_id: 1
+  box_defiable_type: MyString
+
+two:
+  definition_block: MyText
+  box_defiable_id: 1
+  box_defiable_type: MyString

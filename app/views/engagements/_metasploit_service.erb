@@ -1,0 +1,33 @@
+<table class="table" id="metasploit_service_table">
+	<thead>
+		<th>Host</th>
+		<th>Name</th>
+		<th>Protocol</th>
+		<th>Port</th>
+		<th>Info</th>
+		<th>State</th>
+		<th>Updated</th>
+	</thead>
+	<tbody>
+		<% metasploit_report.metasploit_services.each_with_index do |service, index| %>
+			<% metasploit_host = MetasploitHost.find_by(metasploit_id: service.host_id) %>
+			<tr>
+				<td>
+					<% unless metasploit_host.blank? %>
+						<%= metasploit_host.name %>
+					<% end %>
+				</td>
+				<td><%= service.name %></td>
+				<td><%= service.proto %></td>
+				<td><%= service.port %></td>
+				<td><%= service.info %></td>
+				<td>
+					<span class="<%= add_state_badge(service.state) %>">
+						<%= service.state %>
+					</span>
+				</td>
+				<td><%= service.metasploit_updated_at %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

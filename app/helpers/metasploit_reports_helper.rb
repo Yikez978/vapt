@@ -1,0 +1,2 @@
+module MetasploitReportsHelper
+end

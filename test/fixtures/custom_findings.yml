@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  host: MyString
+  port: MyString
+  service: MyString
+  severity: 1
+  desc: MyText
+  level_of_access: MyString
+  engagement_main_id: 1
+
+two:
+  host: MyString
+  port: MyString
+  service: MyString
+  severity: 1
+  desc: MyText
+  level_of_access: MyString
+  engagement_main_id: 1

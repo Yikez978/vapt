@@ -1,0 +1,110 @@
+<div class="pTop5 pBot5">
+	<%= link_to "Add new", "#", id: "new-main-link", class: "pull-right btn btn-primary btn-xs" %>
+	<span class="clearfix"></span>
+</div>
+<table class="table" id="mainTabView" data-eng-id=<%= @engagement.id %> data-usr-id=<%= current_user.username %> >
+	<thead> 
+		<tr>
+			<th>Host</th>
+			<th>Ports</th>
+			<th>Services</th>
+			<th>Vulns</th>
+			<th>Host Name</th>
+			<th>OS</th>
+			<th>User</th>
+			<th>Status</th>
+			<th>Actions</th>
+		</tr>
+	</thead> 
+	<tbody>
+		<% @engagement.engagement_mains.each do |engagement_main| %>
+		<tr>
+			<td>
+				<%= link_to engagement_main.host, engagement_host_path(@engagement, engagement_main) %>
+			</td>
+			<td class="pRelative mWidth">
+				<span class="pointer eHover">
+					<%# if engagement_main.ports.blank? %>
+						<%#= best_in_place engagement_main, "No ports were found", url: engagement_engagement_main_path(@engagement, engagement_main) %>
+					<%# else %>
+						<%= best_in_place engagement_main, :ports, url: engagement_engagement_main_path(@engagement, engagement_main), nil: "No ports were found" %>
+					<%# end %>
+				</span>
+				<i class="glyphicon glyphicon-pencil editIcon"></i>
+			</td>
+			<td class="pRelative mWidth">
+				<span class="pointer eHover">
+					<%= best_in_place engagement_main, :services, url: engagement_engagement_main_path(@engagement, engagement_main) %>
+				</span>
+				<i class="glyphicon glyphicon-pencil editIcon"></i>
+			</td>
+			<td class="pRelative">
+				<span class="pointer eHover">
+					<%= best_in_place engagement_main, :vulns, url: engagement_engagement_main_path(@engagement, engagement_main) %>
+				</span>
+				<i class="glyphicon glyphicon-pencil editIcon"></i>
+			</td>
+			<td class="pRelative">
+				<span class="truncateHostName pointer eHover">
+					<%= best_in_place engagement_main, :host_name, url: engagement_engagement_main_path(@engagement, engagement_main) %>
+				</span>
+				<i class="glyphicon glyphicon-pencil editIcon"></i>
+			</td>
+			<td class="pRelative">
+				<span class="pointer eHover">
+					<%= best_in_place engagement_main, :os, url: engagement_engagement_main_path(@engagement, engagement_main) %>
+				</span>
+				<i class="glyphicon glyphicon-pencil editIcon"></i>
+			</td>
+			<td class="pRelative">
+				<% unless engagement_main.engagement_main_users.empty? %>
+					<% user_names = [] %>
+					<% engagement_main.engagement_main_users.each do |engagement_main_user| %>
+						<% user = User.find(engagement_main_user.user_id) %>
+						<% user_names << user.username %>
+					<% end %>
+				<% end %>
+				<%= engagement_main.engagement_main_users.empty? ? 'Unassigned' : user_names.join(",") %>
+				<%= link_to "<span class='glyphicon glyphicon-pencil editIcon' aria-hidden='true'></span>".html_safe, engagement_engagement_main_engagement_main_users_path(@engagement, engagement_main), "data-toggle" => "modal", "data-target" => "#assignUsersModal" %>
+			</td>
+			<td>
+				<span class="pointer pRelative stat">
+					<%= best_in_place engagement_main, :aasm_state, url: engagement_engagement_main_path(@engagement, engagement_main), as: :select, collection: [["not_exploited", "Not Exploited"], ["exploited", "Exploited"], ["working", "Working"]], class: "eFontSize exploit_status #{add_badge(engagement_main.aasm_state)}" %>
+				</span>
+			</td>
+			<td>
+				<%= link_to "Delete", "#", class: "delete-main-link", "data-obj-id" => engagement_main.id %>
+			</td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+
+
+
+<!-- Small modal -->
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="assignUsersModal">
+  <div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+				<h4 class="modal-title" id="assignUsersModalLabel">Assign Users</h4>
+			</div>
+			<div class="modal-body">
+				<div class="modal-body-content">
+					Loading...
+				</div>
+			</div>
+		</div>
+  </div>
+</div>
+
+
+<% content_for :head_javascript do %>
+	<script type="text/javascript">
+		$("#assignUsersModal").on("show.bs.modal", function(e) {
+		    var link = $(e.relatedTarget);
+		    $(this).find(".modal-content").load(link.attr("href"));
+		});
+	</script>
+<% end %>

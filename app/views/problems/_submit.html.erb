@@ -1,0 +1,19 @@
+<%= form_tag(submit_path, method: "create", class: "col-md-12") do %>
+	<%= hidden_field_tag("submission[id]", @problem.id) %>
+
+	<div class="row">
+	<div class="form-group"
+		<%= label :submission, 'Answer', class: 'col-md-3' %>
+		<%= text_field(:submission, "value", class: "form-control col-md-9") %>
+	</div>
+</div>
+
+	<div class="row">
+	<div class="form-group">
+	<%= label :submission_explanation, 'Explanation', class: 'col-md-3' %>	
+	<%= text_area(:submission, :explanation, required: true, class: 'form-control col-md-9') %>
+
+	</div>
+</div>
+	<%= submit_tag("Submit", class: "form-control col-md-3 btn btn-primary") %>
+<% end %>

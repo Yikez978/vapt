@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  catalog_name: MyString
+  catalog_version: MyString
+  catalog_date: 2016-06-15
+
+two:
+  catalog_name: MyString
+  catalog_version: MyString
+  catalog_date: 2016-06-15

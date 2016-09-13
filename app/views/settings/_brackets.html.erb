@@ -1,0 +1,25 @@
+<% if @brackets %>
+	<%= content_tag :table, id: 'brackets', class: 'table' do %>
+		<%= content_tag :thead do %>
+			<%= content_tag :tr do %>
+				<%= content_tag :td, 'Name' %>
+				<%= content_tag :td, 'Priority' %>
+				<%= content_tag :td, 'Options' %>
+			<% end %>
+		<% end %>
+		<%= content_tag :tbody do %>
+			<% for bracket in @brackets do %>
+				<%= content_tag :tr do %>
+					<%= content_tag :td, bracket.name %>
+					<%= content_tag :td, bracket.priority %>
+					<%= content_tag :td do %>
+						<%= link_to 'Edit', edit_bracket_path(bracket.id), class: 'btn btn-primary' %>
+						<%= link_to 'Remove', remove_bracket_path(id: bracket),  method: :delete, class: 'btn btn-primary' %>
+					<% end %>
+				<% end %>
+			<% end %>
+		<% end %>
+	<% end %>
+<% end %>
+<%= link_to 'Create', new_bracket_path, class: 'btn btn-primary' %>
+

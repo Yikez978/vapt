@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  code_block: MyText
+  code_example_lang: MyString
+  desc: MyText
+  cwe_demonstrative_example_id: MyString
+
+two:
+  code_block: MyText
+  code_example_lang: MyString
+  desc: MyText
+  cwe_demonstrative_example_id: MyString

@@ -1,0 +1,67 @@
+<%= content_tag :div do %>
+  <!-- Nav tabs -->
+	<%= content_tag :ul, role: 'tablist', class: 'nav nav-tabs', id: add_id('problem_tabs',@problem) do %>
+		<% #  Problem Tab # %>
+		<%= content_tag :li, role: 'presentation', class: 'active' do %>
+			<%= link_to 'Problem', add_id('#problem',@problem), 'aria-controls' => add_id('problem',@problem), role: 'tab', 'data-toggle' => 'tab' %>
+		<% end %>
+		<% #  Hints Tab # %>
+		<% if @problem.number_of_hints_available > 0 || admin_user? %>
+			<%= content_tag :li, role: 'presentation' do %>
+				<%= link_to 'Hints', add_id('#hints',@problem), 'aria-controls' => add_id('hints',@problem), role: 'tab', 'data-toggle' => 'tab' %>
+			<% end %>
+		<% end %>
+  <% end %>
+
+  <!-- Tab panes -->
+	<%= content_tag :div, class: 'tab-content' do %>
+
+		<% #  Problem Tab Content # %>
+		<%= content_tag :div, role: 'tabpanel', class: 'tab-pane active', id: add_id('problem',@problem) do %>
+			<%= content_tag :h4, "Solves: #{Submission.get_solves_for_problem(@problem.id)}", class: 'text-center' %>
+			<%= content_tag :p, simple_format(@problem.description) %>
+			<p><%= image_tag @problem.picture.url if @problem.picture? %></p>
+			<% if @problem.solved_by?(current_user.team_id) || current_user.admin? %>
+				<p>Your team has solved this challenge!</p>
+
+				<%= render 'user_answer' %>
+			<% else %>
+				<%= render 'submit' %>
+			<% end %>
+		<% end %>
+
+
+		<% #  Hints Tab Content # %>
+		<% if @problem.number_of_hints_available > 0 || admin_user? %>
+			<%= content_tag :div, role: 'tabpanel', class: 'tab-pane', id: add_id('hints',@problem) do %>
+				<%= content_tag :div, class: 'row' do %>
+
+					<% #  Admin view # %>
+					<% if admin_user? %>
+						<h4 class='text-center'>Hints Admin</h4>
+						<%= render 'hints' %>
+
+					<% #  User view with hints available# %>
+					<% else %>
+						<%= content_tag :div, class: 'col-md-12' do %>
+							<h4 class='text-center'>Hints Requested</h4>
+							<% if current_team.get_hints_requested(@problem.id).count > 0 %>
+								<%= render 'hints' %>
+							<% else %>
+								<p class='col-md-6 col-md-offset-3'>No hints requested yet</p>
+							<% end %>
+						<% end %>
+	
+						<% # Request Hint Button # %>
+						<% if !@problem.solved_by?(current_user.team_id) %>
+							<%= content_tag :div, class: 'col-md-12' do %>
+								<%= link_to 'Request Hint', request_hint_path(problem_id: @problem.id),  method: :post, class: 'btn btn-primary', 
+                                  data: { confirm: "You sure?" } %>
+							<% end %>
+						<% end %>
+					<% end %>
+				<% end %>
+			<% end %>
+		<% end %>
+	<% end %>
+<% end %>

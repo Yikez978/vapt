@@ -1,0 +1,32 @@
+<table class="table" id="metasploit_vulns_table">
+	<thead>
+		<th>Host</th>
+		<th>Name</th>
+		<th>References</th>
+	</thead>
+	<tbody>
+		<% metasploit_report.metasploit_hosts.each do |host| %>
+		<% host.metasploit_host_vulns.each do |host_vuln| %>
+			<%# metasploit_host = MetasploitHost.find_by(metasploit_id: host_vuln.host_id) %>
+			<tr>
+				<td><%= host.name %></td>
+				<td class="mWidth50"><%= host_vuln.name %></td>
+				<td>
+					<% host_vuln.metasploit_refs.each_with_index do |metasploit_ref, index| %>
+						<% if metasploit_ref.ref.include? "CVE" %>
+							<%= link_to metasploit_ref.ref, cfe_path(metasploit_ref.ref), target: "_blank" %>
+						<% elsif metasploit_ref.ref.include? "CWE" %>
+							<%= link_to metasploit_ref.ref, cwe_path(metasploit_ref.ref.split("-").last), target: "_blank" %>
+						<% else %>
+							<%= metasploit_ref.ref %>
+						<% end %>
+						<% unless index == host_vuln.metasploit_refs.size - 1 %>
+							,
+						<% end %>
+					<% end %>
+				</td>
+			</tr>
+		<% end %>
+		<% end %>
+	</tbody>
+</table>

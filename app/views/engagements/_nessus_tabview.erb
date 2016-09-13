@@ -1,0 +1,50 @@
+<% unless nessus_policy.blank? %>
+<% nessus_report = Risu::Models::NessusReport.find_by(policy_id: nessus_policy.id, user_id: current_user.id, engagement_id: engagement.id) %>
+<% end %>
+<% unless nessus_report.blank? %>
+<% nessus_hosts = Risu::Models::Host.where(nessus_report_id: nessus_report.id, user_id: current_user.id, engagement_id: engagement.id ) %>
+<% end %>
+<%# unless nessus_hosts.blank? %>
+<%# nessus_host_properties = Risu::Models::HostProperty.where(host_id: nessus_hosts.map{|h| h.id}, user_id: current_user.id, engagement_id: engagement.id) %>
+<%# end %>
+
+<table class="table table-striped" id="nessusDataTable">
+	<thead>
+		<th>Host</th>
+		<th>IP</th>
+		<th>MAC</th>
+		<th>critical</th>
+		<th>high</th>
+		<th>medium</th>
+		<th>low</th>
+		<th>info</th>
+		<th>total</th>
+	</thead>
+	<tbody>
+		<% unless nessus_hosts.blank? %>
+		<% nessus_hosts.each do |nessus_host| %>
+		<% n_items = nessus_host.items.map {|i| i.severity} %>
+		<% grouped_h_count = Hash.new 0 %>
+		<% n_items.each.map {|s| grouped_h_count[s] += 1} %>
+		<tr>
+			<td>
+				<%= link_to nessus_host.name, engagement_host_scan_detail_path(engagement.id, nessus_host.id) %>
+			</td>
+			<td>
+				<%= nessus_host.ip %>
+			</td>
+			<td>
+				<%= nessus_host.mac %>
+			</td>
+			<td class="color-critical"><%= results_summary_critical_count grouped_h_count %></td>
+			<td class="color-high"><%= results_summary_high_count grouped_h_count %></td>
+			<td class="color-medium"><%= results_summary_medium_count grouped_h_count %></td>
+			<td class="color-low"><%= results_summary_low_count grouped_h_count %></td>
+			<td class="color-info"><%= results_summary_info_count grouped_h_count %></td>
+			<td class="color-total"><%= results_summary_total_count grouped_h_count %></td>
+		</tr>
+		<!-- </a> -->
+		<% end %>
+		<% end %>
+	</tbody>
+</table>

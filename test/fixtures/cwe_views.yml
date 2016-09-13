@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  view_structure: MyString
+  view_filter: MyString
+  cwe_weakness_catalog_id: 1
+
+two:
+  name: MyString
+  view_structure: MyString
+  view_filter: MyString
+  cwe_weakness_catalog_id: 1

@@ -1,0 +1,18 @@
+<%= form_for(@bracket) do |f| %>
+	<%= render 'shared/error_messages', object: f.object %>
+	
+	<%= f.label "Name"  %>
+  <%= f.text_field :name, class: 'form-control' %>
+
+	<%= f.label "Priority" %>
+  <%= f.text_field :priority, class: 'form-control' %>
+
+	<% if use_handicap? %>
+		<%= f.label "Number of hints available" %>
+  	<%= f.text_field :hints_available, class: 'form-control' %>
+	<% end %>
+
+	<%= tag :br %>
+  <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+
+<% end %>

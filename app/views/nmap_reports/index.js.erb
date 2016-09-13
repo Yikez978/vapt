@@ -1,0 +1,6 @@
+$("#nmapListHolder").html("<%= escape_javascript(render partial: 'engagements/list_nmaps', locals: {nmap_report: @nmap_report} ) %>"); 
+
+// redraw datatable
+$('#nmapDataTable').dataTable({
+	responsive: true
+});

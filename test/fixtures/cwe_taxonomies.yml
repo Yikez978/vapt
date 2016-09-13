@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  mapped_taxonomy_name: MyString
+  mapped_node_id: MyString
+  mapped_node_name: MyString
+  mapping_fit: MyString
+  taxonomy_id: 1
+  taxonomy_type: MyString
+
+two:
+  mapped_taxonomy_name: MyString
+  mapped_node_id: MyString
+  mapped_node_name: MyString
+  mapping_fit: MyString
+  taxonomy_id: 1
+  taxonomy_type: MyString
