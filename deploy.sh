@@ -1,10 +1,7 @@
 #!/bin/bash
 
-
-# SCRIPT SETUP
 set -e
 set -x
-
 
 # OS SETUP
 yum update -y
@@ -15,10 +12,15 @@ yum install -y nodejs
 systemctl enable mariadb
 systemctl restart mariadb
 systemctl restart redis
-mysqladmin -u root password vapt
+if ! mysqladmin -u root password vapt; then
+  echo 'The mysql root password could not be set. It will be updated.'
+  mysqladmin -u root -p'vapt' password vapt
+  echo 'The mysql root password was updated.'
+fi
 systemctl restart mariadb
-
-useradd -G wheel dev
+if ! id -u dev >/dev/null 2>&1; then
+  useradd -G wheel dev
+fi
 
 # APP SETUP AS DEV USER
 exec sudo -i -u dev /bin/bash - << EOF
@@ -61,19 +63,21 @@ EOKEY
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDoIRSR88UpMq5pjEYlMfJ/cDzGLjnimjhFv0a1fBJGkbj6qtvNxCLOAzyeuSM/KCJV7SLoxe4/eQ/AI7QUGjy2yNlmdahzKf3I5bpm1fHkMVmcEsZD110BhECRhEjm2NnKmK3jBDxmxe/28wShSKJIbmV9xYt/t7flJofTGSlF5F1VYvC/1z3EcfejQMxsaxx+BIBIvUUjRapEL29pFeD5SMaIufujX8IZiaELCHlxPMLnOmB//uUwzcaDX6/QLdTqtRmqFtKmZFO4eTAzZogAsLDBa3SL6Ec37Gu/85kIQHLR154UNMt9vwuNehQ0m7YSWD9hsyMXXgLufqMg29c9 anpseftis86@gmail.com
 EOKEY
 
-  echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> /home/dev/.ssh/config
+  echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > /home/dev/.ssh/config
   chmod 600 /home/dev/.ssh/*
+  rm -rf /home/dev/vapt
   git clone git@github.com:anpseftis/vapt.git
+
   curl -#LO https://rvm.io/mpapis.asc
   gpg --import mpapis.asc
   curl -sSL https://get.rvm.io | bash -s stable
   source ~/.rvm/scripts/rvm
   rvm requirements
   rvm install 2.2.2
-  gem install bundler
-  gem install passenger
-
+  gem install bundler --no-ri --no-rdoc
+  gem install passenger --no-ri --no-rdoc
   cd /home/dev/vapt
+
   rvm --default use 2.2.2
   bundle install
   cp config/database.example.yml config/database.yml
@@ -83,15 +87,25 @@ production:
 EOFSECRETS
   export RAILS_ENV=production
   mkdir -p /tmp/pids
-  sed -i 's/password:/& vapt/g' config/database.yml
-  sed -i 's/password:/& vapt/g' risu.cfg
-  rake tmp:create db:create db:migrate db:seed
-  rake db:populate # Can take > 45 minutes
-  rake assets:precompile # Can take > 5 minutes
+  sed -i 's/password:\s*$/password: vapt/g' config/database.yml
+  sed -i 's/password:\s*$/password: vapt/g' risu.cfg
+
+  rm -rf lib/exploit-database
   cd lib
   git clone https://github.com/offensive-security/exploit-database.git
   cd ..
+
+  rake tmp:create db:create db:migrate db:seed
+  rake db:populate # Can take > 45 minutes
+  rake assets:precompile # Can take > 5 minutes
+
   risu --create-tables
+
+  set +e
+  ps -ef | grep sidekiq | grep -v grep | awk '{print $2}' | xargs kill -9
+  pkill nginx
+  set -e
+
   passenger start -p 3000 -b 0.0.0.0 -e production -d
   bundle exec sidekiq -e production -d
 EOF
