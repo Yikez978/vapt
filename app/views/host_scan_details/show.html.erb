@@ -212,7 +212,7 @@
 							<div class="col-md-12">
 								<h2 class="classh1">Plugin Information</h2>
 								<span class="classtext">
-									Publication Date : <%= itm.plugin.plugin_publication_date.strftime("%Y/%m/%d") %>, Modification Date : <%= itm.plugin.plugin_modification_date.strftime("%Y/%m/%d") %>
+									Publication Date : <%=itm.plugin.plugin_publication_date.strftime("%Y/%m/%d") %>, Modification Date :  <%= itm.plugin.plugin_modification_date.strftime("%Y/%m/%d") if itm.plugin.plugin_modification_date %>
 								</span>
 							</div>
 							<div class="col-md-12">
