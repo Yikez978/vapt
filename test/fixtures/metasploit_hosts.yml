@@ -1,0 +1,35 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  metasploit_created_at: MyString
+  address: MyString
+  mac: MyString
+  comm: MyString
+  name: MyString
+  state: MyString
+  os_name: MyString
+  os_flavor: MyString
+  os_sp: MyString
+  os_lang: MyString
+  arch: MyString
+  workspace_id: MyString
+  updated_at: MyString
+  purpose: MyString
+  info: MyString
+
+two:
+  metasploit_created_at: MyString
+  address: MyString
+  mac: MyString
+  comm: MyString
+  name: MyString
+  state: MyString
+  os_name: MyString
+  os_flavor: MyString
+  os_sp: MyString
+  os_lang: MyString
+  arch: MyString
+  workspace_id: MyString
+  updated_at: MyString
+  purpose: MyString
+  info: MyString

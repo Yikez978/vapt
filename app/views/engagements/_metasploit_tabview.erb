@@ -1,0 +1,30 @@
+<div>
+	<ul class="nav nav-tabs" role="tablist">
+		<li role="presentation" class="active"><a href="#metasploit_host_tabview" aria-controls="metasploit_host_tabview" role="tab" data-toggle="tab">Hosts</a></li>
+		<li role="presentation"><a href="#metasploit_service_tabview" aria-controls="metasploit_service_tabview" role="tab" data-toggle="tab">Services</a></li>
+		<li role="presentation"><a href="#metasploit_vulns_tabview" aria-controls="metasploit_vulns_tabview" role="tab" data-toggle="tab">Vulnerabilities</a></li>
+	</ul>
+	<div class="tab-content">
+		<div role="tabpanel" class="tab-pane active" id="metasploit_host_tabview">
+			<div class="mTop10">
+				<div id="metasploit_host">
+					<%= render partial: "/engagements/metasploit_host", locals: {metasploit_report: metasploit_report, engagement: engagement} %>
+				</div>
+			</div>
+		</div>
+		<div role="tabpanel" class="tab-pane" id="metasploit_service_tabview">
+			<div class="mTop10">
+				<div id="metasploit_service">
+					<%= render partial: "/engagements/metasploit_service", locals: {metasploit_report: metasploit_report} %>
+				</div>
+			</div>
+		</div>
+		<div role="tabpanel" class="tab-pane" id="metasploit_vulns_tabview">
+			<div class="mTop10">
+				<div id="metasploit_vulns">
+					<%= render partial: "/engagements/metasploit_vulns", locals: {metasploit_report: metasploit_report} %>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

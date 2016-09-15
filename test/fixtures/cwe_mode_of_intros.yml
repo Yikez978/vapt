@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  mode_of_intro: MyText
+  mode_introable_id: 1
+  mode_introable_type: MyString
+
+two:
+  mode_of_intro: MyText
+  mode_introable_id: 1
+  mode_introable_type: MyString

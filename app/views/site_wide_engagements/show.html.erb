@@ -1,0 +1,79 @@
+<h4><%= @site_wide_engagement.engagement_name %></h4>
+<div class="row">
+	<div class="col-md-12">
+		<div class="well">
+			<%= link_to "Add Note", "#", class: "btn btn-primary mRight9 btn-sm", "data-toggle" => "modal", "data-target" => "#myModal" %>
+			<%= link_to_if(@site_wide_engagement.pending? && @site_wide_engagement.created_by?(current_user), "Edit", edit_engagement_path(@site_wide_engagement.id), class: "btn btn-success mRight9 btn-sm" ){} %>
+			<%= link_to_if(@site_wide_engagement.pending? && @site_wide_engagement.created_by?(current_user), "Cancel", engagement_path(@site_wide_engagement.id), method: :delete, data: {confirm: "Are you sure ?"}, class: "btn btn-danger btn-sm" ){} %>
+		</div>
+		<!-- Modal Start -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header noBorder">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					</div>
+					<%= form_tag('/notes') do %>
+					<div class="modal-body">
+						<div class="fields">
+							<label>Add Note Title</label>
+							<%= text_field_tag 'title' %>
+						</div>
+						<div class="fields">
+							<label>Add Note</label>
+							<%= cktext_area :note, :description %>
+						</div>
+						<div class="fields">
+							<%= hidden_field_tag 'engagement', @site_wide_engagement.id %>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<%= submit_tag %>
+					</div>
+					<% end %>
+				</div>
+			</div>
+		</div>
+		<!-- Modal End -->
+		<div class="profileUiList">
+			<ul>
+				<% if @notes.blank? %>
+				<div>No Notes Have been added yet.</div>
+				<% else %>
+				<% @notes.each do |note| %>
+				<li>
+					<p><%= note.user.get_full_name %></p>
+					<p data-toggle="modal" data-target="#noteDescription_<%= note.id %>">
+						<%= note.title %> 
+						<span>
+							<%= note.created_at.strftime('%B %d , %Y') %>
+						</span>
+					</p>
+					<%= link_to '#' , class: 'remove_note', 'note_id' => note.id do %>
+					<i class="glyphicon glyphicon-remove"></i>
+					<% end %>
+					<div class="modal fade" id="noteDescription_<%= note.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header noBorder">
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								</div>
+								<div class="modal-body">
+									<p>
+										<%= note.description.html_safe %>
+									</p>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+				<% end %>
+				<% end %>
+			</ul>
+		</div>
+	</div>
+</div>

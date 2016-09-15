@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Anonymous Questions</h1>
+
+
+<div class="table-responsive">
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Question</th>
+        <th>Active</th>
+        <th>Responses</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @anonymous_questions.each do |anonymous_question| %>
+        <tr>
+          <td><%= anonymous_question.question %></td>
+          <td><%= anonymous_question.active %></td>
+          <td><%= anonymous_question.anonymous_responses.count %></td>
+          <td><%= link_to 'Show', anonymous_question %></td>
+          <td><%= link_to 'Edit', edit_anonymous_question_path(anonymous_question) %></td>
+          <td><%= link_to 'Destroy', anonymous_question, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+
+
+<%= link_to 'New Anonymous question', new_anonymous_question_path, class: "btn btn-warning mBot9" %>
+<%= link_to "Printable Survey Results", anonymous_questions_admin_printable_path, class: "btn btn-primary mBot9" %>

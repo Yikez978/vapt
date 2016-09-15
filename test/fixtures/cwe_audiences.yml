@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  stakeholder: MyString
+  stakeholder_desc: MyText
+  cwe_view_id: 1
+
+two:
+  stakeholder: MyString
+  stakeholder_desc: MyText
+  cwe_view_id: 1

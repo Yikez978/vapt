@@ -1,0 +1,266 @@
+<div class="row">
+	<div class="col-md-10">
+		<%= link_to "Back to #{@engagement.engagement_name}", engagement_path(params[:engagement_id]), class: "btn btn-primary mBot9" %>
+	</div>
+	<div class="col-md-2">
+		<%= select('hosts', "host_scan_id", @engagement.nessus_hosts.map{|em| [em.name, em.id]}, {}, {'data-eng-id' => params[:engagement_id]}) %>
+	</div>
+</div>
+<div class="row">
+	<div class="hostScanView">
+		<h4 class="text-center title1">Vulnerabilities by <%= @nessus_host.name 	%> </h4>
+	</div>
+</div>
+<div class="row">
+	<h2 class="classh1">Scan Information</h2>
+	<div class="col-md-12">
+		<div class="col-md-4">
+			<span>Start Time :</span>
+		</div>
+		<div class="col-md-8">
+			<%= @nessus_host.start.strftime("%a %B %d %H:%M:%S %Y") %>
+		</div>
+	</div>
+	<div class="col-md-12">
+		<div class="col-md-4">
+			<span>End Time :</span>
+		</div>
+		<div class="col-md-8">
+			<%= @nessus_host.end.strftime("%a %B %d %H:%M:%S %Y") %>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<h2 class="classh1">Host Information</h2>
+	<div class="col-md-12">
+		<div class="col-md-4">
+			<span>DNS Name :</span>
+		</div>
+		<div class="col-md-8">
+			<%= @nessus_host.fqdn %>
+		</div>
+	</div>
+	<div class="col-md-12">
+		<div class="col-md-4">
+			<span>Netbios Name :</span>
+		</div>
+		<div class="col-md-8">
+			<%= @nessus_host.netbios %>
+		</div>
+	</div>
+	<div class="col-md-12">
+		<div class="col-md-4">
+			<span>IP :</span>
+		</div>
+		<div class="col-md-8">
+			<%= @nessus_host.ip %>
+		</div>
+	</div>
+	<div class="col-md-12">
+		<div class="col-md-4">
+			<span>Mac Address :</span>
+		</div>
+		<div class="col-md-8">
+			<%= @nessus_host.mac %>
+		</div>
+	</div>
+	<div class="col-md-12">
+		<div class="col-md-4">
+			<span>OS :</span>
+		</div>
+		<div class="col-md-8">
+			<%= @nessus_host.os %>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<h2 class="classh1">Result Summary</h2>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Critical</th>
+				<th>High</th>
+				<th>Medium</th>
+				<th>Low</th>
+				<th>Info</th>
+				<th>Total</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% n_items = @nessus_host.items.map {|i| i.severity} %>
+			<% grouped_h_count = Hash.new 0 %>
+			<% n_items.each.map {|s| grouped_h_count[s] += 1} %>
+			<tr>
+				<td class="color-critical">
+					<%= results_summary_critical_count grouped_h_count %>
+				</td>
+				<td class="color-high">
+					<%= results_summary_high_count grouped_h_count %>
+				</td>
+				<td class="color-medium">
+					<%= results_summary_medium_count grouped_h_count %>
+				</td>
+				<td class="color-low">
+					<%= results_summary_low_count grouped_h_count %>
+				</td>
+				<td class="color-info">
+					<%= results_summary_info_count grouped_h_count %>
+				</td>
+				<td class="color-total">
+					<%= results_summary_total_count grouped_h_count %>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<div class="row">
+	<h2 class="classh1">Result Details</h2>
+</div>
+<div id="plugin">
+	<div id="header"></div>
+	<div class="row" id="list">
+		<% @nessus_host.items.group_by{|i| [i.port, i.protocol]}.each do |port, item| %>
+			<h2 class="classsubsection">
+				<%= port[0] %>/<%= port[1] %>
+			</h2>
+			<div class="panel-group" id="accordion_<%= port[0] %>" role="tablist" aria-multiselectable="true">
+				<% item.sort_by(&:severity).reverse.each_with_index do |itm, index| %>
+					<div class="panel panel-default">
+						<div class="col-md-12 classh1 accordion" data-toggle="collapse" data-parent="#accordion_<%= port[0] %>" href="#accordion_body_<%= port[0] %>_<%= index %>" aria-expanded="true" aria-controls="accordion_body_<%= port[0] %>_<%= index %>">
+							<div class="col-md-10 list">
+								<span class="label <%= label_by_severity(itm.severity) %> w29 diBlock vMiddle mRight9">&nbsp;</span>
+								<span class="diBlock vMiddle plugin_name">
+									<%= itm.plugin.plugin_id %>-<%= itm.plugin.plugin_name %>
+								</span>
+							</div>
+							<div class="col-md-2"></div>
+						</div>
+						<div class="row accordion-body panel-collapse collapse" id="accordion_body_<%= port[0] %>_<%= index %>">
+							<div class="col-md-12">
+								<h2 class="classh1">Synopsis</h2>
+								<span class="classtext">
+									<%= itm.plugin.synopsis %>
+								</span>
+							</div>
+							<div class="col-md-12">
+								<h2 class="classh1">Description</h2>
+								<span class="classtext">
+									<%= simple_format(itm.plugin.description) %>
+								</span>
+							</div>
+							<% itm.plugin.references.each do |reference| %>
+								<% if reference.reference_name == 'see_also' %>
+									<div class="col-md-12">
+										<h2 class="classh1">See Also</h2>
+										<span class="classtext">
+											<% reference.value.split('http').each do |ref| %>
+												<% unless ref.blank? %>
+													<%= link_to "http#{ref}", "http#{ref}" %><br>
+												<% end %>
+											<% end %>
+										</span>
+									</div>
+								<% end %>
+							<% end %>
+							<div class="col-md-12">
+								<h2 class="classh1">Solution</h2>
+								<span class="classtext">
+									<%= itm.plugin.solution %>
+								</span>
+							</div>
+							<div class="col-md-12">
+								<h2 class="classh1">Risk Factor</h2>
+								<span class="classtext">
+									<%= get_risk_factor(itm.severity) %>
+								</span>
+							</div>
+							<% unless itm.plugin.cvss_vector.nil? || itm.plugin.cvss_base_score == 0 %>
+								<div class="col-md-12">
+									<h2 class="classh1">CVSS Base Score</h2>
+									<span class="classtext">
+										<%= itm.plugin.cvss_base_score %>(<%= itm.plugin.cvss_vector %>)
+									</span>
+								</div>
+							<% end %>
+							<% unless itm.plugin.cvss_temporal_vector.nil? || itm.plugin.cvss_temporal_score == 0 %>
+								<div class="col-md-12">
+									<h2 class="classh1">CVSS Temporal Score</h2>
+									<span class="classtext">
+										<%= itm.plugin.cvss_temporal_score %>(<%= itm.plugin.cvss_temporal_vector %>)
+									</span>
+								</div>
+							<% end %>
+							<% unless itm.plugin.references.blank? || itm.plugin.references.length == 1 %>
+								<div class="col-md-12">
+									<h2 class="classh1">References</h2>
+									<% itm.plugin.references.each do |reference| %>
+										<% unless reference.reference_name == 'see_also' %>
+											<div class="col-md-6 fBold pBot10 classcell">
+												<%= reference.reference_name.upcase %>
+											</div>
+											<div class="col-md-6 pBot10 classcell">
+												<% if reference.reference_name.upcase == "CVE" %>
+													<%= link_to reference.value, cfe_path(reference.value), target: '_blank' %>
+												<% else %>
+													<%= reference.value %>
+												<% end %>
+											</div>
+										<% end %>
+									<% end %>
+								</div>
+							<% end %>
+							<div class="col-md-12">
+								<h2 class="classh1">Plugin Information</h2>
+								<span class="classtext">
+									Publication Date : <%=itm.plugin.plugin_publication_date.strftime("%Y/%m/%d") %>, Modification Date :  <%= itm.plugin.plugin_modification_date.strftime("%Y/%m/%d") if itm.plugin.plugin_modification_date %>
+								</span>
+							</div>
+							<div class="col-md-12">
+								<h2 class="classh1">Ports</h2>
+								<h2 class="classh2">
+									<%= port[1] %>/<%= port[0] %>
+								</h2>
+								<span class="classpre">
+									<%= simple_format(itm.plugin_output) %>
+								</span>
+							</div>
+						</div>
+					</div>
+				<% end %>
+			</div>
+		<% end %>
+	</div>
+</div>
+
+<% content_for :head_javascript do %>
+	<script type="text/javascript">
+		$(document).ready(function(){
+				listFilter($("#header"), $("#list"));
+		})
+
+		$.expr[':'].Contains = function(a,i,m){
+		  return (a.textContent || a.innerText || "").toUpperCase().indexOf(m[3].toUpperCase())>=0;
+	  };
+
+	  function listFilter(header, list) {
+			var form = $("<form>").attr({"class":"filterform","action":"#"});
+			var	input = $("<input>").attr({"class":"filterinput","type":"text"});
+			$(form).append("<label>Search Vulns</label>").append(input).appendTo(header);
+		 
+			$(input)
+			  .change( function () {
+				var filter = $(this).val();
+				if(filter) {
+				  $(list).find("span:not(:Contains(" + filter + "))").parent().parent().parent().hide();
+				  $(list).find("span:Contains(" + filter + ")").parent().parent().parent().show();
+				} else {
+				  $(list).find("div.list").show();
+				}
+				return false;
+			  })
+			.keyup( function () {
+				$(this).change();
+			});
+	  }
+	</script>
+<% end %>

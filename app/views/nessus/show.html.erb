@@ -1,0 +1,346 @@
+<div class="row">
+	<div class="col-md-6 mBot9">
+		<%= link_to "Back to #{@engagement.engagement_name}", engagement_path(params[:engagement_id]), class: "btn btn-primary" %>
+	</div>
+	<div class="col-md-6">
+		<%= link_to "Add new nessus", new_engagement_nessu_path(params[:engagement_id]), class: "btn btn-primary policiesRight" %>
+	</div>
+</div>
+
+<h3>Policies</h3>
+<table class="table table-striped table-bordered" id="policies">
+	<thead>
+		<th>Name</th>
+		<th>Comments</th>
+		<th>Owner</th>
+		<th>Visibility</th>
+	</thead>
+	<tbody>
+		<% @nessus_policies.each do |nessus_policy| %>
+			<tr>
+				<td><%= nessus_policy.name %></td>
+				<td><%= nessus_policy.comments %></td>
+				<td><%= nessus_policy.owner %></td>
+				<td><%= nessus_policy.visibility %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<h3>Family Selections</h3>
+<table class="table table-striped table-bordered" id="family_selections">
+	<thead>
+		<th>Family Name</th>
+		<th>Status</th>
+	</thead>
+	<tbody>
+		<% @nessus_policies.each do |nessus_policy| %>
+			<% nessus_policy.family_selections.each do |family_selection| %>
+				<tr>
+					<td><%= family_selection.family_name %></td>
+					<td><%= family_selection.status %></td>
+				</tr>
+			<% end %>
+		<% end %>
+	</tbody>
+</table>
+
+<h3>Hosts</h3>
+<table class="table table-striped table-bordered" id="hosts">
+	<thead>
+		<th>Name</th>
+		<th>OS</th>
+		<th>MAC</th>
+		<th>Start Date</th>
+		<th>End Date</th>
+		<th>IP</th>
+		<th>FQDN</th>
+		<th>Netbios</th>
+		<th>Notes</th>
+		<th>Risk Score</th>
+	</thead>
+	<tbody>
+		<% @nessus_policies.each do |nessus_policy| %>
+			<% nessus_policy.nessus_reports.each do |report| %>
+				<% report.hosts.each do |host| %>
+					<tr>
+						<td><%= host.name %></td>
+						<td><%= host.os %></td>
+						<td><%= host.mac %></td>
+						<td><%= host.start %></td>
+						<td><%= host.end %></td>
+						<td><%= host.ip %></td>
+						<td><%= host.fqdn %></td>
+						<td><%= host.netbios %></td>
+						<td><%= host.notes %></td>
+						<td><%= host.risk_score %></td>
+					</tr>
+				<% end %>
+			<% end %>
+		<% end %>
+	</tbody>
+</table>
+
+<h3>Host Properties</h3>
+<table class="table table-striped table-bordered" id="host_properties">
+	<thead>
+		<th>Name</th>
+		<th>Value</th>
+	</thead>
+	<tbody>
+		<% @nessus_policies.each do |nessus_policy| %>
+			<% nessus_policy.nessus_reports.each do |report| %>
+				<% report.hosts.each do |host| %>
+					<% host.host_properties.each do |host_property| %>
+						<% unless host_property.name.blank? && host_property.value.blank? %>
+							<tr>
+								<td><%= host_property.name %></td>
+								<td><%= host_property.value %></td>
+							</tr>
+						<% end %>
+					<% end %>
+				<% end %>
+			<% end %>
+		<% end %>
+	</tbody>
+</table>
+
+<h3>Individual Plugin Selection</h3>
+<table class="table table-striped table-bordered" id="individual_plugin_selection">
+	<thead>
+		<th>Plugin ID</th>
+		<th>Plugin Name</th>
+		<th>Family</th>
+		<th>Status</th>
+	</thead>
+	<tbody>
+		<% @nessus_policies.each do |nessus_policy| %>
+			<% nessus_policy.individual_plugin_selections.each do |individual_plugin_selection| %>
+				<tr>
+					<td><%= individual_plugin_selection.plugin_id %></td>
+					<td><%= individual_plugin_selection.plugin_name %></td>
+					<td><%= individual_plugin_selection.family %></td>
+					<td><%= individual_plugin_selection.status %></td>
+				</tr>
+			<% end %>
+		<% end %>
+	</tbody>
+</table>
+
+<h3>Items</h3>
+<table class="table table-striped table-bordered" id="items">
+	<thead>
+		<th>Plugin ID</th>
+		<th>Plugin Output</th>
+		<th>Port</th>
+		<th>SVC Name</th>
+		<th>Protocol</th>
+		<th>Secerity</th>
+		<th>Plugin Name</th>
+		<th>Verified</th>
+		<th>CM Compliance Info</th>
+		<th>CM Compliance Actual Value</th>
+		<th>CM Compliance Check ID</th>
+		<th>CM Compliance Policy Value</th>
+		<th>CM Compliance Audit File</th>
+		<th>CM Compliance Check Name</th>
+		<th>CM Compliance Result</th>
+		<th>CM Compliance Output</th>
+		<th>CM Compliance Reference</th>
+		<th>CM Compliance See Also</th>
+		<th>CM Compliance Solution</th>
+		<th>Real Severity</th>
+		<th>Risk Score</th>
+	</thead>
+	<tbody>
+		<% @nessus_policies.each do |nessus_policy| %>
+			<% nessus_policy.nessus_reports.each do |report| %>
+				<% report.hosts.each do |host| %>
+					<% host.items.each do |item| %>
+						<tr>
+							<td><%= item.plugin_id %></td>
+							<td><%= item.plugin_output %></td>
+							<td><%= item.port %></td>
+							<td><%= item.svc_name %></td>
+							<td><%= item.protocol %></td>
+							<td><%= item.severity %></td>
+							<td><%= item.plugin_name %></td>
+							<td><%= item.verified %></td>
+							<td><%= item.cm_compliance_info %></td>
+							<td><%= item.cm_compliance_actual_value %></td>
+							<td><%= item.cm_compliance_check_id %></td>
+							<td><%= item.cm_compliance_policy_value %></td>
+							<td><%= item.cm_compliance_audit_file %></td>
+							<td><%= item.cm_compliance_check_name %></td>
+							<td><%= item.cm_compliance_result %></td>
+							<td><%= item.cm_compliance_output %></td>
+							<td><%= item.cm_compliance_reference %></td>
+							<td><%= item.cm_compliance_see_also %></td>
+							<td><%= item.cm_compliance_solution %></td>
+							<td><%= item.real_severity %></td>
+							<td><%= item.risk_score %></td>
+						</tr>
+					<% end %>
+				<% end %>
+			<% end %>
+		<% end %>
+	</tbody>
+</table>
+
+<h3>Plugins</h3>
+<table class="table table-striped table-bordered" id="plugins">
+	<thead>
+		<th>Plugin Name</th>
+		<th>Family Name</th>
+		<th>Description</th>
+		<th>Plugin Version</th>
+		<th>Plugin Publication Date</th>
+		<th>Plugin Modification Date</th>
+		<th>Vulnerability Publication Date</th>
+		<th>CVSS Vector</th>
+		<th>CVSS Base Score</th>
+		<th>CVSS Temporal Score</th>
+		<th>CVSS Temporal Vector</th>
+		<th>Exploitability Ease</th>
+		<th>Exploit Framework Core</th>
+		<th>Exploit Framework Metasploit</th>
+		<th>Metasploit Name</th>
+		<th>Exploit Framework Canvas</th>
+		<th>Canvas Package</th>
+		<th>Exploit Available</th>
+		<th>Risk Factor</th>
+		<th>Solution</th>
+		<th>Synopsis</th>
+		<th>Plugin Type</th>
+		<th>Exploit Framework Exploithub</th>
+		<th>Exploithub SKU</th>
+		<th>Stig severity</th>
+		<th>Fname</th>
+		<th>Always Run</th>
+		<th>Script Version</th>
+		<th>D2 Elliot Name</th>
+		<th>Exploit Framework D2 Elliot</th>
+		<th>Exploited By Malware</th>
+		<th>Rollup</th>
+		<th>Risk Score</th>
+		<th>Compliance</th>
+		<th>Root Cause</th>
+		<th>Agent</th>
+		<th>Potential Vulnerability</th>
+		<th>In The News</th>
+		<th>Exploited By Nessus</th>
+		<th>Unsupported By Vendor</th>
+		<th>Default Account</th>
+	</thead>
+	<tbody>
+		<% @plugins.each do |plugin| %>
+			<tr>
+				<td><%= plugin.plugin_name %></td>
+				<td><%= plugin.family_name %></td>
+				<td><%= plugin.description %></td>
+				<td><%= plugin.plugin_version %></td>
+				<td><%= plugin.plugin_publication_date %></td>
+				<td><%= plugin.plugin_modification_date %></td>
+				<td><%= plugin.vuln_publication_date %></td>
+				<td><%= plugin.cvss_vector %></td>
+				<td><%= plugin.cvss_base_score %></td>
+				<td><%= plugin.cvss_temporal_score %></td>
+				<td><%= plugin.cvss_temporal_vector %></td>
+				<td><%= plugin.exploitability_ease %></td>
+				<td><%= plugin.exploit_framework_core %></td>
+				<td><%= plugin.exploit_framework_metasploit %></td>
+				<td><%= plugin.metasploit_name %></td>
+				<td><%= plugin.exploit_framework_canvas %></td>
+				<td><%= plugin.canvas_package %></td>
+				<td><%= plugin.exploit_available %></td>
+				<td><%= plugin.risk_factor %></td>
+				<td><%= plugin.solution %></td>
+				<td><%= plugin.synopsis %></td>
+				<td><%= plugin.plugin_type %></td>
+				<td><%= plugin.exploit_framework_exploithub %></td>
+				<td><%= plugin.exploithub_sku %></td>
+				<td><%= plugin.stig_severity %></td>
+				<td><%= plugin.fname %></td>
+				<td><%= plugin.always_run %></td>
+				<td><%= plugin.script_version %></td>
+				<td><%= plugin.d2_elliot_name %></td>
+				<td><%= plugin.exploit_framework_d2_elliot %></td>
+				<td><%= plugin.exploited_by_malware %></td>
+				<td><%= plugin.rollup %></td>
+				<td><%= plugin.risk_score %></td>
+				<td><%= plugin.compliance %></td>
+				<td><%= plugin.root_cause %></td>
+				<td><%= plugin.agent %></td>
+				<td><%= plugin.potential_vulnerability %></td>
+				<td><%= plugin.in_the_news %></td>
+				<td><%= plugin.exploited_by_nessus %></td>
+				<td><%= plugin.unsupported_by_vendor %></td>
+				<td><%= plugin.default_account %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<h3>Plugin Preferences</h3>
+<table class="table table-striped table-bordered" id="plugin_preferences">
+	<thead>
+		<th>Plugin ID</th>
+		<th>Plugin Name</th>
+		<th>Full Name</th>
+		<th>Preference Name</th>
+		<th>Preference Type</th>
+		<th>Preference Values</th>
+		<th>Selected Values</th>
+	</thead>
+	<tbody>
+		<% @nessus_policies.each do |nessus_policy| %>
+			<% nessus_policy.plugins_preferences.each do |plugin_preference| %>
+				<tr>
+					<td><%= plugin_preference.plugin_id %></td>
+					<td><%= plugin_preference.plugin_name %></td>
+					<td><%= plugin_preference.fullname %></td>
+					<td><%= plugin_preference.preference_name %></td>
+					<td><%= plugin_preference.preference_type %></td>
+					<td><%= plugin_preference.preference_values %></td>
+					<td><%= plugin_preference.selected_values %></td>
+				</tr>
+			<% end %>
+		<% end %>
+	</tbody>
+</table>
+
+<h3>References</h3>
+<table class="table table-striped table-bordered" id="references">
+	<thead>
+		<th>Reference Name</th>
+		<th>Value</th>
+	</thead>
+	<tbody>
+		<% @plugins.each do |plugin| %>
+			<% plugin.references.each do |reference| %>
+				<tr>
+					<td><%= reference.reference_name %></td>
+					<td><%= reference.value %></td>
+				</tr>
+			<% end %>
+		<% end %>
+	</tbody>
+</table>
+
+<h3>Server Preferences</h3>
+<table class="table table-striped table-bordered" id="server_preferences">
+	<thead>
+		<th>Name</th>
+		<th>Value</th>
+	</thead>
+	<tbody>
+		<% @nessus_policies.each do |nessus_policy| %>
+			<% nessus_policy.server_preferences.each do |server_preference| %>
+				<tr>
+					<td><%= server_preference.name %></td>
+					<td><%= server_preference.value %></td>
+				</tr>
+			<% end %>
+		<% end %>
+	</tbody>
+</table>

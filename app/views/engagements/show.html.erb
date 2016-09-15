@@ -1,0 +1,277 @@
+<div ng-app="hackTheArch">
+	<div class="ocbHead">
+		<%= render partial: "ocb_operation" unless @engagement.sub_engagement? %>
+	</div>
+	
+	<!-- Start of user info and & Engagment info tabs -->
+	<div class="row">
+		<div class="col-md-2">
+			<div class="thumbnail">
+				<%= image_tag(current_user.avatar.url(:medium)) %>
+				<div class="caption text-center">
+					<strong><%= link_to current_user.full_name, current_user %></strong>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="row">
+				<div class="col-md-12 title3">
+					<%= raw "#{link_to(@engagement.parent.engagement_name, engagement_path(@engagement.parent))} > " if @engagement.sub_engagement? %>
+					<strong><%= @engagement.engagement_name %></strong>
+				</div>
+				<% if @engagement.children.size > 0 %>
+				<div class="col-md-12 mTop100">
+					<nav class="navbar navbar-default">
+						<div class="container">
+							<ul class="nav navbar-nav">
+								<% @engagement.children.each do |sub_engagement| %>
+								<li role="presentation">
+									<%= link_to sub_engagement.engagement_name, engagement_path(sub_engagement) %>
+								</li>
+								<% end %>
+							</ul>
+						</div>
+					</nav>
+				</div>
+				<% end %>
+			</div>
+		</div>
+		<!-- Start notes section -->
+		<div class="col-md-4">
+			<div class="profileUiList">
+				<ul>
+					<% if @engagement.notes.blank? %>
+					<div>No Notes Have been added yet.</div>
+					<% else %>
+					<% @engagement.notes.each do |note| %>
+					<li>
+						<p class="label label-warning"><%= note.user.get_full_name %></p>
+						<p data-toggle="modal" data-target="#noteDescription_<%= note.id %>">
+							<span>
+								<%= note.title %> 
+							</span>
+							<span>
+								<small>
+									<%= note.created_at.strftime('%B %d , %Y') %>
+								</small>
+							</span>
+						</p>
+						<%= link_to '#' , class: 'remove_note', 'note_id' => note.id do %>
+						<i class="glyphicon glyphicon-remove"></i>
+						<% end %>
+						<div class="modal fade" id="noteDescription_<%= note.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header noBorder">
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									</div>
+									<div class="modal-body">
+										<p>
+											<%= note.description.html_safe %>
+										</p>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+					<% end %>
+					<% end %>
+				</ul>
+			</div>
+		</div>
+		<!-- End notes section -->
+	</div>
+	<!-- End of user info and & Engagment info tabs -->
+	<hr>
+	
+	<!-- Start of main info section and dynamic result -->
+	<div class="row">
+		<!-- Start tool overview tabs -->
+		<div class="col-md-12">
+			<!-- Start tool data import links-->
+			<!-- Single button -->
+			<div class="btn-group pull-right">
+			  <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			    Tools Upload <span class="caret"></span>
+			  </button>
+			  <ul class="dropdown-menu">
+			    <li><%= link_to_if(!@engagement.completed? && @engagement.created_by?(current_user), "Nessus", new_engagement_nessu_path(@engagement)) %></li>
+			    <li><%= link_to_if(!@engagement.completed? && @engagement.created_by?(current_user), "Nmap", new_engagement_nmap_path(@engagement)) %></li>
+			    <li><%= link_to_if(!@engagement.completed? && @engagement.created_by?(current_user), "Metasploit", new_engagement_metasploit_path(@engagement)) %></li>
+			  </ul>
+			</div>
+			<!-- End tool data import links-->
+			
+			<div>
+				<!-- Nav tabs -->
+				<ul class="nav nav-tabs vTabs" role="tablist" id="myTab">
+					<li role="presentation" class="active"><a href="#main" aria-controls="main" role="tab" data-toggle="tab">Main</a></li>
+					<li role="presentation"><a href="#creds" aria-controls="creds" role="tab" data-toggle="tab">Creds</a></li>
+					<li role="presentation"><a href="#vulns" aria-controls="vulns" role="tab" data-toggle="tab">Vulns</a></li>
+				</ul>
+
+				<!-- Tab panes -->
+				<div class="tab-content" id="myTabContent">
+					<div role="tabpanel" class="tab-pane active" id="main">
+						<%= render partial: "main_info_tab" %>
+					</div>
+					<div role="tabpanel" class="tab-pane" id="creds">
+						<%= render partial: "creds_info_tab" %>
+					</div>
+					<div role="tabpanel" class="tab-pane" id="vulns">
+						<div class="mTop10">
+							<% unless @nessus_policies.empty? %>
+								<% unless @nessus_policies.first.nessus_reports.first.blank? %>
+									<%= select_tag('nessus_policy', options_for_select(@nessus_policies.collect{ |u| ["#{u.nessus_reports.first.name} (#{User.find(u.user_id).username})", u.id] }), onchange: "$('.ajaxLoader').show();$.get('/engagements/#{@engagement.id}/nessus/'+this.value+'/vulns_reports').done(function(h) {$('.ajaxLoader').hide();});") unless @nessus_policies.empty? %>
+								<% end %>
+							<% end %>
+							<div id="vulnsChartsHolder">
+								<%= render partial: "vulns", locals: {nessus_policy: @nessus_policies.first, engagement: @engagement} %>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End tool overview tabs -->
+	</div>
+	<!-- End of main info section and dynamic result -->
+	<hr>
+
+	<!-- Start of single tool output & notes -->
+	<div class="row">
+		<!-- Start of single tool output -->
+		<div class="col-md-12">
+			<h2>Single Tool Output</h2>
+			<div>
+				<!-- Nav tabs -->
+				<ul class="nav nav-tabs vTabs" role="tablist">
+					<li role="presentation" class="active"><a href="#nmap" aria-controls="nmap" role="tab" data-toggle="tab">Nmap</a></li>
+					<li role="presentation"><a href="#nessus" aria-controls="nessus" role="tab" data-toggle="tab">Nessus</a></li>
+					<li role="presentation"><a href="#metasploit" aria-controls="metasploit" role="tab" data-toggle="tab">Metasploit</a></li>
+				</ul>
+
+				<!-- Tab panes -->
+				<div class="tab-content">
+					<div role="tabpanel" class="tab-pane active" id="nmap">
+						<div class="mTop10">
+							<%= select_tag('nmap_report', options_for_select(@nmap_reports.collect{ |u| ["#{u.created_at} (#{u.user.username}))", u.id] }), onchange: "var element = this.value;$('.ajaxLoader').show();$.get('/engagements/#{@engagement.id}/nmap/'+this.value+'/nmap_reports').done(function(h) {$('#nmap_full_details_link').attr('href', '/engagements/#{@engagement.id}/nmap/'+element);$('.ajaxLoader').hide();});", class: 'w400') unless @nmap_reports.empty? %>
+							<% unless @nmap_reports.blank? %>
+								<%= link_to "View full nmap result", engagement_nmap_path(@engagement.id, @nmap_reports.first.id), id: "nmap_full_details_link", target: "_blank" %>
+							<% end %>
+							<div id="nmapListHolder">
+								<%= render partial: "list_nmaps", locals: {nmap_report: @nmap_reports.first} %>
+							</div>
+						</div>
+					</div>
+					<div role="tabpanel" class="tab-pane" id="nessus">
+						<div class="mTop10">
+							<% if !@nessus_policies.blank? && !@nessus_policies.first.nessus_reports.blank? %>
+								<%= select_tag('nessus_policy', options_for_select(@nessus_policies.collect{ |u| ["#{u.nessus_reports.first.name} (#{User.find(u.user_id).username})", u.id] }), onchange: "var element = this.value;$('.ajaxLoader').show(); $.get('/engagements/#{@engagement.id}/nessus/'+this.value+'/nessus_reports').done(function(h) {$('#nessus_full_details_link').attr('href', '/engagements/#{@engagement.id}/nessus/'+element);$('.ajaxLoader').hide();});", class: 'w400') unless @nessus_policies.empty? %>
+							<% end %>
+							<% unless @nessus_policies.blank? %>
+								<%= link_to "View full nessus result", engagement_nessu_path(@engagement.id, @nessus_policies.first.id), id: "nessus_full_details_link", target: "_blank" %>
+							<% end %>
+							<div id="nessusListHolder">
+								<%= render partial: "nessus_tabview", locals: {nessus_policy: @nessus_policies.first, engagement: @engagement} %>
+							</div>
+						</div>
+					</div>
+					<div role="tabpanel" class="tab-pane" id="metasploit">
+					<div class="mTop10">
+						<%= select_tag('metasploit_report', options_for_select(@metasploit_reports.collect{ |u| ["#{u.created_at} (#{u.user.username})", u.id] }), onchange: "var element = this.value;$('.ajaxLoader').show(); $.get('/engagements/#{@engagement.id}/metasploit/'+this.value+'/metasploit_reports').done(function(h) {$('#metasploit_full_details_link').attr('href', '/engagements/#{@engagement.id}/metasploit/'+element);$('.ajaxLoader').hide();});", class: 'smSelect') unless @metasploit_reports.empty? %>
+						<% unless @metasploit_reports.empty? %>
+							<%= link_to "View full metasploit result", engagement_metasploit_path(@engagement.id, @metasploit_reports.first.id), id: "metasploit_full_details_link", target: "_blank" %>
+							<%# if @metasploit_reports.first.is_completed %>
+								<div id="metasploitListHolder">
+									<%= render partial: "metasploit_tabview", locals: {metasploit_report: @metasploit_reports.first, engagement: @engagement} %>
+								</div>
+							<%# end %>
+						<% end %>
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End of single tool output -->
+	</div>
+	<!-- End of single tool output & notes -->
+	<hr>
+
+
+
+	<!-- Start note creation and engagement actions -->
+	<% unless @engagement.completed? %>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="well">
+				<%= link_to "Add Note", "#", class: "btn btn-primary mRight9 btn-sm", "data-toggle" => "modal", "data-target" => "#myModal" %>
+				<%= link_to_if(!@engagement.completed? && @engagement.created_by?(current_user), "Edit", edit_engagement_path(@engagement.id), class: "btn btn-success mRight9 btn-sm" ) %>
+				<%= link_to_if(!@engagement.completed? && @engagement.created_by?(current_user), "Cancel", engagement_path(@engagement.id), method: :delete, data: {confirm: "Are you sure ?"}, class: "btn btn-danger btn-sm" ) %>
+			</div>
+		</div>
+	</div>
+	<% end %>
+	<!-- End note creation and engagement actions -->
+
+	<!-- Modal Start -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header noBorder">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				</div>
+				<%= form_tag('/notes') do %>
+				<div class="modal-body">
+					<div class="fields">
+						<label>Add Note Title</label>
+						<%= text_field_tag 'title' %>
+					</div>
+					<div class="fields">
+						<label>Add Note</label>
+						<%= cktext_area :note, :description %>
+					</div>
+					<div class="fields">
+						<%= hidden_field_tag 'notable_id', @engagement.id %>
+						<%= hidden_field_tag 'notable_type', "Engagement" %>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<%= submit_tag %>
+				</div>
+				<% end %>
+			</div>
+			<!-- Modal End -->
+		</div>
+	</div>
+
+	<% if !@engagement.completed? && @engagement.created_by?(current_user) %>
+	<div class="pull-right">
+		<%= link_to "End Engagement", "#", 'data-toggle' => 'modal', 'data-target' => '#endEngagementModal', :class => "btn btn-danger" %>
+	</div>
+	<% end %>
+
+	<div class="modal fade bd-example-modal-sm" id="endEngagementModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>      
+				</div>
+				<%= form_tag end_engagement_path(@engagement.id), method: :put do %>
+				<div class="modal-body">
+					<span>If you don't change the date then the engagement will end today, do you want to continue ?</span>
+					<%= text_field_tag "end_engagement_date", Date.today, id: 'datepicker_end_engagement_date', 'data-provide'=> 'datepicker', 'data-date-format' => 'yyyy-mm-dd' %>
+				</div>
+				<div class="modal-footer">
+					<%= link_to "Cancel", "#", class: "btn btn-default", "data-dismiss" => "modal" %>
+					<%= submit_tag "Yes", class: "btn btn-primary" %>
+				</div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>

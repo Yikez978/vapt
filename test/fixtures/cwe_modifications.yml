@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  modification_source: MyString
+  modifier: MyString
+  modifier_org: MyString
+  modification_date: 2016-06-15
+  modification_comment: MyString
+  cwe_content_history_id: 1
+
+two:
+  modification_source: MyString
+  modifier: MyString
+  modifier_org: MyString
+  modification_date: 2016-06-15
+  modification_comment: MyString
+  cwe_content_history_id: 1

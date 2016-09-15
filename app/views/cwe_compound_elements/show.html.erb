@@ -1,0 +1,741 @@
+<div class="noprint">
+	<h2 class="cwe_h2">
+		CWE-<%= @cwe_element.element_id %>: <%= @cwe_element.name %>
+	</h2>
+	<div class="header_div">
+		<ul id="navPyra"></ul>
+	</div>
+</div>
+<div id="CWEDefinition" class="Weakness">
+	<div class="title">
+		<div align="center">
+			<span>
+				<%= @cwe_element.name %>
+			</span>
+		</div>
+	</div>
+	<div class="status">
+		<div>
+			<div class="col-md-4" valign="top" nowrap="" align="left">
+				<b>Category ID: </b><%= @cwe_element.element_id %>
+				<span>(Category)</span>
+			</div>
+			<div class="col-md-offset-4" valign="top" nowrap="" align="right">
+				<b>Status: </b>
+				<span><%= @cwe_element.element_status %></span>
+			</div>
+		</div>
+	</div>
+	<div class="Description">
+		<div class="panel-group" id="desc_accordion" role="tablist" aria-multiselectable="true">
+			<div class="panel panel-default">
+				<div class="panel-heading" role="tab" id="headingOne">
+					<div class="heading">
+						<span id="script">
+							<%= link_to "#collapseDesc", "data-toggle" => "collapse", "data-parent" => "#desc_accordion", "aria-expanded" => "true", "aria-controls" => "collapseDesc" do %>
+								<%= image_tag("/assets/head_more.gif", id: "ocimg_200_Description", border: "0", alt: "+") %>
+							<% end %>
+						</span>
+						Description
+					</div>
+				</div>
+				<div id="collapseDesc" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+					<div class="panel-body">
+						<div id="oc_<%= @cwe_element.element_id %>_Description" class="expandblock" name="oc_<%= @cwe_element.element_id %>_Description">
+							<div class="detail">
+								<p class="subheading">Description Summary</p>
+								<div class="indent">
+									<%= @cwe_element.desc_summary %>
+								</div>
+								<% unless @cwe_element.ext_desc.blank? %>
+									<p class="subheading">Extended Summary</p>
+									<div class="indent">
+										<% @cwe_element.ext_desc.split('\n').each do |ext_desc| %>
+											<p>
+												<%= ext_desc %>
+											</p>
+										<% end %>
+									</div>
+								<% end %>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<% unless @cwe_element.cwe_time_of_intros.blank? %>
+		<div id="Time_of_Introduction">
+			<div class="panel-group" id="alt_term_accordion" role="tablist" aria-multiselectable="true">
+				<div class="panel panel-default">
+					<div class="panel-heading" role="tab" id="headingOne">
+						<div class="heading">
+							<span id="script">
+								<%= link_to "#collapseIntroTime", "data-toggle" => "collapse", "data-parent" => "#intro_time_accordion", "aria-expanded" => "true", "aria-controls" => "collapseIntroTime" do %>
+									<%= image_tag("/assets/head_more.gif", id: "ocimg_200_Description", border: "0", alt: "+") %>
+								<% end %>
+							</span>
+							Time of Introduction
+						</div>
+					</div>
+					<div id="collapseIntroTime" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+						<div class="panel-body">
+							<div id="oc_<%= @cwe_element.element_id %>_Time_of_Introduction" class="expandblock" name="oc_<%= @cwe_element.element_id %>_Time_of_Introduction">
+								<div class="detail">
+									<ul>
+										<% @cwe_element.cwe_time_of_intros.each do |time_of_intros| %>
+											<% time_of_intros.intro_phase.split(',').each do |time_of_intro| %>
+												<li>
+													<%= time_of_intro %>
+												</li>
+											<% end %>
+										<% end %>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<% end %>
+	<% if !@cwe_element.cwe_languages.blank? && !@cwe_element.cwe_architechtural_paradigms.blank? %>
+		<div id="Applicable_Platforms">
+			<div class="panel-group" id="applicable_platform_accordion" role="tablist" aria-multiselectable="true">
+				<div class="panel panel-default">
+					<div class="panel-heading" role="tab" id="headingOne">
+						<div class="heading">
+							<span id="script">
+								<%= link_to "#collapseApplicablePlatform", "data-toggle" => "collapse", "data-parent" => "#applicable_platform_accordion", "aria-expanded" => "true", "aria-controls" => "collapseApplicablePlatform" do %>
+									<%= image_tag("/assets/head_more.gif", id: "ocimg_200_Description", border: "0", alt: "+") %>
+								<% end %>
+							</span>
+							Applicable Platform
+						</div>
+					</div>
+					<div id="collapseApplicablePlatform" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+						<div class="panel-body">
+							<div id="oc_<%= @cwe_element.element_id %>_Applicable_Platform" class="expandblock" name="oc_<%= @cwe_element.element_id %>_Applicable_Platform">
+								<div class="detail">
+									<p class="subheading">Languages</p>
+									<div class="indent">
+										<p>
+											<% @cwe_element.cwe_languages.each do |language| %>
+												<% unless language.language_class.blank? %>
+													<%= language.language_class %>
+												<% end %>
+											<% end %>
+										</p>
+									</div>
+									<% unless @cwe_element.cwe_architechtural_paradigms.blank? %>
+										<p class="subheading">Architechtural Paradigms</p>
+										<div class="indent">
+											<% @cwe_element.cwe_architechtural_paradigms.each do |architechtural_paradigm| %>
+												<%= architechtural_paradigm.name %>
+											<% end %>
+										</div>
+									<% end %>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<% end %>
+	<% unless @cwe_element.cwe_common_consequences.blank? %>
+		<div id="Common_Consequences">
+			<div class="panel-group" id="common_consequences_accordion" role="tablist" aria-multiselectable="true">
+				<div class="panel panel-default">
+					<div class="panel-heading" role="tab" id="headingOne">
+						<div class="heading">
+							<span id="script">
+								<%= link_to "#collapseCommonConsequences", "data-toggle" => "collapse", "data-parent" => "#common_consequences_accordion", "aria-expanded" => "true", "aria-controls" => "collapseCommonConsequences" do %>
+									<%= image_tag("/assets/head_more.gif", id: "ocimg_200_Description", border: "0", alt: "+") %>
+								<% end %>
+							</span>
+							Common Consequences
+						</div>
+					</div>
+					<div id="collapseCommonConsequences" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+						<div class="panel-body">
+							<div id="oc_<%= @cwe_element.element_id %>_Common_Consequences" class="expandblock" name="oc_<%= @cwe_element.element_id %>_Common_Consequences">
+								<div class="tabledetail">
+									<table class="Detail table table-striped" cellspacing="0" cellpadding="0" border="0" width="100%">
+										<thead>
+											<tr>
+												<th>Scope</th>
+												<th>Effect</th>
+											</tr>
+										</thead>
+										<tbody>
+											<% @cwe_element.cwe_common_consequences.each do |common_consequence| %>
+												<tr>
+													<td valign="top">
+														<div class="fSize90">
+															<%= common_consequence.consequence_scope %>
+														</div>
+													</td>
+													<td valign="top">
+														<p class="smaller">
+															<span class="subheading">Technical Impact:</span>
+															<i>
+																<%= common_consequence.technical_impact %>
+															</i>
+														</p>
+														<div class="pTop5">
+															<p>
+																<%= common_consequence.note %>
+															</p>
+														</div>
+													</td>
+												</tr>
+											<% end %>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<% end %>
+	<% unless @cwe_element.cwe_demonstrative_examples.blank? %>
+		<div id="Demonstrative_Examples">
+			<div class="panel-group" id="demonstrative_examples_accordion" role="tablist" aria-multiselectable="true">
+				<div class="panel panel-default">
+					<div class="panel-heading" role="tab" id="headingOne">
+						<div class="heading">
+							<span id="script">
+								<%= link_to "#collapseDemonstrativeExamples", "data-toggle" => "collapse", "data-parent" => "#demonstrative_examples_accordion", "aria-expanded" => "true", "aria-controls" => "collapseDemonstrativeExamples" do %>
+									<%= image_tag("/assets/head_more.gif", id: "ocimg_200_Description", border: "0", alt: "+") %>
+								<% end %>
+							</span>
+							Demonstrative Examples
+						</div>
+					</div>
+					<div id="collapseDemonstrativeExamples" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+						<div class="panel-body">
+							<div id="oc_<%= @cwe_element.element_id %>_Demonstrative_Examples" class="expandblock" name="oc_<%= @cwe_element.element_id %>_Demonstrative_Examples">
+								<div class="detail">
+									<% @cwe_element.cwe_demonstrative_examples.each_with_index do |demo_example, index| %>
+										<p class="subheading">
+											Example <%= index+1 %>
+										</p>
+										<p>
+											<%= demo_example.intro_text %>
+										</p>
+										<% demo_example.code_blocks.each do |code_block| %>
+											<div id="ExampleCode">
+												<div class="CodeHead">
+													<div class="optheading col-md-4">
+														<span>
+															Example Language :
+														</span>
+														<%= code_block.code_example_lang %>
+													</div>
+													<div class="col-md-offset-4 block_nature">
+														( <%= code_block.block_nature %> )
+													</div>
+													<div class="clearfix"></div>
+												</div>
+											</div>
+											<div>
+												<pre class="brush: plain;">
+													<%= code_block.code_block %>
+												</pre>
+											</div>
+											<p>
+												<%= code_block.desc %>
+											</p>
+										<% end %>
+									<% end %>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<% end %>
+	<% unless @cwe_element.cwe_observed_examples.blank? %>
+		<div id="Observed_Examples">
+			<div class="panel-group" id="observed_examples_accordion" role="tablist" aria-multiselectable="true">
+				<div class="panel panel-default">
+					<div class="panel-heading" role="tab" id="headingOne">
+						<div class="heading">
+							<span id="script">
+								<%= link_to "#collapseObservedExamples", "data-toggle" => "collapse", "data-parent" => "#observed_examples_accordion", "aria-expanded" => "true", "aria-controls" => "collapseObservedExamples" do %>
+									<%= image_tag("/assets/head_more.gif", id: "ocimg_200_Description", border: "0", alt: "+") %>
+								<% end %>
+							</span>
+							Observed Examples
+						</div>
+					</div>
+					<div id="collapseObservedExamples" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+						<div class="panel-body">
+							<div id="oc_<%= @cwe_element.element_id %>_Observed_Examples" class="expandblock" name="oc_<%= @cwe_element.element_id %>_Observed_Examples">
+								<div class="tabledetail">
+									<table class="Detail table table-striped" cellspacing="0" cellpadding="0" border="0" width="100%">
+										<thead>
+											<tr>
+												<th valign="top" nowrap="">Reference</th>
+												<th valign="top" width="100%">Description</th>
+											</tr>
+										</thead>
+										<tbody>
+											<% @cwe_element.cwe_observed_examples.each do |observed_example| %>
+												<tr>
+													<td valign="top">
+														<%= link_to observed_example.observed_example_ref, cfe_path(observed_example.observed_example_ref), target: '_blank' %>
+													</td>
+													<td valign="top">
+														<%= observed_example.desc %>
+													</td>
+												</tr>
+											<% end %>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<% end %>
+	<% unless @cwe_element.cwe_detection_methods.blank? %>
+		<div id="Detection_Methods">
+			<div class="panel-group" id="detection_methods_accordion" role="tablist" aria-multiselectable="true">
+				<div class="panel panel-default">
+					<div class="panel-heading" role="tab" id="headingOne">
+						<div class="heading">
+							<span id="script">
+								<%= link_to "#collapseDetectionMethods", "data-toggle" => "collapse", "data-parent" => "#detection_methods_accordion", "aria-expanded" => "true", "aria-controls" => "collapseDetectionMethods" do %>
+									<%= image_tag("/assets/head_more.gif", id: "ocimg_200_Description", border: "0", alt: "+") %>
+								<% end %>
+							</span>
+							Detection Methods
+						</div>
+					</div>
+					<div id="collapseDetectionMethods" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+						<div class="panel-body">
+							<div id="oc_<%= @cwe_element.element_id %>_Detection_Methods" class="expandblock" name="oc_<%= @cwe_element.element_id %>_Detection_Methods">
+								<div class="detail">
+									<div id="Grouped">
+										<div class="Detail">
+											<% @cwe_element.cwe_detection_methods.each do |detection_method| %>
+												<div valign="top" class="detection_method">
+													<p class="subheading">
+														<%= detection_method.method_name %>
+													</p>
+													<div class="indent">
+														<%= simple_format(detection_method.method_desc) %>
+													</div>
+													<p class="optheading">
+														<i>
+															Effectiveness: <%= detection_method.method_effectiveness %>
+														</i>
+													</p>
+												</div>
+											<% end %>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<% end %>
+	<% unless @cwe_element.cwe_mitigations.blank? %>
+		<div id="Potential_Mitigations">
+			<div class="panel-group" id="potential_mitigations_accordion" role="tablist" aria-multiselectable="true">
+				<div class="panel panel-default">
+					<div class="panel-heading" role="tab" id="headingOne">
+						<div class="heading">
+							<span id="script">
+								<%= link_to "#collapsePotentialMitigations", "data-toggle" => "collapse", "data-parent" => "#potential_mitigations_accordion", "aria-expanded" => "true", "aria-controls" => "collapsePotentialMitigations" do %>
+									<%= image_tag("/assets/head_more.gif", id: "ocimg_200_Description", border: "0", alt: "+") %>
+								<% end %>
+							</span>
+							Potential Mitigations
+						</div>
+					</div>
+					<div id="collapsePotentialMitigations" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+						<div class="panel-body">
+							<div id="oc_<%= @cwe_element.element_id %>_Potential_Mitigations" class="expandblock" name="oc_<%= @cwe_element.element_id %>_Potential_Mitigations">
+								<div class="detail">
+									<div id="Grouped">
+										<div class="Detail">
+											<% @cwe_element.cwe_mitigations.each do |mitigation| %>
+												<div valign="top" class="detection_method">
+													<p class="subheading">
+														Phase: <%= mitigation.mitigation_phase %>
+													</p>
+													<% unless mitigation.mitigation_strategy.blank? %>
+														<p class="optheading">
+															Strategy: <%= mitigation.mitigation_strategy %>
+														</p>
+													<% end %>
+													<div>
+														<%= mitigation.desc %>
+													</div>
+												</div>
+											<% end %>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<% end %>
+	<% unless @cwe_element.cwe_relationships.blank? %>
+		<div id="Relationships">
+			<div class="panel-group" id="relationships_accordion" role="tablist" aria-multiselectable="true">
+				<div class="panel panel-default">
+					<div class="panel-heading" role="tab" id="headingOne">
+						<div class="heading">
+							<span id="script">
+								<%= link_to "#collapseRelationships", "data-toggle" => "collapse", "data-parent" => "#relationships_accordion", "aria-expanded" => "true", "aria-controls" => "collapseRelationships" do %>
+									<%= image_tag("/assets/head_more.gif", id: "ocimg_200_Description", border: "0", alt: "+") %>
+								<% end %>
+							</span>
+							Relationships
+						</div>
+					</div>
+					<div id="collapseRelationships" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+						<div class="panel-body">
+							<div id="oc_<%= @cwe_element.element_id %>_Relationships" class="expandblock" name="oc_<%= @cwe_element.element_id %>_Relationships">
+								<div class="tabledetail">
+									<table class="Detail table table-striped" cellspacing="0" cellpadding="0" border="0" width="100%">
+										<thead>
+											<tr>
+												<th valign="top">Nature</th>
+												<th valign="top">Type</th>
+												<th valign="top">ID</th>
+												<th valign="top">Name</th>
+												<th valign="middle" class="left_center">
+													<span class="tool">
+														<%= image_tag("/assets/view.gif", alt: "View(s)") %>
+													</span>
+												</th>
+											</tr>
+										</thead>
+										<tbody>
+											<% @cwe_element.cwe_relationships.each do |relationship| %>
+												<tr>
+													<td valign="top">
+														<%= relationship.nature %>
+													</td>
+													<td valign="middle" nowrap="" align="center" class="pTop1">
+														<span class="tool">
+															<%= image_tag(add_relationship_type_image(relationship.target_form)) %>
+														</span>
+													</td>
+													<td valign="top">
+														<%= relationship.target_id %>
+													</td>
+													<td valign="top">
+														<%= find_relation_name(relationship.target_form, relationship.target_id) %>
+													</td>
+													<td valign="top"></td>
+												</tr>
+											<% end %>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<% end %>
+	<% unless @cwe_element.cwe_taxonomies.blank? %>
+		<div id="Taxonomy_Mappings">
+			<div class="panel-group" id="taxonomy_mappings_accordion" role="tablist" aria-multiselectable="true">
+				<div class="panel panel-default">
+					<div class="panel-heading" role="tab" id="headingOne">
+						<div class="heading">
+							<span id="script">
+								<%= link_to "#collapseTaxonomyMappings", "data-toggle" => "collapse", "data-parent" => "#taxonomy_mappings_accordion", "aria-expanded" => "true", "aria-controls" => "collapseTaxonomyMappings" do %>
+									<%= image_tag("/assets/head_more.gif", id: "ocimg_200_Description", border: "0", alt: "+") %>
+								<% end %>
+							</span>
+							Taxonomy Mappings
+						</div>
+					</div>
+					<div id="collapseTaxonomyMappings" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+						<div class="panel-body">
+							<div id="oc_<%= @cwe_element.element_id %>_Taxonomy_Mappings" class="expandblock" name="oc_<%= @cwe_element.element_id %>_Taxonomy_Mappings">
+								<div class="tabledetail">
+									<table class="Detail table table-striped" cellspacing="0" cellpadding="0" border="0" width="100%">
+										<thead>
+											<tr>
+												<th>Mapped Taxonomy Name</th>
+												<th>Node ID</th>
+												<th>Fit</th>
+												<th>Mapped Node Name</th>
+											</tr>
+										</thead>
+										<tbody>
+											<% @cwe_element.cwe_taxonomies.each do |taxonomy| %>
+												<tr>
+													<td valign="top">
+														<%= taxonomy.mapped_taxonomy_name %>
+													</td>
+													<td valign="top">
+														<%= taxonomy.mapped_node_id %>
+													</td>
+													<td valign="top">
+														<%= taxonomy.mapping_fit %>
+													</td>
+													<td valign="top">
+														<%= taxonomy.mapped_node_name %>
+													</td>
+												</tr>
+											<% end %>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<% end %>
+	<% unless @cwe_element.cwe_related_attack_patterns.blank? %>
+		<div id="Related_Attack_Patterns">
+			<div class="panel-group" id="related_attack_patterns_accordion" role="tablist" aria-multiselectable="true">
+				<div class="panel panel-default">
+					<div class="panel-heading" role="tab" id="headingOne">
+						<div class="heading">
+							<span id="script">
+								<%= link_to "#collapseRelatedAttackPatterns", "data-toggle" => "collapse", "data-parent" => "#taxonomy_mappings_accordion", "aria-expanded" => "true", "aria-controls" => "collapseRelatedAttackPatterns" do %>
+									<%= image_tag("/assets/head_more.gif", id: "ocimg_200_Description", border: "0", alt: "+") %>
+								<% end %>
+							</span>
+							Related Attack Patterns
+						</div>
+					</div>
+					<div id="collapseRelatedAttackPatterns" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+						<div class="panel-body">
+							<div id="oc_<%= @cwe_element.element_id %>_Related_Attack_Patterns" class="expandblock" name="oc_<%= @cwe_element.element_id %>_Related_Attack_Patterns">
+								<div class="tabledetail">
+									<table class="Detail table table-striped" cellspacing="0" cellpadding="0" border="0" width="100%">
+										<thead>
+											<tr>
+												<th valign="top">CAPEC-ID</th>
+												<th valign="top">Attack Pattern Name</th>
+												<th valign="top">
+													<div class="capec">
+														(CAPEC Version: <%= @cwe_element.cwe_related_attack_patterns.first.capec_version %>)
+													</div>
+												</th>
+											</tr>
+										</thead>
+										<tbody>
+											<% @cwe_element.cwe_related_attack_patterns.each do |attack_pattern| %>
+												<tr>
+													<td valign="top">
+														CAPEC-<%= attack_pattern.capec_id %>
+													</td>
+													<td valign="top"></td>
+													<td valign="top"></td>
+												</tr>
+											<% end %>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<% end %>
+	<% unless @cwe_element.cwe_references.blank? %>
+		<div id="References">
+			<div class="panel-group" id="references_accordion" role="tablist" aria-multiselectable="true">
+				<div class="panel panel-default">
+					<div class="panel-heading" role="tab" id="headingOne">
+						<div class="heading">
+							<span id="script">
+								<%= link_to "#collapseReferences", "data-toggle" => "collapse", "data-parent" => "#References_accordion", "aria-expanded" => "true", "aria-controls" => "collapseReferences" do %>
+									<%= image_tag("/assets/head_more.gif", id: "ocimg_200_Description", border: "0", alt: "+") %>
+								<% end %>
+							</span>
+							References
+						</div>
+					</div>
+					<div id="collapseReferences" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+						<div class="panel-body">
+							<div id="oc_<%= @cwe_element.element_id %>_References" class="expandblock" name="oc_<%= @cwe_element.element_id %>_References">
+								<div class="detail">
+									<div id="Grouped">
+										<div class="Detail">
+											<% @cwe_element.cwe_references.each do |reference| %>
+												<div id="<%= reference.ref_id %>" class="detection_method">
+													[<%= reference.ref_id %>] 
+													<%= reference.ref_author %>. 
+													"<%= reference.ref_title %>".  
+													<% unless reference.ref_section.blank? %>
+														<%= reference.ref_section %>.
+													<% end %> 
+													<% unless reference.ref_edition.blank? %>
+														<%= reference.ref_edition %>.
+													<% end %> 
+													<% unless reference.ref_publisher.blank? %>
+														<%= reference.ref_publisher %>.
+													<% end %> 
+													<% unless reference.ref_pubdate.blank? %>
+														<%= reference.ref_pubdate %>.
+													<% end %> 
+													<% unless reference.ref_date.blank? %>
+														<%= reference.ref_date %>
+													<% end %> 
+													<% unless reference.ref_link.blank? %>
+														< <%= link_to reference.ref_link, reference.ref_link, target: '_blank' %> > 
+													<% end %>
+												</div>
+											<% end %>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<% end %>
+	<% unless @cwe_element.cwe_content_histories.blank? %>
+		<div id="Content_History">
+			<div class="panel-group" id="content_history_accordion" role="tablist" aria-multiselectable="true">
+				<div class="panel panel-default">
+					<div class="panel-heading" role="tab" id="headingOne">
+						<div class="heading">
+							<span id="script">
+								<%= link_to "#collapseContentHistory", "data-toggle" => "collapse", "data-parent" => "#content_history_accordion", "aria-expanded" => "true", "aria-controls" => "collapseContentHistory" do %>
+									<%= image_tag("/assets/head_more.gif", id: "ocimg_200_Description", border: "0", alt: "+") %>
+								<% end %>
+							</span>
+							Content History
+						</div>
+					</div>
+					<div id="collapseContentHistory" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+						<div class="panel-body">
+							<div id="oc_<%= @cwe_element.element_id %>_Content_History" class="expandblock" name="oc_<%= @cwe_element.element_id %>_Content_History">
+								<div class="tabledetail">
+									<% @cwe_element.cwe_content_histories.each do |content_history| %>
+										<% unless content_history.cwe_submissions.blank? %>
+											<table class="Detail table table-striped" cellspacing="0" cellpadding="0" border="0" width="100%">
+												<thead>
+													<tr>
+														<th class="title" valign="top" colspan="4">Submissions</th>
+													</tr>
+													<tr>
+														<th valign="top">Submission Date</th>
+														<th valign="top">Submitter</th>
+														<th valign="top">Organization</th>
+														<th valign="top">Source</th>
+													</tr>
+												</thead>
+												<tbody>
+													<% content_history.cwe_submissions.each do |submission| %>
+														<tr>
+															<td valign="top">
+																<%= submission.submission_date %>
+															</td>
+															<td valign="top">
+																<%= submission.submitter %>
+															</td>
+															<td valign="top"></td>
+															<td valign="top">
+																<%= submission.submission_source %>
+															</td>
+														</tr>
+													<% end %>
+												</tbody>
+											</table>
+										<% end %>
+										<% unless content_history.cwe_modifications.blank? %>
+											<table class="Detail table table-striped" cellspacing="0" cellpadding="0" border="0" width="100%">
+												<thead>
+													<tr>
+														<th class="title" valign="top" colspan="4">Modifications</th>
+													</tr>
+													<tr>
+														<th valign="top">Modification Date</th>
+														<th valign="top">Modifier</th>
+														<th valign="top">Organization</th>
+														<th valign="top">Source</th>
+													</tr>
+												</thead>
+												<tbody>
+													<% content_history.cwe_modifications.each do |modification| %>
+														<tr>
+															<td valign="top" nowrap="" rowspan="2" class="bBottom">
+																<%= modification.modification_date %>
+															</td>
+															<td valign="top">
+																<%= modification.modifier %>
+															</td>
+															<td valign="top">
+																<%= modification.modifier_org %>
+															</td>
+															<td valign="top">
+																<%= modification.modification_source %>
+															</td>
+														</tr>
+														<tr>
+															<td valign="top" colspan="3" class="bBottom fSize90 modification_comment">
+																<%= modification.modification_comment %>
+															</td>
+														</tr>
+													<% end %>
+												</tbody>
+											</table>
+										<% end %>
+										<% unless content_history.cwe_prev_entry_names.blank? %>
+											<table class="Detail table table-striped" cellspacing="0" cellpadding="0" border="0" width="100%">
+												<thead>
+													<tr>
+														<th class="title" valign="top" colspan="4">Previous Entry Names</th>
+													</tr>
+													<tr>
+														<th valign="top" nowrap="">Change Date</th>
+														<th colspan="3" valign="top" nowrap="">Previous Entry Name</th>
+													</tr>
+												</thead>
+												<tbody>
+													<% content_history.cwe_prev_entry_names.each do |prev_entry_name| %>
+														<tr>
+															<td valign="top" nowrap="">
+																<%= prev_entry_name.name_change_date %>
+															</td>
+															<td valign="top" colspan="3">
+																<%= prev_entry_name.value %>
+															</td>
+														</tr>
+													<% end %>
+												</tbody>
+											</table>
+										<% end %>
+									<% end %>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<% end %>
+</div>

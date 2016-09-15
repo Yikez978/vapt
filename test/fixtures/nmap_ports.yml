@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  protocol: MyString
+  port: MyString
+  state: MyString
+  service_name: MyString
+  product: MyString
+  version: MyString
+  extra_info: MyString
+  os_type: MyString
+
+two:
+  protocol: MyString
+  port: MyString
+  state: MyString
+  service_name: MyString
+  product: MyString
+  version: MyString
+  extra_info: MyString
+  os_type: MyString

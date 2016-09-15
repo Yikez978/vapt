@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  cwe_cat_id: 1
+  name: MyString
+  cat_status: MyString
+  desc: MyText
+  cwe_weakness_catalog_id: 1
+
+two:
+  cwe_cat_id: 1
+  name: MyString
+  cat_status: MyString
+  desc: MyText
+  cwe_weakness_catalog_id: 1

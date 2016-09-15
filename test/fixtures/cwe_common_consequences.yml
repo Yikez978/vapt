@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  consequence_scope: MyString
+  technical_impact: MyString
+  note: MyText
+  consequencable_id: 1
+  consequencable_type: MyString
+
+two:
+  consequence_scope: MyString
+  technical_impact: MyString
+  note: MyText
+  consequencable_id: 1
+  consequencable_type: MyString

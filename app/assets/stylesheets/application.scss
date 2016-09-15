@@ -1,0 +1,70 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ */
+
+/*
+*= require jquery-ui
+*= require bootstrap-datepicker3
+*= require dataTables/jquery.dataTables
+*= require dataTables/extras/dataTables.responsive
+*/
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "bootstrap3-switch";
+@import "bootstrap-datetimepicker";
+@import "c3";
+@import "custom";
+@import "style";
+@import "shCore";
+@import "shThemeDefault";
+@import "vstyle";
+@import "calendar-ui";
+@import "token-input-facebook";
+@import "engagment_info";
+@import "engagements";
+@import "font-awesome";
+
+
+$gray-darker:  lighten(#000, 13.5%); // #222
+$gray-dark:    lighten(#000, 20%);   // #333
+$gray:         lighten(#000, 33.5%); // #555
+$gray-light:   lighten(#000, 46.7%); // #777
+$gray-lighter: lighten(#000, 93.5%); // #eee
+
+$brand-primary: darken(#428bca, 6.5%); // #337ab7
+$brand-medium: lighten(#DAD728, 10%);
+$brand-success: #5cb85c;
+$brand-info:    #5bc0de;
+$brand-warning: #f0ad4e;
+$brand-danger:  #d9534f;
+
+.bg-color-critical { background-color: $brand-danger; }
+.bg-color-high { background-color: $brand-warning; }
+.bg-color-medium { background-color: $brand-medium; }
+.bg-color-low { background-color: $brand-success; }
+.bg-color-info { background-color: $brand-primary; }
+.bg-color-total { background-color: $gray-light; }
+
+.color-critical { color: $brand-danger; }
+.color-high { color: $brand-warning; }
+.color-medium { color: $brand-medium; }
+.color-low { color: $brand-success; }
+.color-info { color: $brand-primary; }
+.color-total { color: $gray-light; }
+
+.progress-bar-critical {background-color: $brand-danger;}
+.progress-bar-high {background-color: $brand-warning; color: black;}
+.progress-bar-medium {background-color: $brand-medium; color: black;}
+.progress-bar-low {background-color: $brand-success;}
+.progress-bar-info {background-color: $brand-primary;}

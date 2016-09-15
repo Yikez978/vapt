@@ -1,0 +1,73 @@
+p{
+	font-size: smaller;
+}
+table, th, td {
+   border: 1px solid black;
+}
+.fBold{
+	font-weight: bold;
+}
+.tCenter{
+	text-align: center;
+}
+.tUnderline{
+	text-decoration: underline;
+}
+.critical{
+	color: #d9534f;
+}
+.high{
+	color: #f0ad4e;
+}
+.medium{
+	color: #e1df54;
+}
+.low{
+	color: #5cb85c;
+}
+.info{
+	color: #337ab7;
+}
+.w50{
+	width: 80%;
+}
+h1{font-size: 3em; font-weight: normal;}
+.midPos{margin: 0 auto!important; width: 100%;}
+.nameUser{font-size: 1.5em;}
+.timeUser{font-size: 1.2em; padding-bottom: 2em;}
+.textUI h4{
+	font-size: 1.8em; 
+	font-weight: normal;
+	padding: 0;
+	margin: 0 0 1em 0;
+}
+.textUI h5{
+	font-size: 1.5em; 
+	margin: 0; 
+	padding: 0;
+	font-weight: normal;
+	margin: 0 0 1em 0;
+}
+.textUI h3{
+	font-size: 3em; 
+	text-align: center;
+	font-weight: normal;
+	margin: 6em 0 0 0;
+}
+.textUI p{
+	font-size: 0.8em; 
+	letter-spacing: 0;
+	margin: 0 0 1em 0;
+	line-height: 1.4em;
+}
+.textUI{margin-bottom: 1em;}
+.textUI table{margin-bottom: 2em;}
+.textUI table td, .textUI table th{font-size: 0.8em; padding: 0.4em;}
+.textUI ul li{
+	font-size: 0.8em;
+	line-height: 1.4em;
+	margin-bottom: 0.4em;
+}
+.picPadd{margin-bottom: 4em;}
+.page-break { display:block; clear:both; page-break-after:always; }
+.clear{clear: both;}

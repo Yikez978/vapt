@@ -1,0 +1,39 @@
+<table class="table" id="nmapDataTable">
+	<thead> 
+		<tr>
+			<th>Host</th>
+			<th>Port</th>
+			<th>Protocol</th>
+			<th>State</th>
+			<th>Service</th>
+			<th>Reason</th>
+			<th>Product</th>
+			<th>Version</th>
+			<th>Extra Info</th>
+		</tr>
+	</thead> 
+	<tbody>
+		<% if nmap_report %>
+		
+			<% nmap_report.nmap_hosts.includes(:nmap_ports).each do |nmap_host| %>
+				<% nmap_host.nmap_ports.each do |p| %>
+					<tr>
+						<td><%= nmap_host.ip %></td>
+						<td><%= p.port %></td>
+						<td><%= p.protocol %></td>
+						<td><%= p.state %></td>
+						<td><%= p.service_name %></td>
+						<td><%= p.reason %></td>
+						<td>
+							<% unless p.product.blank? %>
+								<%= link_to p.product, "#{exploit_search_index_path}/?utf8=✓&search=#{p.product}" %>
+							<% end %>
+						</td>
+						<td><%= p.version %></td>
+						<td><%= p.extra_info %></td>
+					</tr>
+				<% end %>
+			<% end %>
+		<% end %>
+	</tbody>
+</table>

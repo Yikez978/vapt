@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  research_gap: MyText
+  research_gapable_id: 1
+  research_gapable_type: MyString
+
+two:
+  research_gap: MyText
+  research_gapable_id: 1
+  research_gapable_type: MyString
