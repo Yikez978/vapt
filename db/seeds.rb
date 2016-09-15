@@ -12,8 +12,6 @@ Setting.find_or_create_by(label: "Max number of members per team:",
 								name: "max_members_per_team", value: "5", setting_type: "text", category: "General")
 Setting.find_or_create_by(label: "Send activation e-mails?", tooltip: "Requires mailer config", 
 								name: "send_activation_emails", value: "1", setting_type: "boolean", category: "General")
-Setting.find_or_create_by(label: "Registration on?", 
-								name: "registration_active", value: "0", setting_type: "boolean", category: "General")
 Setting.find_or_create_by(label: "Use bracket based handicap system?", 
 								name: "use_bracket_handicaps", value: "0", setting_type: "boolean", category: "General")
 Setting.find_or_create_by(label: "Allow users to view profiles other than their own?", 
