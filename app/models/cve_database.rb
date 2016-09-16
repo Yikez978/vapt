@@ -9,12 +9,10 @@ class CveDatabase < ActiveRecord::Base
   
   def self.populate_data_from_csv_xml(file_path)
     @doc = Nokogiri::XML(File.open(file_path))
-    CveDatabase.delete_all
-    CveDatabaseRef.delete_all
-    CveDatabaseVote.delete_all
-    CveDatabaseComment.delete_all
 
     @doc.xpath('//xmlns:item').each do |node|
+      next if CveDatabase.find_by(cve_database_id: node[:name]).present?
+
       cve_database = CveDatabase.new
       
       # add CVE ID
