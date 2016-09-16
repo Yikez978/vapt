@@ -1,17 +1,13 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  resources :anonymous_questions
-  get 'anonymous_questions/admin/printable' => 'anonymous_questions#printable'
-  
-  mount Ckeditor::Engine => '/ckeditor'
-  mount Precious::App, at: 'wiki', as: :wiki
 
-  resources :screenshots, only: [:new, :create, :edit, :update, :destroy]
+  mount Ckeditor::Engine => '/ckeditor'
+
   resources :reports
   resources :exploits do
-  	get :autocomplete_exploit_platform_title, on: :collection
-  	get :autocomplete_exploit_type_title, on: :collection
+    get :autocomplete_exploit_platform_title, on: :collection
+    get :autocomplete_exploit_type_title, on: :collection
   end
 
   resources :customers, only: [:index, :show] do
@@ -63,7 +59,7 @@ Rails.application.routes.draw do
   resources :cwes, only: [:show, :index]
   resources :cwe_categories, only: [:show]
   resources :cwe_compound_elements, only: [:show]
-  
+
   get 'download_exploit/download/:id' => 'download_exploit#download', as: :download_exploit
   get '/reports/:id/penetrations/new' => 'reports#new_penetration', as: :add_new_penetration
   delete '/reports/:id/penetrations/:penetration_id' => 'reports#remove_penetration', as: :remove_penetration
@@ -73,50 +69,24 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 									 'static_pages#home'
-  get 'contact' 			=> 'static_pages#contact'
-  get 'help' 					=> 'static_pages#help'
-  get 'about' 				=> 'static_pages#about'
   get 'signup'				=> 'users#new'
-	get	'admin'					=> 'settings#edit'
-	get 'login'		  		=> 'sessions#new'
-	get 'scoreboard'		=> 'scoreboard#index'
+  get	'admin'					=> 'settings#edit'
+  get 'login'		  		=> 'sessions#new'
 
-	get 'teams/get_score_data' => 'scoreboard#get_score_data'
-	get 'users/get_stats'			 => 'users#get_stats'
+  get 'users/get_stats'			 => 'users#get_stats'
   get 'user/:id/reset_password' => 'users#reset_password', as: :reset_user_password
-	get 'users/:id/checkout'	 => 'users#checkout', as: 'checkout'
 
-	post 'login' 		 			=> 'sessions#create'
-	post 'request_hint' 	=> 'hint_requests#create'
-	post 'submit' 				=> 'submissions#create'
-	post 'join'       		=> 'teams#join'
-	post 'remove_member'	=> 'teams#remove_member'
-	post 'add_hint'				=> 'hints#new'
 
-	post 'problems/add_hint' => 'problems#add_hint'
-	post 'users/:id/charge'	 => 'users#charge', as: 'charge'
+  delete 'logout'					=> 'sessions#destroy'
 
-	delete 'logout'					=> 'sessions#destroy'
-	delete 'remove_hint'		=> 'problems#remove_hint'
-	delete 'remove_bracket'	=> 'brackets#destroy'
+  patch 'settings' => 'settings#update'
 
-	patch 'settings' => 'settings#update'
-
-	resources :users do
+  resources :users do
     collection do
       get 'find_users'
     end
   end
-	resources :problems
-	resources :teams
-	resources :charges
-	resources :account_activations, only: [:edit]
-	resources :hints,								only: [:new, :edit, :create, :update]
-	resources :password_resets,     only: [:new, :create, :edit, :update]
-	resources :brackets,						only: [:new, :create, :edit, :update]
-  resources :questionnaire_responses, only: [:new, :create]
-  resources :anonymous_questions
-  
+
   post '/engagements/:engagement_id/hosts/:host_id/evidences/list' => 'evidences#list'
   post '/engagements/:engagement_id/hosts/:host_id/evidences/upload' => 'evidences#upload'
   post '/engagements/:engagement_id/hosts/:host_id/evidences/rename' => 'evidences#rename'
@@ -131,7 +101,7 @@ Rails.application.routes.draw do
   post '/engagements/:engagement_id/hosts/:host_id/evidences/compress' => 'evidences#compress'
   post '/engagements/:engagement_id/hosts/:host_id/evidences/extract' => 'evidences#extract'
   post '/engagements/:engagement_id/hosts/:host_id/evidences/permissions' => 'evidences#permissions'
-  
-  
+
+
   mount Sidekiq::Web, at: '/sidekiq'
 end
