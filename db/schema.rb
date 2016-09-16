@@ -13,28 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20160916082137) do
 
-  create_table "anonymous_questions", force: :cascade do |t|
-    t.string   "question",   limit: 255
-    t.boolean  "active",     limit: 1
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
-
-  create_table "anonymous_responses", force: :cascade do |t|
-    t.integer  "anonymous_question_id", limit: 4
-    t.text     "value",                 limit: 65535
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-  end
-
-  create_table "brackets", force: :cascade do |t|
-    t.string   "name",            limit: 255
-    t.integer  "priority",        limit: 4
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-    t.integer  "hints_available", limit: 4
-  end
-
   create_table "caches", force: :cascade do |t|
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
@@ -561,29 +539,6 @@ ActiveRecord::Schema.define(version: 20160916082137) do
     t.string   "custom_file_content_type", limit: 255
     t.integer  "custom_file_file_size",    limit: 4
     t.datetime "custom_file_updated_at"
-  end
-
-  create_table "hint_requests", force: :cascade do |t|
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
-    t.integer  "team_id",    limit: 4
-    t.integer  "user_id",    limit: 4
-    t.integer  "hint_id",    limit: 4
-    t.integer  "points",     limit: 4
-    t.integer  "problem_id", limit: 4
-  end
-
-  add_index "hint_requests", ["problem_id"], name: "index_hint_requests_on_problem_id", using: :btree
-  add_index "hint_requests", ["team_id"], name: "index_hint_requests_on_team_id", using: :btree
-  add_index "hint_requests", ["user_id"], name: "index_hint_requests_on_user_id", using: :btree
-
-  create_table "hints", force: :cascade do |t|
-    t.string   "hint",            limit: 255
-    t.integer  "points",          limit: 4
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-    t.integer  "pointer_counter", limit: 4
-    t.integer  "priority",        limit: 4
   end
 
   create_table "host_creds", force: :cascade do |t|
@@ -1120,27 +1075,6 @@ ActiveRecord::Schema.define(version: 20160916082137) do
     t.string   "name",              limit: 255
   end
 
-  create_table "problems", force: :cascade do |t|
-    t.integer  "points",                  limit: 4
-    t.string   "category",                limit: 255
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.string   "name",                    limit: 255
-    t.string   "description",             limit: 255
-    t.string   "solution",                limit: 255
-    t.string   "correct_message",         limit: 255
-    t.string   "false_message",           limit: 255
-    t.string   "hints",                   limit: 255
-    t.string   "picture",                 limit: 255
-    t.boolean  "visible",                 limit: 1
-    t.boolean  "solution_case_sensitive", limit: 1
-  end
-
-  create_table "questionnaire_responses", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "reports", force: :cascade do |t|
     t.text     "options",     limit: 16777215
     t.datetime "created_at",                   null: false
@@ -1186,21 +1120,6 @@ ActiveRecord::Schema.define(version: 20160916082137) do
     t.datetime "updated_at",                      null: false
   end
 
-  create_table "submissions", force: :cascade do |t|
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.integer  "team_id",    limit: 4
-    t.integer  "user_id",    limit: 4
-    t.boolean  "correct",    limit: 1
-    t.integer  "problem_id", limit: 4
-    t.integer  "points",     limit: 4
-    t.string   "submission", limit: 255
-  end
-
-  add_index "submissions", ["problem_id"], name: "index_submissions_on_problem_id", using: :btree
-  add_index "submissions", ["team_id"], name: "index_submissions_on_team_id", using: :btree
-  add_index "submissions", ["user_id"], name: "index_submissions_on_user_id", using: :btree
-
   create_table "system_admins", force: :cascade do |t|
     t.integer  "engagement_id",     limit: 4
     t.datetime "created_at",                    null: false
@@ -1209,29 +1128,11 @@ ActiveRecord::Schema.define(version: 20160916082137) do
     t.string   "name",              limit: 255
   end
 
-  create_table "teams", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.string   "passphrase", limit: 255
-    t.integer  "bracket_id", limit: 4
-  end
-
-  add_index "teams", ["bracket_id"], name: "index_teams_on_bracket_id", using: :btree
-
   create_table "user_engagements", force: :cascade do |t|
     t.integer  "user_id",       limit: 4
     t.integer  "engagement_id", limit: 4
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
-  end
-
-  create_table "user_problems", force: :cascade do |t|
-    t.integer  "user_id",     limit: 4
-    t.integer  "problem_id",  limit: 4
-    t.text     "explanation", limit: 65535
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
   end
 
   create_table "users", force: :cascade do |t|
