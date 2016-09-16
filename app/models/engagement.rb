@@ -1,6 +1,6 @@
 class Engagement < ActiveRecord::Base
   include AASM
-  
+
   aasm do
     state :pending, initial: true
     state :pending, :active, :on_hold, :completed, :canceled
@@ -22,6 +22,7 @@ class Engagement < ActiveRecord::Base
     end
   end
   
+  belongs_to :customer
 	has_many :ips
 	has_many :pocs
 	has_many :hosts
@@ -61,6 +62,7 @@ class Engagement < ActiveRecord::Base
 
   attr_accessor :poc, :system_admin, :ocb_number, :ip, :ocb_start_date
 
+	validates_presence_of :customer, on: :create
 	validates_presence_of :engagement_name
 	validates_presence_of :start_date
 	validates_presence_of :end_date

@@ -1,6 +1,10 @@
 class Report < ActiveRecord::Base
+
   serialize :options, Hash
+
   belongs_to :user
+  belongs_to :customer
+
   has_many :screenshots, dependent: :destroy
   accepts_nested_attributes_for :screenshots
 

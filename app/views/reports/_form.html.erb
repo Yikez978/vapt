@@ -23,6 +23,11 @@
       <%= f2.text_field :report_name, class: 'form-control' %>
     </div>
 
+    <div class="field form-group">
+      <%= f2.label "Customer" %><br>
+      <%= f.autocomplete_field :customer, autocomplete_customer_name_customers_path %>
+    </div>
+
     <%= render 'show_hide', target: :student_name %>
     <div class="field form-group">
       <%= f2.label :student_name, "Tester Name" %><br>

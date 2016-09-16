@@ -20,6 +20,7 @@ class EngagementsController < ApplicationController
 
   def create
     @engagement = current_user.user_created_engagements.new(engagement_params)
+    @engagement.customer = Customer.find_or_initialize_by(name: params[:engagement][:customer]) if params[:engagement][:customer].present?
     @engagement_types = EngagementType.all.by_name
     @users = User.all
     
