@@ -93,7 +93,8 @@ EOFSECRETS
   sed -i 's/password:/& vapt/g' config/database.yml
   sed -i 's/password:/& vapt/g' risu.cfg
   rake tmp:create db:create db:migrate db:seed
-  rake db:populate # Can take > 45 minutes
+  mysql hack_the_arch_production -u root -pvapt < db/cve_databases.sql
+  rake db:populate
   rake assets:precompile # Can take > 5 minutes
   risu --create-tables
   passenger start -p 3000 -b 0.0.0.0 -e production -d
