@@ -33,3 +33,18 @@ config/application.yml
 config/database.yml
 
 /public/system/
+/databaseDrivers.xml
+/diff.xml
+/ignore.xml
+/github_settings.xml
+/ide.general.xml
+/IntelliLang.xml
+/markdown.xml
+/vcs.xml
+/web-browsers.xml
+/ui.lnf.xml
+/databaseSettings.xml
+/debugger.xml
+/.byebug_history
+/_mac/
+/inspection/
