@@ -1,0 +1,7 @@
+<h1><%= @customer %></h1>
+
+<h3 class="text-center">Engagements</h3>
+<%= render 'engagements/engagement_table', engagements: @customer.engagements %>
+
+<h3 class="text-center">Reports</h3>
+<%= render partial: 'reports/report', collection: @customer.reports %>

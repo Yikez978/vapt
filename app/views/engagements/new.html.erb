@@ -4,6 +4,14 @@
 	<%= render "shared/error_messages", object: @engagement %>
 	
 	<div ng-app="hackTheArchListSearch">
+		<div class="row" >
+			<div class="col-xs-12">
+        <div class="field">
+          <%= f.label "Customer", class: 'required' %>
+          <%= f.autocomplete_field :customer, autocomplete_customer_name_customers_path %>
+        </div>
+      </div>
+    </div>
 		<div class="row mBot19" >
 			<div class="col-md-4">
 				<div>

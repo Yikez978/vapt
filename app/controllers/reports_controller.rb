@@ -31,7 +31,7 @@ class ReportsController < ApplicationController
     @screenshots = Screenshot.where(vulnerability_id: vulnerability_ids)
 
     @report.user = current_user
-    @report.save
+    @report.save!
     redirect_to edit_report_path(@report)
   end
 
@@ -90,7 +90,9 @@ class ReportsController < ApplicationController
   # PATCH/PUT /reports/1.json
   def update
     respond_to do |format|
-      if @report.update(report_params)
+      attributes = report_params
+      attributes[:customer] = Customer.find_or_initialize_by(name: attributes[:customer]) if attributes[:customer].present?
+      if @report.update(attributes)
         save_report_audit
         format.html { redirect_to reports_url, notice: 'Report was successfully updated.' }
         format.json { render :show, status: :ok, location: @report }

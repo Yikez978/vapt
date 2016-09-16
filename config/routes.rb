@@ -13,6 +13,11 @@ Rails.application.routes.draw do
   	get :autocomplete_exploit_platform_title, on: :collection
   	get :autocomplete_exploit_type_title, on: :collection
   end
+
+  resources :customers, only: [:index, :show] do
+    get :autocomplete_customer_name, :on => :collection
+  end
+
   resources :cves, only: [:show, :index]
   resources :exploit_types, only: [:show]
   resources :exploit_platforms, only: [:show]
