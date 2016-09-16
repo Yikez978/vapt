@@ -65,6 +65,7 @@ EOKEY
 
   echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> /home/dev/.ssh/config
   chmod 600 /home/dev/.ssh/*
+  rm -rf vapt
   git clone git@github.com:anpseftis/vapt.git
   curl -#LO https://rvm.io/mpapis.asc
   gpg --import mpapis.asc
@@ -74,8 +75,8 @@ EOKEY
   cd /etc/opt/
   rvm requirements
   rvm install 2.2.2
-  gem install bundler
-  gem install passenger
+  gem install bundler --no-ri --no-rdoc
+  gem install passenger --no-ri --no-rdoc
 
   cd /home/dev/vapt
   rvm --default use 2.2.2
@@ -93,7 +94,7 @@ EOFSECRETS
   sed -i 's/password:/& vapt/g' config/database.yml
   sed -i 's/password:/& vapt/g' risu.cfg
   rake tmp:create db:create db:migrate db:seed
-  mysql hack_the_arch_production -u root -pvapt < db/cve_databases.sql
+  mysql vapt_production -u root -pvapt < db/cve_databases.sql
   rake db:populate
   rake assets:precompile # Can take > 5 minutes
   risu --create-tables
