@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160705110914) do
+ActiveRecord::Schema.define(version: 20160916082137) do
 
   create_table "anonymous_questions", force: :cascade do |t|
     t.string   "question",   limit: 255
@@ -79,6 +79,12 @@ ActiveRecord::Schema.define(version: 20160705110914) do
     t.integer  "engagement_main_id", limit: 4
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
+  end
+
+  create_table "customers", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "cve_database_comments", force: :cascade do |t|
@@ -482,12 +488,6 @@ ActiveRecord::Schema.define(version: 20160705110914) do
     t.string   "mac",           limit: 255
   end
 
-  create_table "engagement_statuses", force: :cascade do |t|
-    t.string   "engagement_status", limit: 255
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
-  end
-
   create_table "engagement_types", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.datetime "created_at",             null: false
@@ -507,9 +507,11 @@ ActiveRecord::Schema.define(version: 20160705110914) do
     t.string   "aasm_state",              limit: 255
     t.integer  "user_id",                 limit: 4
     t.string   "ancestry",                limit: 255
+    t.integer  "customer_id",             limit: 4
   end
 
   add_index "engagements", ["ancestry"], name: "index_engagements_on_ancestry", using: :btree
+  add_index "engagements", ["customer_id"], name: "index_engagements_on_customer_id", using: :btree
 
   create_table "evidences", force: :cascade do |t|
     t.string   "name",               limit: 255
@@ -559,12 +561,6 @@ ActiveRecord::Schema.define(version: 20160705110914) do
     t.string   "custom_file_content_type", limit: 255
     t.integer  "custom_file_file_size",    limit: 4
     t.datetime "custom_file_updated_at"
-  end
-
-  create_table "family_selections", force: :cascade do |t|
-    t.integer "policy_id",   limit: 4
-    t.string  "family_name", limit: 255
-    t.string  "status",      limit: 255
   end
 
   create_table "hint_requests", force: :cascade do |t|
@@ -626,6 +622,7 @@ ActiveRecord::Schema.define(version: 20160705110914) do
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
     t.text     "synopsis",           limit: 65535
+    t.string   "vuln_name",          limit: 255
   end
 
   create_table "hosts", force: :cascade do |t|
@@ -644,6 +641,158 @@ ActiveRecord::Schema.define(version: 20160705110914) do
     t.integer  "sub_engagement_id", limit: 4
   end
 
+  create_table "metasploit_credential_cores", force: :cascade do |t|
+    t.integer  "core_id",               limit: 4
+    t.integer  "origin_id",             limit: 4
+    t.string   "origin_type",           limit: 255
+    t.integer  "private_id",            limit: 4
+    t.integer  "public_id",             limit: 4
+    t.string   "realm_id",              limit: 255
+    t.integer  "workspace_id",          limit: 4
+    t.datetime "metasploit_created_at"
+    t.datetime "metasploit_updated_at"
+    t.integer  "logins_count",          limit: 4
+    t.integer  "metasploit_report_id",  limit: 4
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+  end
+
+  create_table "metasploit_credential_logins", force: :cascade do |t|
+    t.integer  "login_id",              limit: 4
+    t.integer  "core_id",               limit: 4
+    t.integer  "service_id",            limit: 4
+    t.string   "access_level",          limit: 255
+    t.string   "status",                limit: 255
+    t.datetime "last_attempted_at"
+    t.datetime "metasploit_created_at"
+    t.datetime "metasploit_updated_at"
+    t.integer  "metasploit_report_id",  limit: 4
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+  end
+
+  create_table "metasploit_credential_origins", force: :cascade do |t|
+    t.integer  "origin_id",             limit: 4
+    t.integer  "service_id",            limit: 4
+    t.string   "module_full_name",      limit: 255
+    t.datetime "metasploit_created_at"
+    t.datetime "metasploit_updated_at"
+    t.integer  "metasploit_report_id",  limit: 4
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+  end
+
+  create_table "metasploit_credential_privates", force: :cascade do |t|
+    t.integer  "private_id",            limit: 4
+    t.string   "private_type",          limit: 255
+    t.text     "data",                  limit: 65535
+    t.datetime "metasploit_created_at"
+    t.datetime "metasploit_updated_at"
+    t.integer  "metasploit_report_id",  limit: 4
+    t.string   "jtr_format",            limit: 255
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
+  create_table "metasploit_credential_publics", force: :cascade do |t|
+    t.integer  "public_id",             limit: 4
+    t.string   "username",              limit: 255
+    t.datetime "metasploit_created_at"
+    t.datetime "metasploit_updated_at"
+    t.integer  "metasploit_report_id",  limit: 4
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+  end
+
+  create_table "metasploit_events", force: :cascade do |t|
+    t.integer  "event_id",              limit: 4
+    t.integer  "workspace_id",          limit: 4
+    t.integer  "host_id",               limit: 4
+    t.datetime "metasploit_created_at"
+    t.string   "name",                  limit: 255
+    t.datetime "metasploit_updated_at"
+    t.string   "critical",              limit: 255
+    t.string   "seen",                  limit: 255
+    t.string   "username",              limit: 255
+    t.text     "info",                  limit: 65535
+    t.string   "module_rhost",          limit: 255
+    t.string   "module_name",           limit: 255
+    t.integer  "metasploit_report_id",  limit: 4
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
+  create_table "metasploit_exploit_attempts", force: :cascade do |t|
+    t.integer  "exploit_attempt_id", limit: 4
+    t.integer  "service_id",         limit: 4
+    t.integer  "vuln_id",            limit: 4
+    t.datetime "attempted_at"
+    t.string   "exploited",          limit: 255
+    t.string   "fail_reason",        limit: 255
+    t.string   "username",           limit: 255
+    t.string   "module",             limit: 255
+    t.string   "session_id",         limit: 255
+    t.string   "loot_id",            limit: 255
+    t.integer  "port",               limit: 4
+    t.string   "proto",              limit: 255
+    t.string   "fail_detail",        limit: 255
+    t.integer  "metasploit_host_id", limit: 4
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+  end
+
+  create_table "metasploit_host_notes", force: :cascade do |t|
+    t.integer  "note_id",               limit: 4
+    t.datetime "metasploit_created_at"
+    t.datetime "metasploit_updated_at"
+    t.string   "ntype",                 limit: 255
+    t.integer  "workspace_id",          limit: 4
+    t.integer  "service_id",            limit: 4
+    t.string   "critical",              limit: 255
+    t.string   "seen",                  limit: 255
+    t.string   "vuln_id",               limit: 255
+    t.text     "data",                  limit: 65535
+    t.integer  "metasploit_host_id",    limit: 4
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
+  create_table "metasploit_host_services", force: :cascade do |t|
+    t.integer  "service_id",            limit: 4
+    t.integer  "metasploit_host_id",    limit: 4
+    t.datetime "metasploit_created_at"
+    t.datetime "metasploit_updated_at"
+    t.integer  "port",                  limit: 4
+    t.string   "proto",                 limit: 255
+    t.string   "state",                 limit: 255
+    t.string   "name",                  limit: 255
+    t.text     "info",                  limit: 65535
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
+  create_table "metasploit_host_vulns", force: :cascade do |t|
+    t.integer  "vuln_id",                  limit: 4
+    t.integer  "service_id",               limit: 4
+    t.datetime "metasploit_created_at"
+    t.datetime "metasploit_updated_at"
+    t.string   "name",                     limit: 255
+    t.text     "info",                     limit: 65535
+    t.string   "exploited_at",             limit: 255
+    t.integer  "vuln_detail_count",        limit: 4
+    t.integer  "vuln_attempt_count",       limit: 4
+    t.string   "nexpose_data_vuln_def_id", limit: 255
+    t.string   "origin_id",                limit: 255
+    t.string   "origin_type",              limit: 255
+    t.text     "notes",                    limit: 65535
+    t.text     "vuln_details",             limit: 65535
+    t.text     "vuln_attempts",            limit: 65535
+    t.integer  "metasploit_host_id",       limit: 4
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.integer  "metasploit__ref_id",       limit: 4
+  end
+
   create_table "metasploit_hosts", force: :cascade do |t|
     t.string   "metasploit_created_at", limit: 255
     t.string   "address",               limit: 255
@@ -657,10 +806,10 @@ ActiveRecord::Schema.define(version: 20160705110914) do
     t.string   "os_lang",               limit: 255
     t.string   "arch",                  limit: 255
     t.string   "workspace_id",          limit: 255
-    t.datetime "updated_at",                        null: false
+    t.datetime "metasploit_updated_at",               null: false
     t.string   "purpose",               limit: 255
     t.string   "info",                  limit: 255
-    t.string   "scope",                 limit: 255
+    t.string   "metasploit_scope",      limit: 255
     t.string   "note_count",            limit: 255
     t.string   "vuln_count",            limit: 255
     t.string   "service_count",         limit: 255
@@ -670,219 +819,109 @@ ActiveRecord::Schema.define(version: 20160705110914) do
     t.string   "history_count",         limit: 255
     t.string   "detected_arch",         limit: 255
     t.integer  "metasploit_report_id",  limit: 4
-    t.datetime "created_at",                        null: false
+    t.datetime "created_at",                          null: false
+    t.text     "comments",              limit: 65535
+    t.string   "virtual_host",          limit: 255
+    t.integer  "metasploit_id",         limit: 4
+  end
+
+  create_table "metasploit_module_arches", force: :cascade do |t|
+    t.integer  "module_archs_id",             limit: 4
+    t.string   "name",                        limit: 255
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.integer  "metasploit_module_detail_id", limit: 4
+  end
+
+  create_table "metasploit_module_authors", force: :cascade do |t|
+    t.integer  "author_id",                   limit: 4
+    t.integer  "metasploit_module_detail_id", limit: 4
+    t.string   "name",                        limit: 255
+    t.string   "email",                       limit: 255
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+  end
+
+  create_table "metasploit_module_details", force: :cascade do |t|
+    t.integer  "module_id",            limit: 4
+    t.datetime "mtime"
+    t.string   "file",                 limit: 255
+    t.string   "mtype",                limit: 255
+    t.string   "refname",              limit: 255
+    t.string   "fullname",             limit: 255
+    t.string   "name",                 limit: 255
+    t.integer  "rank",                 limit: 4
+    t.text     "description",          limit: 65535
+    t.string   "license",              limit: 255
+    t.string   "privileged",           limit: 255
+    t.datetime "disclosure_date"
+    t.string   "default_target",       limit: 255
+    t.string   "default_action",       limit: 255
+    t.string   "stance",               limit: 255
+    t.string   "ready",                limit: 255
+    t.integer  "metasploit_report_id", limit: 4
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+  end
+
+  create_table "metasploit_module_platforms", force: :cascade do |t|
+    t.integer  "module_platform_id",          limit: 4
+    t.string   "name",                        limit: 255
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.integer  "metasploit_module_detail_id", limit: 4
+  end
+
+  create_table "metasploit_module_refs", force: :cascade do |t|
+    t.integer  "module_ref_id",               limit: 4
+    t.string   "name",                        limit: 255
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.integer  "metasploit_module_detail_id", limit: 4
+  end
+
+  create_table "metasploit_module_targets", force: :cascade do |t|
+    t.integer  "module_target_id",            limit: 4
+    t.string   "name",                        limit: 255
+    t.integer  "metasploit_index",            limit: 4
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.integer  "metasploit_module_detail_id", limit: 4
+  end
+
+  create_table "metasploit_refs", force: :cascade do |t|
+    t.string   "ref",                     limit: 255
+    t.integer  "metasploit_host_vuln_id", limit: 4
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
   end
 
   create_table "metasploit_reports", force: :cascade do |t|
-    t.string   "path",          limit: 255
-    t.string   "time",          limit: 255
-    t.string   "user",          limit: 255
-    t.string   "project",       limit: 255
-    t.string   "product",       limit: 255
-    t.integer  "user_id",       limit: 4
-    t.integer  "engagement_id", limit: 4
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.string   "path",            limit: 255
+    t.string   "time",            limit: 255
+    t.string   "metasploit_user", limit: 255
+    t.string   "project",         limit: 255
+    t.string   "product",         limit: 255
+    t.integer  "user_id",         limit: 4
+    t.integer  "engagement_id",   limit: 4
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
+    t.boolean  "is_completed",    limit: 1,   default: false
   end
 
-  create_table "nessus_attachments", force: :cascade do |t|
-    t.integer "item_id",       limit: 4
-    t.string  "name",          limit: 255
-    t.string  "ttype",         limit: 255
-    t.string  "ahash",         limit: 255
-    t.text    "value",         limit: 65535
-    t.integer "user_id",       limit: 4
-    t.integer "engagement_id", limit: 4
-  end
-
-  create_table "nessus_family_selections", force: :cascade do |t|
-    t.integer "policy_id",     limit: 4
-    t.string  "family_name",   limit: 255
-    t.string  "status",        limit: 255
-    t.integer "user_id",       limit: 4
-    t.integer "engagement_id", limit: 4
-  end
-
-  create_table "nessus_host_properties", force: :cascade do |t|
-    t.integer "host_id",       limit: 4
-    t.string  "name",          limit: 255
-    t.text    "value",         limit: 4294967295
-    t.integer "user_id",       limit: 4
-    t.integer "engagement_id", limit: 4
-  end
-
-  create_table "nessus_hosts", force: :cascade do |t|
-    t.integer  "nessus_report_id", limit: 4
-    t.string   "name",             limit: 255
-    t.string   "os",               limit: 255
-    t.text     "mac",              limit: 4294967295
-    t.datetime "start"
-    t.datetime "end"
-    t.string   "ip",               limit: 255
-    t.string   "fqdn",             limit: 255
-    t.string   "netbios",          limit: 255
-    t.text     "notes",            limit: 65535
-    t.integer  "risk_score",       limit: 4
-    t.integer  "user_id",          limit: 4
-    t.integer  "engagement_id",    limit: 4
-  end
-
-  create_table "nessus_individual_plugin_selections", force: :cascade do |t|
-    t.string  "policy_id",     limit: 255
-    t.integer "plugin_id",     limit: 4
-    t.string  "plugin_name",   limit: 255
-    t.string  "family",        limit: 255
-    t.string  "status",        limit: 255
-    t.integer "user_id",       limit: 4
-    t.integer "engagement_id", limit: 4
-  end
-
-  create_table "nessus_items", force: :cascade do |t|
-    t.integer "host_id",                    limit: 4
-    t.integer "plugin_id",                  limit: 4
-    t.integer "attachment_id",              limit: 4
-    t.text    "plugin_output",              limit: 4294967295
-    t.integer "port",                       limit: 4
-    t.string  "svc_name",                   limit: 255
-    t.string  "protocol",                   limit: 255
-    t.integer "severity",                   limit: 4
-    t.string  "plugin_name",                limit: 255
-    t.boolean "verified",                   limit: 1
-    t.text    "cm_compliance_info",         limit: 4294967295
-    t.text    "cm_compliance_actual_value", limit: 4294967295
-    t.text    "cm_compliance_check_id",     limit: 4294967295
-    t.text    "cm_compliance_policy_value", limit: 4294967295
-    t.text    "cm_compliance_audit_file",   limit: 4294967295
-    t.text    "cm_compliance_check_name",   limit: 4294967295
-    t.text    "cm_compliance_result",       limit: 4294967295
-    t.text    "cm_compliance_output",       limit: 4294967295
-    t.text    "cm_compliance_reference",    limit: 4294967295
-    t.text    "cm_compliance_see_also",     limit: 4294967295
-    t.text    "cm_compliance_solution",     limit: 4294967295
-    t.integer "real_severity",              limit: 4
-    t.integer "risk_score",                 limit: 4
-    t.integer "user_id",                    limit: 4
-    t.integer "engagement_id",              limit: 4
-  end
-
-  add_index "nessus_items", ["host_id"], name: "index_nessus_items_on_host_id", using: :btree
-  add_index "nessus_items", ["plugin_id"], name: "index_nessus_items_on_plugin_id", using: :btree
-
-  create_table "nessus_patches", force: :cascade do |t|
-    t.integer "host_id",       limit: 4
-    t.string  "name",          limit: 255
-    t.string  "value",         limit: 255
-    t.integer "user_id",       limit: 4
-    t.integer "engagement_id", limit: 4
-  end
-
-  create_table "nessus_plugins", force: :cascade do |t|
-    t.integer  "plugin_id",                    limit: 4
-    t.string   "plugin_name",                  limit: 255
-    t.string   "family_name",                  limit: 255
-    t.text     "description",                  limit: 4294967295
-    t.string   "plugin_version",               limit: 255
-    t.datetime "plugin_publication_date"
-    t.datetime "plugin_modification_date"
-    t.datetime "vuln_publication_date"
-    t.string   "cvss_vector",                  limit: 255
-    t.float    "cvss_base_score",              limit: 24
-    t.string   "cvss_temporal_score",          limit: 255
-    t.string   "cvss_temporal_vector",         limit: 255
-    t.string   "exploitability_ease",          limit: 255
-    t.string   "exploit_framework_core",       limit: 255
-    t.string   "exploit_framework_metasploit", limit: 255
-    t.string   "metasploit_name",              limit: 255
-    t.string   "exploit_framework_canvas",     limit: 255
-    t.string   "canvas_package",               limit: 255
-    t.string   "exploit_available",            limit: 255
-    t.string   "risk_factor",                  limit: 255
-    t.text     "solution",                     limit: 4294967295
-    t.text     "synopsis",                     limit: 4294967295
-    t.string   "plugin_type",                  limit: 255
-    t.string   "exploit_framework_exploithub", limit: 255
-    t.string   "exploithub_sku",               limit: 255
-    t.string   "stig_severity",                limit: 255
-    t.string   "fname",                        limit: 255
-    t.string   "always_run",                   limit: 255
-    t.string   "script_version",               limit: 255
-    t.string   "d2_elliot_name",               limit: 255
-    t.string   "exploit_framework_d2_elliot",  limit: 255
-    t.string   "exploited_by_malware",         limit: 255
-    t.boolean  "rollup",                       limit: 1
-    t.integer  "risk_score",                   limit: 4
-    t.string   "compliance",                   limit: 255
-    t.string   "root_cause",                   limit: 255
-    t.string   "agent",                        limit: 255
-    t.boolean  "potential_vulnerability",      limit: 1
-    t.boolean  "in_the_news",                  limit: 1
-    t.boolean  "exploited_by_nessus",          limit: 1
-    t.boolean  "unsupported_by_vendor",        limit: 1
-    t.boolean  "default_account",              limit: 1
-    t.integer  "user_id",                      limit: 4
-    t.integer  "engagement_id",                limit: 4
-    t.integer  "policy_id",                    limit: 4
-  end
-
-  create_table "nessus_plugins_preferences", force: :cascade do |t|
-    t.integer "policy_id",         limit: 4
-    t.integer "plugin_id",         limit: 4
-    t.string  "plugin_name",       limit: 255
-    t.string  "fullname",          limit: 255
-    t.string  "preference_name",   limit: 255
-    t.string  "preference_type",   limit: 255
-    t.string  "preference_values", limit: 255
-    t.string  "selected_values",   limit: 255
-    t.integer "user_id",           limit: 4
-    t.integer "engagement_id",     limit: 4
-  end
-
-  create_table "nessus_policies", force: :cascade do |t|
-    t.string  "name",          limit: 255
-    t.text    "comments",      limit: 65535
-    t.string  "owner",         limit: 255
-    t.string  "visibility",    limit: 255
-    t.integer "user_id",       limit: 4
-    t.integer "engagement_id", limit: 4
-  end
-
-  create_table "nessus_references", force: :cascade do |t|
-    t.integer "plugin_id",      limit: 4
-    t.string  "reference_name", limit: 255
-    t.text    "value",          limit: 65535
-    t.integer "user_id",        limit: 4
-    t.integer "engagement_id",  limit: 4
-  end
-
-  add_index "nessus_references", ["plugin_id"], name: "index_nessus_references_on_plugin_id", using: :btree
-
-  create_table "nessus_reports", force: :cascade do |t|
-    t.integer "policy_id",     limit: 4
-    t.string  "name",          limit: 255
-    t.integer "user_id",       limit: 4
-    t.integer "engagement_id", limit: 4
-  end
-
-  create_table "nessus_server_preferences", force: :cascade do |t|
-    t.integer "policy_id",     limit: 4
-    t.string  "name",          limit: 255
-    t.text    "value",         limit: 4294967295
-    t.integer "user_id",       limit: 4
-    t.integer "engagement_id", limit: 4
-  end
-
-  create_table "nessus_service_descriptions", force: :cascade do |t|
-    t.string  "name",          limit: 255
-    t.integer "port",          limit: 4
-    t.string  "description",   limit: 255
-    t.integer "user_id",       limit: 4
-    t.integer "engagement_id", limit: 4
-  end
-
-  create_table "nessus_versions", force: :cascade do |t|
-    t.string  "version",       limit: 255
-    t.integer "user_id",       limit: 4
-    t.integer "engagement_id", limit: 4
+  create_table "metasploit_services", force: :cascade do |t|
+    t.integer  "service_id",            limit: 4
+    t.integer  "host_id",               limit: 4
+    t.datetime "metasploit_created_at"
+    t.datetime "metasploit_updated_at"
+    t.integer  "port",                  limit: 4
+    t.string   "proto",                 limit: 255
+    t.string   "state",                 limit: 255
+    t.string   "name",                  limit: 255
+    t.text     "info",                  limit: 65535
+    t.integer  "metasploit_report_id",  limit: 4
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
   end
 
   create_table "nmap_cpes", force: :cascade do |t|
@@ -1020,10 +1059,11 @@ ActiveRecord::Schema.define(version: 20160705110914) do
     t.text     "services",         limit: 65535
     t.boolean  "debugging",        limit: 1
     t.boolean  "verbose",          limit: 1
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
     t.integer  "user_id",          limit: 4
     t.integer  "engagement_id",    limit: 4
+    t.boolean  "is_completed",     limit: 1,     default: false
   end
 
   create_table "nmap_run_stats", force: :cascade do |t|
@@ -1072,30 +1112,12 @@ ActiveRecord::Schema.define(version: 20160705110914) do
     t.boolean  "is_active",     limit: 1,   default: true
   end
 
-  create_table "plugins_preferences", force: :cascade do |t|
-    t.integer "policy_id",         limit: 4
-    t.integer "plugin_id",         limit: 4
-    t.string  "plugin_name",       limit: 255
-    t.string  "fullname",          limit: 255
-    t.string  "preference_name",   limit: 255
-    t.string  "preference_type",   limit: 255
-    t.string  "preference_values", limit: 255
-    t.string  "selected_values",   limit: 255
-  end
-
   create_table "pocs", force: :cascade do |t|
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
     t.integer  "engagement_id",     limit: 4
     t.integer  "sub_engagement_id", limit: 4
     t.string   "name",              limit: 255
-  end
-
-  create_table "policies", force: :cascade do |t|
-    t.string "name",       limit: 255
-    t.text   "comments",   limit: 65535
-    t.string "owner",      limit: 255
-    t.string "visibility", limit: 255
   end
 
   create_table "problems", force: :cascade do |t|
@@ -1120,11 +1142,14 @@ ActiveRecord::Schema.define(version: 20160705110914) do
   end
 
   create_table "reports", force: :cascade do |t|
-    t.text     "options",    limit: 16777215
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-    t.integer  "user_id",    limit: 4
+    t.text     "options",     limit: 16777215
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.integer  "user_id",     limit: 4
+    t.integer  "customer_id", limit: 4
   end
+
+  add_index "reports", ["customer_id"], name: "index_reports_on_customer_id", using: :btree
 
   create_table "screenshots", force: :cascade do |t|
     t.string   "file",             limit: 255
@@ -1134,12 +1159,6 @@ ActiveRecord::Schema.define(version: 20160705110914) do
     t.datetime "updated_at",                     null: false
     t.integer  "index",            limit: 4
     t.text     "caption",          limit: 65535
-  end
-
-  create_table "server_preferences", force: :cascade do |t|
-    t.integer "policy_id", limit: 4
-    t.string  "name",      limit: 255
-    t.text    "value",     limit: 4294967295
   end
 
   create_table "settings", force: :cascade do |t|
@@ -1241,4 +1260,6 @@ ActiveRecord::Schema.define(version: 20160705110914) do
 
   add_index "users", ["team_id"], name: "index_users_on_team_id", using: :btree
 
+  add_foreign_key "engagements", "customers"
+  add_foreign_key "reports", "customers"
 end
