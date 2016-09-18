@@ -115,35 +115,35 @@ class ReportsController < ApplicationController
 
   private
 
-    def save_report_audit
-      report = ReportPdf.new
-      report.set_options(@report.options)
-      report.set_screenshots(Screenshot.where(report_id: @report.id))
+  def save_report_audit
+    report = ReportPdf.new
+    report.set_options(@report.options)
+    report.set_screenshots(Screenshot.where(report_id: @report.id))
 
-      pdf = report.generate!
-      timestamp = Time.now.strftime("%F_%T")
+    pdf = report.generate!
+    timestamp = Time.now.strftime("%F_%T")
 
-      report_name = !@report.options['report_name'].blank? ? @report.options['report_name'] : "untitled_report_#{timestamp}"
+    report_name = !@report.options['report_name'].blank? ? @report.options['report_name'] : "untitled_report_#{timestamp}"
 
-      save_path = Rails.root.join('pdfs',"#{current_user.fname}_#{current_user.lname}_#{current_user.id}", report_name)
-      FileUtils.mkdir_p save_path
+    save_path = Rails.root.join('pdfs',"#{current_user.fname}_#{current_user.lname}_#{current_user.id}", report_name)
+    FileUtils.mkdir_p save_path
 
-      file_name = "#{timestamp}_report.pdf"
-      File.open(save_path.join(file_name), 'wb') do |file|
-        file << pdf
-      end
+    file_name = "#{timestamp}_report.pdf"
+    File.open(save_path.join(file_name), 'wb') do |file|
+      file << pdf
     end
+  end
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_report
-      @report = Report.find(params[:id])
-      if @report.user != current_user
-        redirect_to reports_path, notice: 'You do not have access to that report.'
-      end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_report
+    @report = Report.find(params[:id])
+    if @report.user != current_user
+      redirect_to reports_path, notice: 'You do not have access to that report.'
     end
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def report_params
-      params.require(:report).permit!
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def report_params
+    params.require(:report).permit!
+  end
 end

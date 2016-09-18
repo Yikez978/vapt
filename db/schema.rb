@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160916082137) do
+ActiveRecord::Schema.define(version: 20160918190527) do
 
   create_table "anonymous_questions", force: :cascade do |t|
     t.string   "question",   limit: 255

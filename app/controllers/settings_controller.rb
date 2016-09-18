@@ -8,7 +8,7 @@ class SettingsController < ApplicationController
 		@users = User.all
 		@teams = Team.all
 	end
-
+	
 	def update
 		error = false
 		settings = params[:admin]
@@ -17,7 +17,7 @@ class SettingsController < ApplicationController
 			to_update = Setting.find(setting[:id])
 
 			if to_update.setting_type == 'boolean'
-				to_update.value = (setting[:value]) ? "1" : "0"
+ 				to_update.value = (setting[:value]) ? "1" : "0"
 			else
 				to_update.value = setting[:value]
 			end
@@ -34,11 +34,11 @@ class SettingsController < ApplicationController
 	end
 
 	private
-	def admin_user
-		unless logged_in? && current_user.admin?
-			store_location
-			flash[:danger] = "Access Denied."
-			redirect_to root_url
-		end
-	end
+		def admin_user
+      unless logged_in? && current_user.admin?
+				store_location
+				flash[:danger] = "Access Denied."
+				redirect_to root_url
+			end
+    end
 end

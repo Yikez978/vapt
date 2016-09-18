@@ -1,1 +1,1 @@
-var app = angular.module('vaptListSearch', []);
+var app = angular.module('hackTheArchListSearch', []);

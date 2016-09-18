@@ -1,16 +1,17 @@
 <div class="center jumbotron">
   <h1>Welcome to <%= competition_name %></h1>
 
-	<div class="row">
-	<%= link_to image_tag("jacobs.png", width: '80%', alt: "TS13 Pen-test Logo",
-												class: "center col-sm-12 col-md-6 col-md-offset-3"), root_path %>
-	</div>
+  <div class="row">
+    <%= link_to image_tag("mcpa-black.png", width: '80%', alt: "TS13 Pen-test Logo",
+                          class: "center col-sm-12 col-md-6 col-md-offset-3"), root_path %>
+  </div>
   <h2>
-    Cyber Security Group (CSG)
+    This is the home page for the
+
+    scoring server application developed by TS13 Pen-Test Team.
   </h2>
 
-	<% unless current_user %>
-    <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
-	<% end %>
+  <% unless current_user %>
+      <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
+  <% end %>
 </div>
-
