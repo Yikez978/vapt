@@ -74,3 +74,4 @@ class CveDatabase < ActiveRecord::Base
     end
   end
 end
+
