@@ -6,12 +6,12 @@
     <%= link_to edit_report_path(report) do %>
       <i class="glyphicon glyphicon-pencil"></i> Edit
     <% end %>
-  </span> 
+  </span>
   <span>
     <%= link_to report, method: :delete, data: { confirm: 'Are you sure?' } do %>
       <i class="glyphicon glyphicon-trash"></i> Destroy
     <% end %>
-  </span> 
+  </span>
   <span>
     <%= link_to get_pdf_path(report, format: :pdf) do %>
       <i class="glyphicon glyphicon-save"></i> Download as PDF

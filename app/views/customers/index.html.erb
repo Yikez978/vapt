@@ -1,8 +1,8 @@
 <h3 class="text-center">Customers</h3>
 
 <ul>
-<% @customers.each do |customer| %>
-  <li><%= link_to customer, customer_path(customer) %> (<%= pluralize customer.engagements.count, 'engagement' %>)</li>
-<% end %>
+  <% @customers.each do |customer| %>
+      <li><%= link_to customer, customer_path(customer) %> (<%= pluralize customer.engagements.count, 'engagement' %>)</li>
+  <% end %>
 </ul>
 <%= will_paginate @customers %>

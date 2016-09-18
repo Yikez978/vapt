@@ -10,11 +10,11 @@ class Report < ActiveRecord::Base
 
   def self.severity_levels
     {
-      'CRITICAL' => :critical,
-      'HIGH' => :high,
-      'MEDIUM' => :medium,
-      'LOW' => :low,
-      'NOTE' => :note
+        'CRITICAL' => :critical,
+        'HIGH' => :high,
+        'MEDIUM' => :medium,
+        'LOW' => :low,
+        'NOTE' => :note
     }
   end
 end

@@ -1,42 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
   <title><%= full_title(yield(:title)) %></title>
 
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-
+		
   <%= javascript_include_tag 'application' %>
   <!-- third party -->
-  <script src="../../../bower_components/angular-translate/angular-translate.min.js"></script>
-  <script src="../../../bower_components/ng-file-upload/ng-file-upload.min.js"></script>
+<script src="../../../bower_components/angular-translate/angular-translate.min.js"></script>
+<script src="../../../bower_components/ng-file-upload/ng-file-upload.min.js"></script>
 
-  <!-- angular-filemanager -->
-  <link rel="stylesheet" href="../../../bower_components/angular-filemanager/dist/angular-filemanager.min.css">
-  <script src="../../../bower_components/angular-filemanager/dist/angular-filemanager.min.js"></script>
-  <%= yield :head_javascript %>
-
+<!-- angular-filemanager -->
+<link rel="stylesheet" href="../../../bower_components/angular-filemanager/dist/angular-filemanager.min.css">
+<script src="../../../bower_components/angular-filemanager/dist/angular-filemanager.min.js"></script>
+	<%= yield :head_javascript %>
+	
   <%= csrf_meta_tags %>
-  <%= render 'layouts/ie9shim' %>
+	<%= render 'layouts/ie9shim' %>
 </head>
 <body>
-<%= render 'layouts/header' %>
-<div class="ajaxLoader">
-  <p>Loading ...</p>
-</div>
-<div class="container">
+	<%= render 'layouts/header' %>
+	<div class="ajaxLoader">
+		<p>Loading ...</p>
+	</div>
+	<div class="container">
 
-  <%= render "shared/flash_messages", flash: flash %>
-
-  <%= yield %>
-  <div id="backdropPageLoading" style="display: block;"></div>
-  <div id="pageLoading" align="center">
-    <!-- <img src="assets/img/big-loader.gif" class="img-polaroid img-rounded"> -->
-    <%= image_tag "big-loader.gif", class: "img-polaroid img-rounded" %>
-  </div>
-  <%= render 'layouts/footer' %>
-</div>
+		<%= render "shared/flash_messages", flash: flash %> 
+		
+    <%= yield %>
+    <div id="backdropPageLoading" style="display: block;"></div>
+		<div id="pageLoading" align="center">
+		  <!-- <img src="assets/img/big-loader.gif" class="img-polaroid img-rounded"> -->
+		  <%= image_tag "big-loader.gif", class: "img-polaroid img-rounded" %>
+		</div>
+    <%= render 'layouts/footer' %>
+	</div>
 </body>
 </html>
