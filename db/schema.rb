@@ -11,21 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160919164618) do
-
-  create_table "anonymous_questions", force: :cascade do |t|
-    t.string   "question"
-    t.boolean  "active"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "anonymous_responses", force: :cascade do |t|
-    t.integer  "anonymous_question_id"
-    t.text     "value"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
-  end
+ActiveRecord::Schema.define(version: 20160919165539) do
 
   create_table "caches", force: :cascade do |t|
     t.datetime "created_at",  null: false

@@ -1,8 +1,6 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  resources :anonymous_questions
-  get 'anonymous_questions/admin/printable' => 'anonymous_questions#printable'
 
   mount Ckeditor::Engine => '/ckeditor'
   mount Precious::App, at: 'wiki', as: :wiki
@@ -101,7 +99,6 @@ Rails.application.routes.draw do
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :questionnaire_responses, only: [:new, :create]
-  resources :anonymous_questions
 
   post '/engagements/:engagement_id/hosts/:host_id/evidences/list' => 'evidences#list'
   post '/engagements/:engagement_id/hosts/:host_id/evidences/upload' => 'evidences#upload'
