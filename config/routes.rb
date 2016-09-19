@@ -81,7 +81,6 @@ Rails.application.routes.draw do
   get 'login'		  		=> 'sessions#new'
   get 'scoreboard'		=> 'scoreboard#index'
 
-  get 'teams/get_score_data' => 'scoreboard#get_score_data'
   get 'users/get_stats'			 => 'users#get_stats'
   get 'user/:id/reset_password' => 'users#reset_password', as: :reset_user_password
   get 'users/:id/checkout'	 => 'users#checkout', as: 'checkout'
@@ -89,8 +88,6 @@ Rails.application.routes.draw do
   post 'login' 		 			=> 'sessions#create'
   post 'request_hint' 	=> 'hint_requests#create'
   post 'submit' 				=> 'submissions#create'
-  post 'join'       		=> 'teams#join'
-  post 'remove_member'	=> 'teams#remove_member'
   post 'add_hint'				=> 'hints#new'
 
   post 'problems/add_hint' => 'problems#add_hint'
@@ -108,7 +105,6 @@ Rails.application.routes.draw do
     end
   end
   resources :problems
-  resources :teams
   resources :charges
   resources :account_activations, only: [:edit]
   resources :hints,								only: [:new, :edit, :create, :update]

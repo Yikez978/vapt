@@ -53,10 +53,4 @@ module SettingsHelper
 		Setting.find_by(name: 'one_hundred_percent_off').try(:value)
 	end
 
-	# returns int value of setting if it's between 0 and 2 ^ 16, otherwise 0
-	# 0 = no limit on submissions
-	def max_submissions_per_team
-		(value = Setting.find_by(name: 'max_submissions_per_team').try(:value).to_i).between?(0,2**16) ? value : 0
-	end
-
 end

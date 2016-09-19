@@ -10,7 +10,6 @@ class User < ActiveRecord::Base
 	has_many :notes, dependent: :destroy
   has_many :metasploit_reports, dependent: :destroy
 
-	belongs_to :team
 	has_many :submissions, dependent: :destroy, inverse_of: :user
 	has_many :hint_requests, dependent: :destroy, inverse_of: :user
 
@@ -47,18 +46,6 @@ class User < ActiveRecord::Base
 
 	def User.new_token
 		SecureRandom.urlsafe_base64
-	end
-
-	def is_member?(team)
-		self.team_id == team.id
-	end
-
-	def leave_team
-		update_attribute(:team_id, nil)
-	end
-
-	def join_team(team)
-		update_attribute(:team_id, team.id)
 	end
 
 	def remember

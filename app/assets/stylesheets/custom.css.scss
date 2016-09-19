@@ -210,23 +210,6 @@ input {
   }
 }
 
-/* Teams index */
-.teams {
-  list-style: none;
-  margin: 0;
-  li {
-    overflow: auto;
-    padding: 10px 0;
-    border-bottom: 1px solid $gray-lighter;
-  }
-  h3 {
-    padding: 10px 0;
-  }
-}
-.table tbody>tr>td.vert-align{
-  vertical-align: middle;
-}
-
 /* Problem index */
 .problems {
   list-style: none;

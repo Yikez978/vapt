@@ -16,6 +16,6 @@ module ProblemsHelper
 	end
 
 	def get_hints_for_problem(problem)
-		admin_user? ? problem.hints_array : current_team.get_hints_requested(problem.id)
+		problem.hints_array
 	end
 end
