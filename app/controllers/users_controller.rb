@@ -18,12 +18,6 @@ class UsersController < ApplicationController
 			@engagements = UserEngagement.available_engagements(current_user.id)
 			if view_other_profiles? || current_user?(user) || admin_user?
 				@user = user
-				@score = @user.get_score
-				@submissions = @user.submissions
-				@number_of_correct_submissions = @submissions.where(correct: true).count
-				@total_number_of_submissions = @submissions.count
-				@accuracy = (@total_number_of_submissions == 0) ? 0 : @number_of_correct_submissions.to_f/@total_number_of_submissions.to_f
-				@number_of_hints = @user.hint_requests.count
 			else
 				message  = "Access Denied. "
 				message += "You can only view your profile."

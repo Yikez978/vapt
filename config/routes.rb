@@ -79,22 +79,16 @@ Rails.application.routes.draw do
   get 'signup'				=> 'users#new'
   get	'admin'					=> 'settings#edit'
   get 'login'		  		=> 'sessions#new'
-  get 'scoreboard'		=> 'scoreboard#index'
 
   get 'users/get_stats'			 => 'users#get_stats'
   get 'user/:id/reset_password' => 'users#reset_password', as: :reset_user_password
   get 'users/:id/checkout'	 => 'users#checkout', as: 'checkout'
 
   post 'login' 		 			=> 'sessions#create'
-  post 'request_hint' 	=> 'hint_requests#create'
-  post 'submit' 				=> 'submissions#create'
-  post 'add_hint'				=> 'hints#new'
 
-  post 'problems/add_hint' => 'problems#add_hint'
   post 'users/:id/charge'	 => 'users#charge', as: 'charge'
 
   delete 'logout'					=> 'sessions#destroy'
-  delete 'remove_hint'		=> 'problems#remove_hint'
 
   patch 'settings' => 'settings#update'
 
@@ -103,10 +97,8 @@ Rails.application.routes.draw do
       get 'find_users'
     end
   end
-  resources :problems
   resources :charges
   resources :account_activations, only: [:edit]
-  resources :hints,								only: [:new, :edit, :create, :update]
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :questionnaire_responses, only: [:new, :create]
   resources :anonymous_questions

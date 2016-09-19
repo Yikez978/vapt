@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160919163943) do
+ActiveRecord::Schema.define(version: 20160919164618) do
 
   create_table "anonymous_questions", force: :cascade do |t|
     t.string   "question"
@@ -555,27 +555,6 @@ ActiveRecord::Schema.define(version: 20160919163943) do
     t.datetime "custom_file_updated_at"
   end
 
-  create_table "hint_requests", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer  "user_id"
-    t.integer  "hint_id"
-    t.integer  "points"
-    t.integer  "problem_id"
-  end
-
-  add_index "hint_requests", ["problem_id"], name: "index_hint_requests_on_problem_id"
-  add_index "hint_requests", ["user_id"], name: "index_hint_requests_on_user_id"
-
-  create_table "hints", force: :cascade do |t|
-    t.string   "hint"
-    t.integer  "points"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.integer  "pointer_counter"
-    t.integer  "priority"
-  end
-
   create_table "host_creds", force: :cascade do |t|
     t.string   "ip"
     t.text     "pwdump"
@@ -1110,22 +1089,6 @@ ActiveRecord::Schema.define(version: 20160919163943) do
     t.string   "name"
   end
 
-  create_table "problems", force: :cascade do |t|
-    t.integer  "points"
-    t.string   "category"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-    t.string   "name"
-    t.string   "description"
-    t.string   "solution"
-    t.string   "correct_message"
-    t.string   "false_message"
-    t.string   "hints"
-    t.string   "picture"
-    t.boolean  "visible"
-    t.boolean  "solution_case_sensitive"
-  end
-
   create_table "questionnaire_responses", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -1175,19 +1138,6 @@ ActiveRecord::Schema.define(version: 20160919163943) do
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
   end
-
-  create_table "submissions", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer  "user_id"
-    t.boolean  "correct"
-    t.integer  "problem_id"
-    t.integer  "points"
-    t.string   "submission"
-  end
-
-  add_index "submissions", ["problem_id"], name: "index_submissions_on_problem_id"
-  add_index "submissions", ["user_id"], name: "index_submissions_on_user_id"
 
   create_table "system_admins", force: :cascade do |t|
     t.integer  "engagement_id"

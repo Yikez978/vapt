@@ -17,14 +17,6 @@ module SettingsHelper
 		Setting.find_by(name: 'competition_name').try(:value) || ''
 	end
 
-	def subtract_hint_points_before_solve?
-		(Setting.find_by(name: 'subtract_hint_points_before_solve').try(:value) == "0") ? false : true
-	end
-
-	def scoreboard_on?
-		(Setting.find_by(name: 'scoreboard_on').try(:value) == "0") ? false : true
-	end
-
 	def send_activation_emails?
 		(Setting.find_by(name: 'send_activation_emails').try(:value) == "1") ? true : false
 	end

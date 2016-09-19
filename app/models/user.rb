@@ -3,15 +3,11 @@ class User < ActiveRecord::Base
 	attr_accessor :remember_token, :activation_token, :reset_token
   #before_save   :downcase_email
 
-	has_many :user_problems, dependent: :destroy
 	has_many :reports, dependent: :destroy
 	has_many :exploits, dependent: :destroy
 	has_many :nmap_reports, dependent: :destroy
 	has_many :notes, dependent: :destroy
   has_many :metasploit_reports, dependent: :destroy
-
-	has_many :submissions, dependent: :destroy, inverse_of: :user
-	has_many :hint_requests, dependent: :destroy, inverse_of: :user
 
 	has_many :user_engagements
 	has_many :engagements, through: :user_engagements
@@ -92,43 +88,6 @@ class User < ActiveRecord::Base
     reset_sent_at < 2.hours.ago
   end
 
-	def get_score
-		cache = Cache.find_by(key: 'user_'+self.id.to_s+'_score')
-		if cache && cache.cache_valid
-			cache.value.to_i
-		else
-			if subtract_hint_points_before_solve?
-				score = Submission.where(user_id: self.id).sum(:points) -
-				HintRequest.where(user_id: self.id).sum(:points)
-			else
-				score = 0
-				for submission in Submission.where(user_id: self.id)
-					if submission.correct
-						score = score + submission.points
-						for hint in HintRequest.where(user_id: self.id, problem_id: submission.problem_id)
-							score = score - hint.points
-						end
-					end
-				end
-			end
-
-			# Update cache
-			if cache
-				cache.update(score)
-			else
-				Cache.create(key: 'user_'+self.id.to_s+'_score', value: score, cache_valid: true)
-			end
-			score
-		end
-	end
-
-	def invalidate_score
-		cache = Cache.find_by(key: 'user_'+self.id.to_s+'_score')
-		if cache
-			cache.invalidate
-		end
-	end
-
 	def get_accuracy_data
 		result = Array.new
 
@@ -138,29 +97,6 @@ class User < ActiveRecord::Base
 		result
 	end
 
-	def get_category_data
-		result = Array.new
-		@intermediate_result = Hash.new
-		@categories = Problem.select(:category).distinct
-		@subs = self.submissions.where(correct: true)
-		@category = ""
-		@count = 0
-
-		for @category in @categories
-			@intermediate_result[@category.category] = 0
-		end
-
-		for @sub in @subs
-			@intermediate_result[@sub.problem.category] += 1
-		end
-
-		@intermediate_result.each do |key, value|
-			result.push([key, value])
-		end
-		result
-
-	end
-  
   def full_name
     get_full_name
   end
