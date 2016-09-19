@@ -8,7 +8,7 @@ draw_switches = ->
 
 search_toggle = ->
   $('a[data-toggle="tab"]').on 'shown.bs.tab', (e) ->
-    if e.target.hash == '#teams' || e.target.hash == '#users'
+    if e.target.hash == '#users'
       $("#filter_container").show()
     else
       $("#filter_container").hide()

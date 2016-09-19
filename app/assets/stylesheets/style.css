@@ -104,7 +104,7 @@ textarea{
     color: #737373;
 }
 footer{margin-bottom: 9px;}
-#teams ul, #users ul{padding: 0;}
+#users ul{padding: 0;}
 a{
     -webkit-transition: .2s ease-in-out;
     -moz-transition: .2s ease-in-out;

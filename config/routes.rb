@@ -1,8 +1,6 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  resources :anonymous_questions
-  get 'anonymous_questions/admin/printable' => 'anonymous_questions#printable'
 
   mount Ckeditor::Engine => '/ckeditor'
   mount Precious::App, at: 'wiki', as: :wiki
@@ -79,26 +77,13 @@ Rails.application.routes.draw do
   get 'signup'				=> 'users#new'
   get	'admin'					=> 'settings#edit'
   get 'login'		  		=> 'sessions#new'
-  get 'scoreboard'		=> 'scoreboard#index'
 
-  get 'teams/get_score_data' => 'scoreboard#get_score_data'
   get 'users/get_stats'			 => 'users#get_stats'
   get 'user/:id/reset_password' => 'users#reset_password', as: :reset_user_password
-  get 'users/:id/checkout'	 => 'users#checkout', as: 'checkout'
 
   post 'login' 		 			=> 'sessions#create'
-  post 'request_hint' 	=> 'hint_requests#create'
-  post 'submit' 				=> 'submissions#create'
-  post 'join'       		=> 'teams#join'
-  post 'remove_member'	=> 'teams#remove_member'
-  post 'add_hint'				=> 'hints#new'
-
-  post 'problems/add_hint' => 'problems#add_hint'
-  post 'users/:id/charge'	 => 'users#charge', as: 'charge'
 
   delete 'logout'					=> 'sessions#destroy'
-  delete 'remove_hint'		=> 'problems#remove_hint'
-  delete 'remove_bracket'	=> 'brackets#destroy'
 
   patch 'settings' => 'settings#update'
 
@@ -107,15 +92,9 @@ Rails.application.routes.draw do
       get 'find_users'
     end
   end
-  resources :problems
-  resources :teams
-  resources :charges
   resources :account_activations, only: [:edit]
-  resources :hints,								only: [:new, :edit, :create, :update]
   resources :password_resets,     only: [:new, :create, :edit, :update]
-  resources :brackets,						only: [:new, :create, :edit, :update]
   resources :questionnaire_responses, only: [:new, :create]
-  resources :anonymous_questions
 
   post '/engagements/:engagement_id/hosts/:host_id/evidences/list' => 'evidences#list'
   post '/engagements/:engagement_id/hosts/:host_id/evidences/upload' => 'evidences#upload'

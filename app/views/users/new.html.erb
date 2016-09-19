@@ -1,10 +1,6 @@
 <% provide(:title, "Sign up") %>
 
-<% if require_payment? %>
-	<% provide(:button_text, "Checkout") %>
-<% else %>
-	<% provide(:button_text, "Create my account") %>
-<% end %>
+<% provide(:button_text, "Create my account") %>
 
 <%= content_tag :h1, 'Sign Up' %>
 <%= content_tag :div, class: 'row' do %>
