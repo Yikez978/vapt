@@ -3,7 +3,7 @@
 
 # General Category
 Setting.find_or_create_by(label: "Competition Name:",
-													name: "competition_name", value: "HackTheArch", setting_type: "text", category: "General")
+													name: "competition_name", value: "VAPT", setting_type: "text", category: "General")
 Setting.find_or_create_by(label: "Competition Start Time:",
 													name: "start_time", value: DateTime.current.strftime("%m/%d/%Y %I:%M %p"), setting_type: "date", category: "General")
 Setting.find_or_create_by(label: "Competition End Time:",
