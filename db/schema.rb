@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160919165539) do
+ActiveRecord::Schema.define(version: 20160919170723) do
 
   create_table "caches", force: :cascade do |t|
     t.datetime "created_at",  null: false
@@ -1161,7 +1161,6 @@ ActiveRecord::Schema.define(version: 20160919165539) do
     t.datetime "activated_at"
     t.string   "reset_digest"
     t.datetime "reset_sent_at"
-    t.boolean  "paid"
     t.string   "discount_code"
     t.string   "username"
     t.string   "avatar_file_name"

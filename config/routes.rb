@@ -80,11 +80,8 @@ Rails.application.routes.draw do
 
   get 'users/get_stats'			 => 'users#get_stats'
   get 'user/:id/reset_password' => 'users#reset_password', as: :reset_user_password
-  get 'users/:id/checkout'	 => 'users#checkout', as: 'checkout'
 
   post 'login' 		 			=> 'sessions#create'
-
-  post 'users/:id/charge'	 => 'users#charge', as: 'charge'
 
   delete 'logout'					=> 'sessions#destroy'
 
@@ -95,7 +92,6 @@ Rails.application.routes.draw do
       get 'find_users'
     end
   end
-  resources :charges
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :questionnaire_responses, only: [:new, :create]

@@ -25,10 +25,6 @@ module SettingsHelper
 		(Setting.find_by(name: 'view_other_profiles').try(:value) == "0") ? false : true
 	end
 
-	def require_payment?
-		(Setting.find_by(name: 'require_payment').try(:value) == "1") ? true : false
-	end
-
 	def entry_cost
 		Setting.find_by(name: 'entry_cost').try(:value)
 	end

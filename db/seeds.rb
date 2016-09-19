@@ -16,7 +16,7 @@ Setting.find_or_create_by(label: "Allow users to view profiles other than their 
 													name: "view_other_profiles", value: "1", setting_type: "boolean", category: "General")
 
 
-user = User.new(id: Random.rand(10000),fname:  "admin",lname: "user",username: "admin",admin: true,activated: true,paid: true,activated_at: Time.zone.now)
+user = User.new(id: Random.rand(10000),fname:  "admin",lname: "user",username: "admin",admin: true,activated: true,activated_at: Time.zone.now)
 user.password = "password"
 user.password_confirmation = "password"
 user.save

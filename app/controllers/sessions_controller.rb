@@ -5,21 +5,15 @@ class SessionsController < ApplicationController
 	def create
 		user = User.find_by(username: params[:session][:username].downcase)
     if user && user.authenticate(params[:session][:password])
-			if user.activated? && user.paid?
+			if user.activated?
         log_in user
         params[:session][:remember_me] == '1' ? remember(user) : forget(user)
         redirect_back_or user
       else
-
-				if !user.paid?
-        	flash[:warning] = 'Please finish checking out to complete your registration!'
-					redirect_to checkout_path(user)
-				else
-        	message  = 'Account not activated. '
-        	message += 'Check your email for the activation link.'
-        	flash[:warning] = message
-        	redirect_to root_url
-				end
+        message  = 'Account not activated. '
+        message += 'Check your email for the activation link.'
+        flash[:warning] = message
+        redirect_to root_url
       end
     else
       # Create an error message.
