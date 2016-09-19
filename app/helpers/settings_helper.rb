@@ -33,10 +33,6 @@ module SettingsHelper
 		(Setting.find_by(name: 'view_other_profiles').try(:value) == "0") ? false : true
 	end
 
-	def use_handicap?
-		(Setting.find_by(name: 'use_bracket_handicaps').try(:value) == "0") ? false : true
-	end
-
 	def require_payment?
 		(Setting.find_by(name: 'require_payment').try(:value) == "1") ? true : false
 	end

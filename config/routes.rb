@@ -95,7 +95,6 @@ Rails.application.routes.draw do
 
   delete 'logout'					=> 'sessions#destroy'
   delete 'remove_hint'		=> 'problems#remove_hint'
-  delete 'remove_bracket'	=> 'brackets#destroy'
 
   patch 'settings' => 'settings#update'
 
@@ -109,7 +108,6 @@ Rails.application.routes.draw do
   resources :account_activations, only: [:edit]
   resources :hints,								only: [:new, :edit, :create, :update]
   resources :password_resets,     only: [:new, :create, :edit, :update]
-  resources :brackets,						only: [:new, :create, :edit, :update]
   resources :questionnaire_responses, only: [:new, :create]
   resources :anonymous_questions
 

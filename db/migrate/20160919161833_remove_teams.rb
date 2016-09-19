@@ -11,7 +11,7 @@ class RemoveTeams < ActiveRecord::Migration
 
     drop_table :teams
 
-    setting = Setting.where(name: "max_submissions_per_team")
+    setting = Setting.where(name: "max_submissions_per_team").first
     if setting.present?
       setting.destroy!
     end
