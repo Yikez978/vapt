@@ -31,7 +31,6 @@ gem 'prawn', '~> 2.0.2'
 gem 'prawn-table', '~> 0.2.2'
 
 gem 'will_paginate', '3.0.7'
-gem 'stripe', '1.31.0'
 gem 'simplecov', '0.11.1'
 
 gem 'wicked_pdf'
