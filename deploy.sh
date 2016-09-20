@@ -81,6 +81,7 @@ EOKEY
   
   cd /home/dev/vapt/
   rvm --default use 2.2.2
+  gem install passenger
   bundle install
   cp config/database.example.yml config/database.yml
   cat > config/secrets.yml <<EOFSECRETS
