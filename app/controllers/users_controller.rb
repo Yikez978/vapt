@@ -13,24 +13,15 @@ class UsersController < ApplicationController
 		@date = params[:month] ? Date.parse(params[:month]) : Date.today
 		@user_engagements = user.engagements.where('extract(year from start_date) = ?', @date.year).where('extract(month from start_date) = ?', @date.month)
 		#Profile page calender section end
-		if user.activated?
-			@engagements = UserEngagement.available_engagements(current_user.id)
-			if view_other_profiles? || current_user?(user) || admin_user?
-				@user = user
-			else
-				message  = "Access Denied. "
-				message += "You can only view your profile."
-				flash[:warning] = message
-				redirect_to root_url
-			end
-		else
-			message  = "Account not activated. "
-			if current_user?(user)
-				message += "Check your email for the activation link."
-			end
-			flash[:warning] = message
-			redirect_to root_url
-		end
+    @engagements = UserEngagement.available_engagements(current_user.id)
+    if view_other_profiles? || current_user?(user) || admin_user?
+      @user = user
+    else
+      message  = "Access Denied. "
+      message += "You can only view your profile."
+      flash[:warning] = message
+      redirect_to root_url
+    end
 	end
 
 	def get_stats
@@ -54,7 +45,9 @@ class UsersController < ApplicationController
 	def create
 		@user = User.new(user_params)
 		if @user.save
-      activate_user(@user)
+      log_in(@user)
+      flash[:success] = "Welcome to #{competition_name}!"
+      redirect_to @user
 		else
 			render 'new'
 		end
@@ -112,19 +105,4 @@ class UsersController < ApplicationController
 			redirect_to root_url
 		end
 	end
-
-	def activate_user(user)
-		# if send_activation_emails?
-		# 		user.create_activation_digest
-		# 	user.send_activation_email
-		#  		flash[:info] = "Please check your email to activate your account."
-		#  		redirect_to root_url
-		# else
-		user.activate
-		log_in(user)
-		flash[:success] = "Welcome to #{competition_name}!"
-		redirect_to user
-		#end
-	end
-
 end
