@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160920155620) do
+ActiveRecord::Schema.define(version: 20160921135630) do
 
   create_table "caches", force: :cascade do |t|
     t.datetime "created_at",  null: false
@@ -878,8 +878,8 @@ ActiveRecord::Schema.define(version: 20160920155620) do
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
   end
-  
-   create_table "nessus_attachments", force: :cascade do |t|
+
+  create_table "nessus_attachments", force: :cascade do |t|
     t.integer "item_id",       limit: 4
     t.string  "name",          limit: 255
     t.string  "ttype",         limit: 255
@@ -959,8 +959,8 @@ ActiveRecord::Schema.define(version: 20160920155620) do
     t.integer "engagement_id",              limit: 4
   end
 
-  add_index "nessus_items", ["host_id"], name: "index_nessus_items_on_host_id", using: :btree
-  add_index "nessus_items", ["plugin_id"], name: "index_nessus_items_on_plugin_id", using: :btree
+  add_index "nessus_items", ["host_id"], name: "index_nessus_items_on_host_id"
+  add_index "nessus_items", ["plugin_id"], name: "index_nessus_items_on_plugin_id"
 
   create_table "nessus_patches", force: :cascade do |t|
     t.integer "host_id",       limit: 4
@@ -1048,7 +1048,7 @@ ActiveRecord::Schema.define(version: 20160920155620) do
     t.integer "engagement_id",  limit: 4
   end
 
-  add_index "nessus_references", ["plugin_id"], name: "index_nessus_references_on_plugin_id", using: :btree
+  add_index "nessus_references", ["plugin_id"], name: "index_nessus_references_on_plugin_id"
 
   create_table "nessus_reports", force: :cascade do |t|
     t.integer "policy_id",     limit: 4
