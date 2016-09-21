@@ -80,6 +80,7 @@ EOKEY
   
   cd /home/dev/vapt/
   source ~/.rvm/scripts/rvm
+  echo source ~/.rvm/scripts/rvm >> /home/dev/.bashrc
   rvm --default use 2.2.2
   gem install passenger
   bundle install
