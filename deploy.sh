@@ -71,16 +71,15 @@ EOKEY
   curl -#LO https://rvm.io/mpapis.asc
   gpg --import mpapis.asc
   curl -sSL https://get.rvm.io | bash -s stable
+  source ~/.rvm/scripts/rvm
+  echo source ~/.rvm/scripts/rvm >> /home/dev/.bashrc
   
-  cd /etc/opt/
   rvm requirements
   rvm install 2.2.2
   gem install bundler --no-ri --no-rdoc
   gem install passenger --no-ri --no-rdoc
   
   cd /home/dev/vapt/
-  source ~/.rvm/scripts/rvm
-  echo source ~/.rvm/scripts/rvm >> /home/dev/.bashrc
   rvm --default use 2.2.2
   gem install passenger
   bundle install
