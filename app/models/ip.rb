@@ -68,7 +68,7 @@ class Ip < ActiveRecord::Base
         ip_array << file_content
       end
       
-      ip_array.each do |name|
+      ip_array.map do |name|
         Ip.create(ip: name, engagement_id: engagement_id)
       end
     end

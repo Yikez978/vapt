@@ -44,14 +44,19 @@ class EngagementsController < ApplicationController
 
       if params[:engagement][:ip_file]
         uploaded_file = params[:engagement][:ip_file]
-        @file_content = uploaded_file.read
-        ip = Ip.create_new(@file_content, @engagement.id)
+        @file_content = uploaded_file.read.chomp
       end
 
       if params[:engagement][:ip]
         @file_content = params[:engagement][:ip]
-        ip = Ip.create_new(@file_content, @engagement.id)
       end
+
+      ips = Ip.create_new(@file_content, @engagement.id)
+
+      ips.each do |ip|
+        EngagementMain.create! host: ip.ip, engagement: @engagement, user: current_user, vulns: 0
+      end
+
 
       @poc = Poc.create_new(params[:engagement][:poc], @engagement.id)
       @system_admin = SystemAdmin.create_new(params[:engagement][:system_admin], @engagement.id)
