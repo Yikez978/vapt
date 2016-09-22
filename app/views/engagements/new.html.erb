@@ -28,8 +28,8 @@
             </div>
             <div class="field">
               <%= f.label "IPs" %>
-              <%= f.file_field :ip %>
-              <%= f.label "Or Enter Manually" %>
+              <%= f.file_field :ip, name: "engagement[ip_file]", id: "engagement_ip_file" %>
+              <%= f.label "Or enter manually:" %>
               <%= f.text_area :ip %>
             </div>
             <div class="field">

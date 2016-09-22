@@ -58,6 +58,9 @@ gem 'ancestry'
 gem 'sidekiq'
 gem 'sinatra', require: false
 gem 'slim'
+gem 'pry'
+gem 'pry-nav'
+gem 'pry-stack_explorer'
 
 group :development, :test do
   #gem 'sqlite3'
@@ -65,7 +68,6 @@ group :development, :test do
   gem 'byebug'
   gem 'web-console', '~> 2.0'
   # gem 'spring'
-	gem 'pry'
 end
 
 group :test do

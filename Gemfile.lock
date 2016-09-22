@@ -312,6 +312,11 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    pry-nav (0.2.4)
+      pry (>= 0.9.10, < 0.11.0)
+    pry-stack_explorer (0.4.9.2)
+      binding_of_caller (>= 0.7)
+      pry (>= 0.9.11)
     rack (1.6.4)
     rack-protection (1.5.3)
       rack
@@ -467,6 +472,8 @@ DEPENDENCIES
   prawn (~> 2.0.2)
   prawn-table (~> 0.2.2)
   pry
+  pry-nav
+  pry-stack_explorer
   rails (= 4.2.2)
   rails4-autocomplete
   responders (~> 2.0)

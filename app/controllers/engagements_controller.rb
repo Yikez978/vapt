@@ -42,15 +42,18 @@ class EngagementsController < ApplicationController
           end
         end
       end
-      if params[:engagement][:ip]
-        if params[:engagement][:ip].class == String
-          @file_content = params[:engagement][:ip]
-        else
-          uploaded_file = params[:engagement][:ip]
-          @file_content = uploaded_file.read
-        end
+
+      if params[:engagement][:ip_file]
+        uploaded_file = params[:engagement][:ip_file]
+        @file_content = uploaded_file.read
         ip = Ip.create_new(@file_content, @engagement.id)
       end
+
+      if params[:engagement][:ip]
+        @file_content = params[:engagement][:ip]
+        ip = Ip.create_new(@file_content, @engagement.id)
+      end
+
       @poc = Poc.create_new(params[:engagement][:poc], @engagement.id)
       @system_admin = SystemAdmin.create_new(params[:engagement][:system_admin], @engagement.id)
       @ocb = Ocb.create_new(params[:engagement][:ocb_number], params[:engagement][:ocb_start_date], @engagement.id)
