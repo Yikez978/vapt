@@ -29,17 +29,6 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  # This is for those nested routes derived from engagement
-  def check_if_user_belongs_to_engagement
-    return if current_user.user_created_engagements.pluck(:id).map(&:to_s).include? params[:engagement_id]
-    user = Engagement.find(params[:engagement_id]).users.find_by(id: current_user)
-    logger.info"*************#{user}************"
-    unless user
-      flash[:danger] = "Not authorized."
-  		redirect_to root_path
-    end
-  end
-  
   # URL routes override
   def edit_engagement_path(engagement_id)
     engagement = Engagement.find(engagement_id)

@@ -2,7 +2,7 @@ class OcbsController < ApplicationController
   protect_from_forgery except: [:create]
   
   before_action :logged_in_user
-  before_action :check_if_user_belongs_to_engagement
+  
   
   # engagement_ocbs_path
   # {"number":"sadsad","start_date":"2016-04-18T18:30:00.000Z"}

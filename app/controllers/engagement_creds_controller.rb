@@ -1,7 +1,7 @@
 class EngagementCredsController < ApplicationController
   
   before_action :logged_in_user
-  before_action :check_if_user_belongs_to_engagement
+  
   
   # POST   /engagements/:engagement_id/engagement_creds(.:format)
   def create

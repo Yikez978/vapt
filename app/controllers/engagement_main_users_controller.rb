@@ -2,7 +2,7 @@ class EngagementMainUsersController < ApplicationController
   layout false
   
   before_action :logged_in_user
-  before_action :check_if_user_belongs_to_engagement
+  
   
   # GET    /engagements/:engagement_id/engagement_mains/:engagement_main_id/engagement_main_users(.:format)
   def index

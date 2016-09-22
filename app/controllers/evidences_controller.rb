@@ -3,7 +3,7 @@ class EvidencesController < ApplicationController
   protect_from_forgery with: :exception, except: [:list, :create_folder, :upload, :remove, :download, :rename]
   
   before_action :logged_in_user
-  before_action :check_if_user_belongs_to_engagement
+  
   before_action :find_engagment_main
   
   respond_to :json

@@ -1,6 +1,6 @@
 class MetasploitController < ApplicationController
   before_action :logged_in_user
-  before_action :check_if_user_belongs_to_engagement
+  
   
   def new
     @engagement = Engagement.find(params[:engagement_id])
