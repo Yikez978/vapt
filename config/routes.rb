@@ -48,7 +48,7 @@ Rails.application.routes.draw do
     end
     resources :metasploit_host_views, only: [:show]
   end
-  resources :site_wide_engagements
+
   resources :engagement_statuses do
     collection do
       post :accept

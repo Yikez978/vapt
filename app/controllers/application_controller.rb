@@ -13,45 +13,6 @@ class ApplicationController < ActionController::Base
   	end
   end
   
-  def restrict_site_wide_engagement
-    engagement = Engagement.find(params[:id])
-    if engagement.is_site_wide_engagement
-      flash[:danger] = "This is a site wide engagement, please use proper URL."
-  		redirect_to site_wide_engagement_path(params[:id])
-    end
-  end
-  
-  def restrict_normal_engagement
-    engagement = Engagement.find(params[:id])
-    if !engagement.is_site_wide_engagement
-      flash[:danger] = "This is a normal engagement, please use proper URL."
-  		redirect_to engagement_path(params[:id])
-    end
-  end
-  
-  # URL routes override
-  def edit_engagement_path(engagement_id)
-    engagement = Engagement.find(engagement_id)
-    
-    if engagement.is_site_wide_engagement
-      edit_site_wide_engagement_url(engagement.id)
-    else
-      edit_engagement_url(engagement.id)
-    end
-  end
-  
-  def engagement_path(engagement_id)
-    engagement = Engagement.find(engagement_id)
-    
-    if engagement.is_site_wide_engagement
-      site_wide_engagement_url(engagement.id)
-    else
-      engagement_url(engagement.id)
-    end
-  end
-  
-  helper_method :edit_engagement_path, :engagement_path
-
   private
 	def logged_in_user
 		unless logged_in?

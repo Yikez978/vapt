@@ -2,7 +2,6 @@ class EngagementsController < ApplicationController
   require 'ipaddr'
 
   before_action :logged_in_user
-  before_action :restrict_site_wide_engagement, only: [:show, :edit, :update, :destroy]
   before_action :is_engagement_state_pending_and_created_by_current_user?, only: [:edit, :update, :destroy]
   before_action :not_sub_engagement, only: [:edit]
 
