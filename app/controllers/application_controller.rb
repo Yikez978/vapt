@@ -31,7 +31,8 @@ class ApplicationController < ActionController::Base
   
   # This is for those nested routes derived from engagement
   def check_if_user_belongs_to_engagement
-    user = Engagement.find(params[:engagement_id]).users.where(id: current_user).first
+    return if current_user.user_created_engagements.pluck(:id).map(&:to_s).include? params[:engagement_id]
+    user = Engagement.find(params[:engagement_id]).users.find_by(id: current_user)
     logger.info"*************#{user}************"
     unless user
       flash[:danger] = "Not authorized."
