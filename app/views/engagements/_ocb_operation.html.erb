@@ -3,7 +3,7 @@
 	<% unless @engagement.completed? %>
 	<div class="row pBot10">
 		<div class="col-md-12">
-			<div class="well">
+			<div class="well" ng-cloak>
 				{{messages_header}}
 				<button type="button" class="btn btn-primary btn-sm pull-right" aria-label="Left Align" ng-click="addNewOcbBtnClick(<%= @engagement.id %>)">
 					<span class="glyphicon glyphicon-plus-sign glyphicon-align-left" aria-hidden="true"></span>
