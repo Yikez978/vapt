@@ -1,11 +1,11 @@
-var hackTheArch = angular.module('hackTheArch', []);
+var vapt = angular.module('vapt', []);
 
-hackTheArch.value('CONFIG', {
-	'METALMAN_SENDER_TYPE' : "HACKTHEARCH",
-	'METALMAN_USER_NAME' : "HACKTHEARCH"
+vapt.value('CONFIG', {
+	'METALMAN_SENDER_TYPE' : "VAPT",
+	'METALMAN_USER_NAME' : "VAPT"
 });
 
-hackTheArch.controller('OcbCtrl', function ($scope, $compile, $http, CONFIG) {
+vapt.controller('OcbCtrl', function ($scope, $compile, $http, CONFIG) {
 	$scope.messages_header = '';
 	// $scope.master = {};
 	$scope.engagement_id = 0;

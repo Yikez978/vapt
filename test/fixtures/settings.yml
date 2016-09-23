@@ -3,7 +3,7 @@
 setting_competition_name:
   id: 1
   name: "competition_name"
-  value: "HackTheArch"
+  value: "VAPT"
   setting_type: "text"
 
 setting_start_time_active:

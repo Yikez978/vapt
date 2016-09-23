@@ -1,4 +1,4 @@
-<div ng-app="hackTheArch">
+<div ng-app="vapt">
 	<div class="ocbHead">
 		<%= render partial: "ocb_operation" unless @engagement.sub_engagement? %>
 	</div>
@@ -111,6 +111,9 @@
 					<li role="presentation" class="active"><a href="#main" aria-controls="main" role="tab" data-toggle="tab">Main</a></li>
 					<li role="presentation"><a href="#creds" aria-controls="creds" role="tab" data-toggle="tab">Creds</a></li>
 					<li role="presentation"><a href="#vulns" aria-controls="vulns" role="tab" data-toggle="tab">Vulns</a></li>
+          <li role="presentation"><a href="#nmap" aria-controls="nmap" role="tab" data-toggle="tab">Nmap</a></li>
+          <li role="presentation"><a href="#nessus" aria-controls="nessus" role="tab" data-toggle="tab">Nessus</a></li>
+          <li role="presentation"><a href="#metasploit" aria-controls="metasploit" role="tab" data-toggle="tab">Metasploit</a></li>
 				</ul>
 
 				<!-- Tab panes -->
@@ -133,6 +136,44 @@
 							</div>
 						</div>
 					</div>
+          <div role="tabpanel" class="tab-pane" id="nmap">
+            <div class="mTop10">
+              <%= select_tag('nmap_report', options_for_select(@nmap_reports.collect{ |u| ["#{u.created_at} (#{u.user.username}))", u.id] }), onchange: "var element = this.value;$('.ajaxLoader').show();$.get('/engagements/#{@engagement.id}/nmap/'+this.value+'/nmap_reports').done(function(h) {$('#nmap_full_details_link').attr('href', '/engagements/#{@engagement.id}/nmap/'+element);$('.ajaxLoader').hide();});", class: 'w400') unless @nmap_reports.empty? %>
+              <% unless @nmap_reports.blank? %>
+                  <%= link_to "View full nmap result", engagement_nmap_path(@engagement.id, @nmap_reports.first.id), id: "nmap_full_details_link", target: "_blank" %>
+              <% end %>
+              <div id="nmapListHolder">
+                <%= render partial: "list_nmaps", locals: {nmap_report: @nmap_reports.first} %>
+              </div>
+            </div>
+          </div>
+          <div role="tabpanel" class="tab-pane" id="nessus">
+            <div class="mTop10">
+              <% if !@nessus_policies.blank? && !@nessus_policies.first.nessus_reports.blank? %>
+                  <%= select_tag('nessus_policy', options_for_select(@nessus_policies.collect{ |u| ["#{u.nessus_reports.first.name} (#{User.find(u.user_id).username})", u.id] }), onchange: "var element = this.value;$('.ajaxLoader').show(); $.get('/engagements/#{@engagement.id}/nessus/'+this.value+'/nessus_reports').done(function(h) {$('#nessus_full_details_link').attr('href', '/engagements/#{@engagement.id}/nessus/'+element);$('.ajaxLoader').hide();});", class: 'w400') unless @nessus_policies.empty? %>
+              <% end %>
+              <% unless @nessus_policies.blank? %>
+                  <%= link_to "View full nessus result", engagement_nessu_path(@engagement.id, @nessus_policies.first.id), id: "nessus_full_details_link", target: "_blank" %>
+              <% end %>
+              <div id="nessusListHolder">
+                <%= render partial: "nessus_tabview", locals: {nessus_policy: @nessus_policies.first, engagement: @engagement} %>
+              </div>
+            </div>
+          </div>
+          <div role="tabpanel" class="tab-pane" id="metasploit">
+            <div class="mTop10">
+              <%= select_tag('metasploit_report', options_for_select(@metasploit_reports.collect{ |u| ["#{u.created_at} (#{u.user.username})", u.id] }), onchange: "var element = this.value;$('.ajaxLoader').show(); $.get('/engagements/#{@engagement.id}/metasploit/'+this.value+'/metasploit_reports').done(function(h) {$('#metasploit_full_details_link').attr('href', '/engagements/#{@engagement.id}/metasploit/'+element);$('.ajaxLoader').hide();});", class: 'smSelect') unless @metasploit_reports.empty? %>
+              <% unless @metasploit_reports.empty? %>
+                  <%= link_to "View full metasploit result", engagement_metasploit_path(@engagement.id, @metasploit_reports.first.id), id: "metasploit_full_details_link", target: "_blank" %>
+                  <%# if @metasploit_reports.first.is_completed %>
+                  <div id="metasploitListHolder">
+                    <%= render partial: "metasploit_tabview", locals: {metasploit_report: @metasploit_reports.first, engagement: @engagement} %>
+                  </div>
+                  <%# end %>
+              <% end %>
+            </div>
+          </div>
+        </div>
 				</div>
 			</div>
 		</div>
@@ -140,69 +181,6 @@
 	</div>
 	<!-- End of main info section and dynamic result -->
 	<hr>
-
-	<!-- Start of single tool output & notes -->
-	<div class="row">
-		<!-- Start of single tool output -->
-		<div class="col-md-12">
-			<h2>Single Tool Output</h2>
-			<div>
-				<!-- Nav tabs -->
-				<ul class="nav nav-tabs vTabs" role="tablist">
-					<li role="presentation" class="active"><a href="#nmap" aria-controls="nmap" role="tab" data-toggle="tab">Nmap</a></li>
-					<li role="presentation"><a href="#nessus" aria-controls="nessus" role="tab" data-toggle="tab">Nessus</a></li>
-					<li role="presentation"><a href="#metasploit" aria-controls="metasploit" role="tab" data-toggle="tab">Metasploit</a></li>
-				</ul>
-
-				<!-- Tab panes -->
-				<div class="tab-content">
-					<div role="tabpanel" class="tab-pane active" id="nmap">
-						<div class="mTop10">
-							<%= select_tag('nmap_report', options_for_select(@nmap_reports.collect{ |u| ["#{u.created_at} (#{u.user.username}))", u.id] }), onchange: "var element = this.value;$('.ajaxLoader').show();$.get('/engagements/#{@engagement.id}/nmap/'+this.value+'/nmap_reports').done(function(h) {$('#nmap_full_details_link').attr('href', '/engagements/#{@engagement.id}/nmap/'+element);$('.ajaxLoader').hide();});", class: 'w400') unless @nmap_reports.empty? %>
-							<% unless @nmap_reports.blank? %>
-								<%= link_to "View full nmap result", engagement_nmap_path(@engagement.id, @nmap_reports.first.id), id: "nmap_full_details_link", target: "_blank" %>
-							<% end %>
-							<div id="nmapListHolder">
-								<%= render partial: "list_nmaps", locals: {nmap_report: @nmap_reports.first} %>
-							</div>
-						</div>
-					</div>
-					<div role="tabpanel" class="tab-pane" id="nessus">
-						<div class="mTop10">
-							<% if !@nessus_policies.blank? && !@nessus_policies.first.nessus_reports.blank? %>
-								<%= select_tag('nessus_policy', options_for_select(@nessus_policies.collect{ |u| ["#{u.nessus_reports.first.name} (#{User.find(u.user_id).username})", u.id] }), onchange: "var element = this.value;$('.ajaxLoader').show(); $.get('/engagements/#{@engagement.id}/nessus/'+this.value+'/nessus_reports').done(function(h) {$('#nessus_full_details_link').attr('href', '/engagements/#{@engagement.id}/nessus/'+element);$('.ajaxLoader').hide();});", class: 'w400') unless @nessus_policies.empty? %>
-							<% end %>
-							<% unless @nessus_policies.blank? %>
-								<%= link_to "View full nessus result", engagement_nessu_path(@engagement.id, @nessus_policies.first.id), id: "nessus_full_details_link", target: "_blank" %>
-							<% end %>
-							<div id="nessusListHolder">
-								<%= render partial: "nessus_tabview", locals: {nessus_policy: @nessus_policies.first, engagement: @engagement} %>
-							</div>
-						</div>
-					</div>
-					<div role="tabpanel" class="tab-pane" id="metasploit">
-					<div class="mTop10">
-						<%= select_tag('metasploit_report', options_for_select(@metasploit_reports.collect{ |u| ["#{u.created_at} (#{u.user.username})", u.id] }), onchange: "var element = this.value;$('.ajaxLoader').show(); $.get('/engagements/#{@engagement.id}/metasploit/'+this.value+'/metasploit_reports').done(function(h) {$('#metasploit_full_details_link').attr('href', '/engagements/#{@engagement.id}/metasploit/'+element);$('.ajaxLoader').hide();});", class: 'smSelect') unless @metasploit_reports.empty? %>
-						<% unless @metasploit_reports.empty? %>
-							<%= link_to "View full metasploit result", engagement_metasploit_path(@engagement.id, @metasploit_reports.first.id), id: "metasploit_full_details_link", target: "_blank" %>
-							<%# if @metasploit_reports.first.is_completed %>
-								<div id="metasploitListHolder">
-									<%= render partial: "metasploit_tabview", locals: {metasploit_report: @metasploit_reports.first, engagement: @engagement} %>
-								</div>
-							<%# end %>
-						<% end %>
-					</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- End of single tool output -->
-	</div>
-	<!-- End of single tool output & notes -->
-	<hr>
-
-
-
 	<!-- Start note creation and engagement actions -->
 	<% unless @engagement.completed? %>
 	<div class="row">
@@ -274,4 +252,3 @@
 			</div>
 		</div>
 	</div>
-</div>
