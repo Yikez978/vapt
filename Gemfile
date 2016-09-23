@@ -61,6 +61,7 @@ gem 'slim'
 gem 'pry'
 gem 'pry-nav'
 gem 'pry-stack_explorer'
+gem 'thin'
 
 group :development, :test do
   #gem 'sqlite3'

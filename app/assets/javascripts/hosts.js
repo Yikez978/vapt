@@ -61,7 +61,7 @@ $(document).ready(function(){
 		}).fail(function( data ) {
 			alert( eval(data.responseText).join(', ') );
 		});
-		
+
 		// Show the new link
 		$('#new-service-link').removeClass('disabled');
 	});
@@ -75,7 +75,7 @@ $(document).ready(function(){
 		var mnRow = moTable.fnGetNodes( aiNew[0] );
 		editMainRow( moTable, mnRow, host );
 		mnEditing = mnRow;
-				
+
 		// Hide the new link
 		$('#new-service-link').addClass('disabled');
 	});
@@ -86,7 +86,7 @@ $(document).ready(function(){
 
 		var mnRow = $(this).parents('tr')[0];
 		moTable.fnDeleteRow( mnRow );
-				
+
 		// Show the new link
 		$('#new-service-link').removeClass('disabled');
 	});
@@ -131,7 +131,7 @@ $(document).ready(function(){
 		jqTds[4].innerHTML = '<input type="text" value="'+aData[4]+'">';
 		jqTds[5].innerHTML = '<input type="text" value="'+aData[5]+'">';
 		jqTds[6].innerHTML = '<a href="#" class="save-service-link">Save</a> <a href="#" class="cancel-main-link">Cancel</a>';
-			
+
 		mnEditing = mnRow;
 	}
 	//Host Info Datatable end
@@ -164,7 +164,8 @@ $(document).ready(function(){
 			saveVulnRow(voTable, vnEditing, data["id"], engId);
 			$("#vulnsTabView tbody tr").each(function(index){
 				//Adding pRelative class to td
-				if(!$(this).children("td:nth-last-child(2)").hasClass("pRelative")){
+				var $this = $(this);
+                if(!$(this).children("td:nth-last-child(2)").hasClass("pRelative")){
 					$(this).children("td:nth-last-child(2)").addClass("pRelative");
 				}
 				if(!$(this).children("td:nth-last-child(5)").hasClass("pRelative")){
@@ -176,7 +177,9 @@ $(document).ready(function(){
 				if(!$(this).children("td:nth-last-child(9)").hasClass("pRelative")){
 					$(this).children("td:nth-last-child(9)").addClass("pRelative");
 				}
-			})
+
+			});
+            color_rows();
 		}).fail(function(data){
 			alert( eval(data.responseText).join(', ') );
 		});
@@ -194,7 +197,7 @@ $(document).ready(function(){
 		var vnRow = voTable.fnGetNodes( aiNew[0] );
 		editVulnRow( voTable, vnRow);
 		vnEditing = vnRow;
-				
+
 		// Hide the new link
 		$('#new-vuln-link').addClass('disabled');
 	});
@@ -205,7 +208,7 @@ $(document).ready(function(){
 
 		var vnRow = $(this).parents('tr')[0];
 		voTable.fnDeleteRow( vnRow );
-				
+
 		// Show the new link
 		$('#new-vuln-link').removeClass('disabled');
 	});
@@ -257,7 +260,7 @@ $(document).ready(function(){
 		jqTds[6].innerHTML = '<input type="text" value="'+aData[6]+'">';
 		jqTds[7].innerHTML = '<select id="vulns_access_level_select"><option value="user">User</option><option value="system">System</option><option value="admin">Admin</option><option value="domain">Domain</option><option value="root">Root</option></select>'
 		jqTds[8].innerHTML = '<a href="#" class="save-vuln-link">Save</a> <a href="javascript:void(0);" class="cancel-vuln-link">Cancel</a>';
-		
+
 		vnEditing = vnRow;
 	}
 	//Vulns Datatable end
@@ -316,7 +319,7 @@ $(document).ready(function(){
 		var cnRow = coTable.fnGetNodes( aiNew[0] );
 		editCredRow( coTable, cnRow);
 		cnEditing = cnRow;
-				
+
 		// Hide the new link
 		$('#new-host-cred-link').addClass('disabled');
 	});
@@ -327,7 +330,7 @@ $(document).ready(function(){
 
 		var cnRow = $(this).parents('tr')[0];
 		coTable.fnDeleteRow( cnRow );
-				
+
 		// Show the new link
 		$('#new-host-cred-link').removeClass('disabled');
 	});
@@ -368,7 +371,7 @@ $(document).ready(function(){
 		jqTds[2].innerHTML = '<input type="text" value="'+aData[2]+'">';
 		jqTds[3].innerHTML = '<textarea value="'+aData[3]+'"></textarea>';
 		jqTds[4].innerHTML = '<a href="javascript:void(0);" class="save-cred-link">Save</a> <a href="javascript:void(0);" class="cancel-cred-link">Cancel</a>';
-		
+
 		cnEditing = cnRow;
 	}
 	//Creds Datatable end
@@ -434,7 +437,7 @@ $(document).ready(function(){
 		var cfnRow = cfoTable.fnGetNodes( aiNew[0] );
 		editCustomFindingRow( cfoTable, cfnRow);
 		cfnEditing = cfnRow;
-				
+
 		// Hide the new link
 		$('#new-custom-finding-link').addClass('disabled');
 	});
@@ -445,7 +448,7 @@ $(document).ready(function(){
 
 		var cfnRow = $(this).parents('tr')[0];
 		cfoTable.fnDeleteRow( cfnRow );
-				
+
 		// Show the new link
 		$('#new-custom-finding-link').removeClass('disabled');
 	});
@@ -492,7 +495,7 @@ $(document).ready(function(){
 		jqTds[4].innerHTML = '<textarea value="'+aData[3]+'"></textarea>';
 		jqTds[5].innerHTML = '<select id="custom_finding_access_select"><option value="user">User</option><option value="system">System</option><option value="admin">Admin</option><option value="domain">Domain</option><option value="root">Root</option></select>'
 		jqTds[6].innerHTML = '<a href="javascript:void(0);" class="save-custom-finding-link">Save</a> <a href="javascript:void(0);" class="cancel-custom-finding-link">Cancel</a>';
-		
+
 		cfnEditing = cfnRow;
 	}
 	//Custom Findings Datatable end
@@ -504,7 +507,7 @@ $(document).ready(function(){
 		}
 		else if($(this).text() == "Windows"){
 			$(".os_image").children("i").removeClass();
-			$(".os_image").children("i").addClass("fa fa-windows");	
+			$(".os_image").children("i").addClass("fa fa-windows");
 		}
 		else if($(this).text() == "Mac"){
 			$(".os_image").children("i").removeClass();

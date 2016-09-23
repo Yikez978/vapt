@@ -50,3 +50,6 @@ config/database.yml
 /inspection/
 
 *.dylib
+.idea/dbnavigator.xml
+
+.idea/*

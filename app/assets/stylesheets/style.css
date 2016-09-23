@@ -325,7 +325,7 @@ label.required:after{content:"*"}
 .hostInfoUi h4{font-size: 24px;}
 .hostInfoUiHead i{font-size: 50px;}
 .hostInfoUiHead{border-bottom: #ccc 1px solid; padding-bottom: 9px;}
-.hostInfoUi .host_info ul li span{word-wrap: break-word; vertical-align: top;}
+.hostInfoUi .host_info ul li span{vertical-align: top;}
 .hostInfoUi .host_info ul li span:nth-child(1){width: 29%;}
 .hostInfoUi .host_info ul li span:nth-child(2){width: 69%; color: #000;}
 .hostViewHead h3, .hostScanView h4{

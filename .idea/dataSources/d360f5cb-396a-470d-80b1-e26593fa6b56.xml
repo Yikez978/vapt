@@ -4358,28 +4358,25 @@ assetable_id</columns>
     <column id="1341" parent="126" name="reset_sent_at">
       <data-type>datetime|0</data-type>
     </column>
-    <column id="1342" parent="126" name="discount_code">
+    <column id="1342" parent="126" name="username">
       <data-type>varchar(255)|0</data-type>
     </column>
-    <column id="1343" parent="126" name="username">
+    <column id="1343" parent="126" name="avatar_file_name">
       <data-type>varchar(255)|0</data-type>
     </column>
-    <column id="1344" parent="126" name="avatar_file_name">
+    <column id="1344" parent="126" name="avatar_content_type">
       <data-type>varchar(255)|0</data-type>
     </column>
-    <column id="1345" parent="126" name="avatar_content_type">
-      <data-type>varchar(255)|0</data-type>
-    </column>
-    <column id="1346" parent="126" name="avatar_file_size">
+    <column id="1345" parent="126" name="avatar_file_size">
       <data-type>int(11)|0</data-type>
     </column>
-    <column id="1347" parent="126" name="avatar_updated_at">
+    <column id="1346" parent="126" name="avatar_updated_at">
       <data-type>datetime|0</data-type>
     </column>
-    <column id="1348" parent="126" name="engagement_id">
+    <column id="1347" parent="126" name="engagement_id">
       <data-type>int(11)|0</data-type>
     </column>
-    <key id="1349" parent="126" name="PRIMARY">
+    <key id="1348" parent="126" name="PRIMARY">
       <columns>id</columns>
       <primary>1</primary>
     </key>

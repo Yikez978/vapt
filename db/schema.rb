@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160921135630) do
+ActiveRecord::Schema.define(version: 20160923140208) do
 
   create_table "caches", force: :cascade do |t|
     t.datetime "created_at",              null: false
@@ -1275,11 +1275,6 @@ ActiveRecord::Schema.define(version: 20160921135630) do
     t.string   "name",              limit: 255
   end
 
-  create_table "questionnaire_responses", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "reports", force: :cascade do |t|
     t.text     "options",     limit: 16777215
     t.datetime "created_at",                   null: false
@@ -1340,14 +1335,6 @@ ActiveRecord::Schema.define(version: 20160921135630) do
     t.datetime "updated_at",              null: false
   end
 
-  create_table "user_problems", force: :cascade do |t|
-    t.integer  "user_id",     limit: 4
-    t.integer  "problem_id",  limit: 4
-    t.text     "explanation", limit: 65535
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-  end
-
   create_table "users", force: :cascade do |t|
     t.string   "fname",               limit: 255
     t.string   "lname",               limit: 255
@@ -1358,7 +1345,6 @@ ActiveRecord::Schema.define(version: 20160921135630) do
     t.boolean  "admin",               limit: 1,   default: false
     t.string   "reset_digest",        limit: 255
     t.datetime "reset_sent_at"
-    t.string   "discount_code",       limit: 255
     t.string   "username",            limit: 255
     t.string   "avatar_file_name",    limit: 255
     t.string   "avatar_content_type", limit: 255
