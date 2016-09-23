@@ -1345,6 +1345,7 @@ ActiveRecord::Schema.define(version: 20160923140208) do
     t.boolean  "admin",               limit: 1,   default: false
     t.string   "reset_digest",        limit: 255
     t.datetime "reset_sent_at"
+    t.string   "discount_code",       limit: 255
     t.string   "username",            limit: 255
     t.string   "avatar_file_name",    limit: 255
     t.string   "avatar_content_type", limit: 255

@@ -52,7 +52,6 @@ gem "paperclip"
 gem 'rails4-autocomplete'
 gem "watu_table_builder", require: "table_builder"
 gem 'risu', git: "https://github.com/UjjalGWL/risu"
-#gem 'risu', path: "/home/ujjaal/RailsApps/risu"
 gem 'best_in_place'
 gem 'ancestry'
 gem 'sidekiq'
@@ -64,11 +63,9 @@ gem 'pry-stack_explorer'
 gem 'thin'
 
 group :development, :test do
-  #gem 'sqlite3'
   gem 'mysql2', '~> 0.3.20'
   gem 'byebug'
   gem 'web-console', '~> 2.0'
-  # gem 'spring'
 end
 
 group :test do
@@ -77,10 +74,6 @@ group :test do
   gem 'guard-minitest',	'2.3.1'
 end
 
-# Configured for Heroku
 group :production do
-  # gem 'pg',  '0.17.1'
-  # gem 'rails_12factor', '0.0.2'
-  # gem 'puma', '2.11.1'
   gem 'passenger', '5.0.29'
 end
