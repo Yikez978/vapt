@@ -7,7 +7,7 @@
 	<body>
 		<div id="content" class="midPos">
 			<div class="tCenter">
-				<h1>Penetration Test Report for Internal Lab and Exam</h1>
+				<h1>Penetration Test Report by the Cyber Security Group(CSG)</h1>
 			</div>
 			<hr>
 			<% unless @report.options[:student_name].blank? %>
@@ -62,45 +62,14 @@
 			</div>
 			<div class="page-break"></div>
 			<div class="textUI">
-				<h4 class="tUnderline">3.0 Methodologies</h4>
+				<h4 class="tUnderline">3.0 Risk Rating</h4>
 				<div>
-					<% unless @report.options[:methodologies_overview].blank? %>
-						<p><%= make_absolute_url(@report.options[:methodologies_overview]).html_safe %></p>
+					<% unless @report.options[:risk_rating].blank? %>
+						<p><%= make_absolute_url(@report.options[:risk_rating]).html_safe %></p>
 					<% end %>
 					<h5>3.1 Information Gathering</h5>
 					<% unless @report.options[:information_gathering].blank? %>
 						<p><%= make_absolute_url(@report.options[:information_gathering]).html_safe %></p>
-					<% end %>
-					<h5>3.2 Service Enumeration</h5>
-					<% unless @report.options[:service_enumeration].blank? %>
-						<p><%= make_absolute_url(@report.options[:service_enumeration]).html_safe %></p>
-					<% end %>
-					<% unless @report.options[:enumerations].blank? %>
-						<table cellpadding="0" cellspacing="0">
-							<thead>
-								<tr>
-									<th>Server IP Address</th>
-									<th>Ports Open</th>
-								</tr>
-							</thead>
-							<tbody>
-								<% @report.options[:enumerations].each do |enumeration| %>
-									<tr>
-										<td rowspan="2">
-											<%= enumeration[1][:server] %>
-										</td>
-										<td>
-											TCP : <%= enumeration[1][:tcp] %>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											UDP : <%= enumeration[1][:udp] %>
-										</td>
-									</tr>
-								<% end %>
-							</tbody>
-						</table>
 					<% end %>
 				</div>
 				<div class="clear"></div>
@@ -178,9 +147,9 @@
 			<% end %>
 			<div class="page-break"></div>
 			<div class="textUI">
-				<h4 class="tUnderline">5.0 Maintaining Access</h4>
-				<% unless @report.options[:maintaining_access].blank? %>
-					<p><%= make_absolute_url(@report.options[:maintaining_access]).html_safe %></p>
+				<h4 class="tUnderline">5.0 Post Exploitation</h4>
+				<% unless @report.options[:post_exploitation].blank? %>
+					<p><%= make_absolute_url(@report.options[:post_exploitation]).html_safe %></p>
 				<% end %>
 				<div class="clear"></div>
 			</div>

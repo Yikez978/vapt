@@ -3,7 +3,6 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
 
   mount Ckeditor::Engine => '/ckeditor'
-  mount Precious::App, at: 'wiki', as: :wiki
 
   resources :screenshots, only: [:new, :create, :edit, :update, :destroy]
   resources :reports
@@ -71,9 +70,6 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 									 'static_pages#home'
-  get 'contact' 			=> 'static_pages#contact'
-  get 'help' 					=> 'static_pages#help'
-  get 'about' 				=> 'static_pages#about'
   get 'signup'				=> 'users#new'
   get	'admin'					=> 'settings#edit'
   get 'login'		  		=> 'sessions#new'
@@ -94,7 +90,6 @@ Rails.application.routes.draw do
   end
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
-  resources :questionnaire_responses, only: [:new, :create]
 
   post '/engagements/:engagement_id/hosts/:host_id/evidences/list' => 'evidences#list'
   post '/engagements/:engagement_id/hosts/:host_id/evidences/upload' => 'evidences#upload'
@@ -110,7 +105,6 @@ Rails.application.routes.draw do
   post '/engagements/:engagement_id/hosts/:host_id/evidences/compress' => 'evidences#compress'
   post '/engagements/:engagement_id/hosts/:host_id/evidences/extract' => 'evidences#extract'
   post '/engagements/:engagement_id/hosts/:host_id/evidences/permissions' => 'evidences#permissions'
-
 
   mount Sidekiq::Web, at: '/sidekiq'
 end

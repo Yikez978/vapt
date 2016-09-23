@@ -83,12 +83,12 @@
           </div>
         </div>
 
-        <%= render 'show_hide', target: :methodologies_overview %>
+        <%= render 'show_hide', target: :risk_rating %>
         <div class="field form-group">
-          <%= f2.label :methodologies_overview %><br>
-          <div class="methodologies_overview_toggle">
-            <%= render "example_text", example: :methodologies_overview %>
-            <%= f2.cktext_area :methodologies_overview, rows: 4, class: 'form-control' %>
+          <%= f2.label :risk_rating %><br>
+          <div class="risk_rating_toggle">
+            <%= render "example_text", example: :risk_rating %>
+            <%= f2.cktext_area :risk_rating, rows: 4, class: 'form-control' %>
           </div>
         </div>
 
@@ -101,24 +101,6 @@
           </div>
         </div>
 
-        <%= render 'show_hide', target: :service_enumeration %>
-        <div class="field form-group">
-          <%= f2.label :service_enumeration, "Service Enumeration Text" %><br>
-          <div class="service_enumeration_toggle">
-            <%= render "example_text", example: :service_enumeration %>
-            <%= f2.cktext_area :service_enumeration, rows: 4, class: 'form-control' %>
-          </div>
-        </div>
-
-        <%= render 'show_hide', target: :enumerations %>
-        <div>
-          <%= f2.label :enumerations, "Enumerated Services" %>
-          <%= f2.fields_for :enumerations, OpenStruct.new(f2.object.enumerations || {}) do |f3| %>
-              <%= render "example_text", example: :enumerations %>
-              <%= render 'service_enumerations', f: f3 %>
-          <% end %>
-        </div>
-
         <%= render 'show_hide', target: :penetrations %>
         <div>
           <%= f2.label :penetrations, "Successful Penetrations" %>
@@ -129,12 +111,12 @@
           <% end %>
         </div>
 
-        <%= render 'show_hide', target: :maintaining_access %>
+        <%= render 'show_hide', target: :post_exploitation %>
         <div class="field form-group">
-          <%= f2.label :maintaining_access %>
-          <div class="maintaining_access_toggle">
-            <%= render "example_text", example: :maintaining_access %>
-            <%= f2.cktext_area :maintaining_access, rows: 4, class: 'form-control' %>
+          <%= f2.label :post_exploitation %>
+          <div class="post_exploitation_toggle">
+            <%= render "example_text", example: :post_exploitation %>
+            <%= f2.cktext_area :post_exploitation, rows: 4, class: 'form-control' %>
           </div>
         </div>
 
@@ -174,10 +156,7 @@
     }
   }
   function getTarget(target) {
-    // var input = $('#report_options_' + target);
-    // if (input.length == 0) {
     input = $('.' + target + '_toggle' );
-    // }
     return input;
   }
   function toggle(target) {
