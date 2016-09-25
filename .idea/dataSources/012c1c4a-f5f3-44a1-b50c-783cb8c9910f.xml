@@ -1,133 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="Rails vapt: development">
   <database-model serializer="dbm" rdbms="MYSQL" format-version="2.6">
     <schema id="1" name="vapt_development">
       <visible>1</visible>
     </schema>
-    <schema id="2" name="information_schema" />
-    <schema id="3" name="mysql" />
-    <schema id="4" name="performance_schema" />
-    <schema id="5" name="sys" />
-    <schema id="6" name="vapt_test" />
-    <schema id="7" name="vapt_production" />
-    <table id="8" parent="1" name="caches" />
-    <table id="9" parent="1" name="ckeditor_assets" />
-    <table id="10" parent="1" name="code_blocks" />
-    <table id="11" parent="1" name="custom_findings" />
-    <table id="12" parent="1" name="customers" />
-    <table id="13" parent="1" name="cve_database_comments" />
-    <table id="14" parent="1" name="cve_database_refs" />
-    <table id="15" parent="1" name="cve_database_votes" />
-    <table id="16" parent="1" name="cve_databases" />
-    <table id="17" parent="1" name="cwe_alternate_terms" />
-    <table id="18" parent="1" name="cwe_architechtural_paradigms" />
-    <table id="19" parent="1" name="cwe_audiences" />
-    <table id="20" parent="1" name="cwe_categories" />
-    <table id="21" parent="1" name="cwe_common_consequences" />
-    <table id="22" parent="1" name="cwe_compound_elements" />
-    <table id="23" parent="1" name="cwe_content_histories" />
-    <table id="24" parent="1" name="cwe_demonstrative_examples" />
-    <table id="25" parent="1" name="cwe_detection_methods" />
-    <table id="26" parent="1" name="cwe_functional_areas" />
-    <table id="27" parent="1" name="cwe_languages" />
-    <table id="28" parent="1" name="cwe_maintenance_notes" />
-    <table id="29" parent="1" name="cwe_mitigations" />
-    <table id="30" parent="1" name="cwe_mode_of_intros" />
-    <table id="31" parent="1" name="cwe_modifications" />
-    <table id="32" parent="1" name="cwe_observed_examples" />
-    <table id="33" parent="1" name="cwe_prev_entry_names" />
-    <table id="34" parent="1" name="cwe_references" />
-    <table id="35" parent="1" name="cwe_related_attack_patterns" />
-    <table id="36" parent="1" name="cwe_relationship_notes" />
-    <table id="37" parent="1" name="cwe_relationships" />
-    <table id="38" parent="1" name="cwe_research_gaps" />
-    <table id="39" parent="1" name="cwe_submissions" />
-    <table id="40" parent="1" name="cwe_taxonomies" />
-    <table id="41" parent="1" name="cwe_technology_classes" />
-    <table id="42" parent="1" name="cwe_theoritical_notes" />
-    <table id="43" parent="1" name="cwe_time_of_intros" />
-    <table id="44" parent="1" name="cwe_views" />
-    <table id="45" parent="1" name="cwe_weakness_catalogs" />
-    <table id="46" parent="1" name="cwe_weakness_ordinalities" />
-    <table id="47" parent="1" name="cwe_weaknesses" />
-    <table id="48" parent="1" name="cwe_white_box_defs" />
-    <table id="49" parent="1" name="engagement_creds" />
-    <table id="50" parent="1" name="engagement_files" />
-    <table id="51" parent="1" name="engagement_main_users" />
-    <table id="52" parent="1" name="engagement_mains" />
-    <table id="53" parent="1" name="engagement_types" />
-    <table id="54" parent="1" name="engagements" />
-    <table id="55" parent="1" name="evidences" />
-    <table id="56" parent="1" name="exploit_platforms" />
-    <table id="57" parent="1" name="exploit_types" />
-    <table id="58" parent="1" name="exploits" />
-    <table id="59" parent="1" name="host_creds" />
-    <table id="60" parent="1" name="host_infos" />
-    <table id="61" parent="1" name="host_vulns" />
-    <table id="62" parent="1" name="hosts" />
-    <table id="63" parent="1" name="ips" />
-    <table id="64" parent="1" name="metasploit_credential_cores" />
-    <table id="65" parent="1" name="metasploit_credential_logins" />
-    <table id="66" parent="1" name="metasploit_credential_origins" />
-    <table id="67" parent="1" name="metasploit_credential_privates" />
-    <table id="68" parent="1" name="metasploit_credential_publics" />
-    <table id="69" parent="1" name="metasploit_events" />
-    <table id="70" parent="1" name="metasploit_exploit_attempts" />
-    <table id="71" parent="1" name="metasploit_host_notes" />
-    <table id="72" parent="1" name="metasploit_host_services" />
-    <table id="73" parent="1" name="metasploit_host_vulns" />
-    <table id="74" parent="1" name="metasploit_hosts" />
-    <table id="75" parent="1" name="metasploit_module_arches" />
-    <table id="76" parent="1" name="metasploit_module_authors" />
-    <table id="77" parent="1" name="metasploit_module_details" />
-    <table id="78" parent="1" name="metasploit_module_platforms" />
-    <table id="79" parent="1" name="metasploit_module_refs" />
-    <table id="80" parent="1" name="metasploit_module_targets" />
-    <table id="81" parent="1" name="metasploit_refs" />
-    <table id="82" parent="1" name="metasploit_reports" />
-    <table id="83" parent="1" name="metasploit_services" />
-    <table id="84" parent="1" name="nessus_attachments" />
-    <table id="85" parent="1" name="nessus_family_selections" />
-    <table id="86" parent="1" name="nessus_host_properties" />
-    <table id="87" parent="1" name="nessus_hosts" />
-    <table id="88" parent="1" name="nessus_individual_plugin_selections" />
-    <table id="89" parent="1" name="nessus_items" />
-    <table id="90" parent="1" name="nessus_patches" />
-    <table id="91" parent="1" name="nessus_plugins" />
-    <table id="92" parent="1" name="nessus_plugins_preferences" />
-    <table id="93" parent="1" name="nessus_policies" />
-    <table id="94" parent="1" name="nessus_references" />
-    <table id="95" parent="1" name="nessus_reports" />
-    <table id="96" parent="1" name="nessus_server_preferences" />
-    <table id="97" parent="1" name="nessus_service_descriptions" />
-    <table id="98" parent="1" name="nessus_versions" />
-    <table id="99" parent="1" name="nmap_cpes" />
-    <table id="100" parent="1" name="nmap_host_ipidsequences" />
-    <table id="101" parent="1" name="nmap_host_tcpsequences" />
-    <table id="102" parent="1" name="nmap_host_tcptssequences" />
-    <table id="103" parent="1" name="nmap_host_traceroutes" />
-    <table id="104" parent="1" name="nmap_host_uptimes" />
-    <table id="105" parent="1" name="nmap_hostnames" />
-    <table id="106" parent="1" name="nmap_hosts" />
-    <table id="107" parent="1" name="nmap_operating_systems" />
-    <table id="108" parent="1" name="nmap_os_classes" />
-    <table id="109" parent="1" name="nmap_os_matches" />
-    <table id="110" parent="1" name="nmap_ports" />
-    <table id="111" parent="1" name="nmap_reports" />
-    <table id="112" parent="1" name="nmap_run_stats" />
-    <table id="113" parent="1" name="nmap_scripts" />
-    <table id="114" parent="1" name="nmap_used_ports" />
-    <table id="115" parent="1" name="notes" />
-    <table id="116" parent="1" name="ocbs" />
-    <table id="117" parent="1" name="pocs" />
-    <table id="118" parent="1" name="reports" />
-    <table id="119" parent="1" name="schema_migrations" />
-    <table id="120" parent="1" name="screenshots" />
-    <table id="121" parent="1" name="settings" />
-    <table id="122" parent="1" name="sidekiq_errors" />
-    <table id="123" parent="1" name="sub_engagements" />
-    <table id="124" parent="1" name="system_admins" />
-    <table id="125" parent="1" name="user_engagements" />
-    <table id="126" parent="1" name="users" />
+    <schema id="2" name="information_schema"/>
+    <schema id="3" name="mysql"/>
+    <schema id="4" name="performance_schema"/>
+    <schema id="5" name="sys"/>
+    <schema id="6" name="vapt_test"/>
+    <schema id="7" name="vapt_production"/>
+    <table id="8" parent="1" name="caches"/>
+    <table id="9" parent="1" name="ckeditor_assets"/>
+    <table id="10" parent="1" name="code_blocks"/>
+    <table id="11" parent="1" name="custom_findings"/>
+    <table id="12" parent="1" name="customers"/>
+    <table id="13" parent="1" name="cve_database_comments"/>
+    <table id="14" parent="1" name="cve_database_refs"/>
+    <table id="15" parent="1" name="cve_database_votes"/>
+    <table id="16" parent="1" name="cve_databases"/>
+    <table id="17" parent="1" name="cwe_alternate_terms"/>
+    <table id="18" parent="1" name="cwe_architechtural_paradigms"/>
+    <table id="19" parent="1" name="cwe_audiences"/>
+    <table id="20" parent="1" name="cwe_categories"/>
+    <table id="21" parent="1" name="cwe_common_consequences"/>
+    <table id="22" parent="1" name="cwe_compound_elements"/>
+    <table id="23" parent="1" name="cwe_content_histories"/>
+    <table id="24" parent="1" name="cwe_demonstrative_examples"/>
+    <table id="25" parent="1" name="cwe_detection_methods"/>
+    <table id="26" parent="1" name="cwe_functional_areas"/>
+    <table id="27" parent="1" name="cwe_languages"/>
+    <table id="28" parent="1" name="cwe_maintenance_notes"/>
+    <table id="29" parent="1" name="cwe_mitigations"/>
+    <table id="30" parent="1" name="cwe_mode_of_intros"/>
+    <table id="31" parent="1" name="cwe_modifications"/>
+    <table id="32" parent="1" name="cwe_observed_examples"/>
+    <table id="33" parent="1" name="cwe_prev_entry_names"/>
+    <table id="34" parent="1" name="cwe_references"/>
+    <table id="35" parent="1" name="cwe_related_attack_patterns"/>
+    <table id="36" parent="1" name="cwe_relationship_notes"/>
+    <table id="37" parent="1" name="cwe_relationships"/>
+    <table id="38" parent="1" name="cwe_research_gaps"/>
+    <table id="39" parent="1" name="cwe_submissions"/>
+    <table id="40" parent="1" name="cwe_taxonomies"/>
+    <table id="41" parent="1" name="cwe_technology_classes"/>
+    <table id="42" parent="1" name="cwe_theoritical_notes"/>
+    <table id="43" parent="1" name="cwe_time_of_intros"/>
+    <table id="44" parent="1" name="cwe_views"/>
+    <table id="45" parent="1" name="cwe_weakness_catalogs"/>
+    <table id="46" parent="1" name="cwe_weakness_ordinalities"/>
+    <table id="47" parent="1" name="cwe_weaknesses"/>
+    <table id="48" parent="1" name="cwe_white_box_defs"/>
+    <table id="49" parent="1" name="engagement_creds"/>
+    <table id="50" parent="1" name="engagement_files"/>
+    <table id="51" parent="1" name="engagement_main_users"/>
+    <table id="52" parent="1" name="engagement_mains"/>
+    <table id="53" parent="1" name="engagement_types"/>
+    <table id="54" parent="1" name="engagements"/>
+    <table id="55" parent="1" name="evidences"/>
+    <table id="56" parent="1" name="exploit_platforms"/>
+    <table id="57" parent="1" name="exploit_types"/>
+    <table id="58" parent="1" name="exploits"/>
+    <table id="59" parent="1" name="host_creds"/>
+    <table id="60" parent="1" name="host_infos"/>
+    <table id="61" parent="1" name="host_vulns"/>
+    <table id="62" parent="1" name="hosts"/>
+    <table id="63" parent="1" name="ips"/>
+    <table id="64" parent="1" name="metasploit_credential_cores"/>
+    <table id="65" parent="1" name="metasploit_credential_logins"/>
+    <table id="66" parent="1" name="metasploit_credential_origins"/>
+    <table id="67" parent="1" name="metasploit_credential_privates"/>
+    <table id="68" parent="1" name="metasploit_credential_publics"/>
+    <table id="69" parent="1" name="metasploit_events"/>
+    <table id="70" parent="1" name="metasploit_exploit_attempts"/>
+    <table id="71" parent="1" name="metasploit_host_notes"/>
+    <table id="72" parent="1" name="metasploit_host_services"/>
+    <table id="73" parent="1" name="metasploit_host_vulns"/>
+    <table id="74" parent="1" name="metasploit_hosts"/>
+    <table id="75" parent="1" name="metasploit_module_arches"/>
+    <table id="76" parent="1" name="metasploit_module_authors"/>
+    <table id="77" parent="1" name="metasploit_module_details"/>
+    <table id="78" parent="1" name="metasploit_module_platforms"/>
+    <table id="79" parent="1" name="metasploit_module_refs"/>
+    <table id="80" parent="1" name="metasploit_module_targets"/>
+    <table id="81" parent="1" name="metasploit_refs"/>
+    <table id="82" parent="1" name="metasploit_reports"/>
+    <table id="83" parent="1" name="metasploit_services"/>
+    <table id="84" parent="1" name="nessus_attachments"/>
+    <table id="85" parent="1" name="nessus_family_selections"/>
+    <table id="86" parent="1" name="nessus_host_properties"/>
+    <table id="87" parent="1" name="nessus_hosts"/>
+    <table id="88" parent="1" name="nessus_individual_plugin_selections"/>
+    <table id="89" parent="1" name="nessus_items"/>
+    <table id="90" parent="1" name="nessus_patches"/>
+    <table id="91" parent="1" name="nessus_plugins"/>
+    <table id="92" parent="1" name="nessus_plugins_preferences"/>
+    <table id="93" parent="1" name="nessus_policies"/>
+    <table id="94" parent="1" name="nessus_references"/>
+    <table id="95" parent="1" name="nessus_reports"/>
+    <table id="96" parent="1" name="nessus_server_preferences"/>
+    <table id="97" parent="1" name="nessus_service_descriptions"/>
+    <table id="98" parent="1" name="nessus_versions"/>
+    <table id="99" parent="1" name="nmap_cpes"/>
+    <table id="100" parent="1" name="nmap_host_ipidsequences"/>
+    <table id="101" parent="1" name="nmap_host_tcpsequences"/>
+    <table id="102" parent="1" name="nmap_host_tcptssequences"/>
+    <table id="103" parent="1" name="nmap_host_traceroutes"/>
+    <table id="104" parent="1" name="nmap_host_uptimes"/>
+    <table id="105" parent="1" name="nmap_hostnames"/>
+    <table id="106" parent="1" name="nmap_hosts"/>
+    <table id="107" parent="1" name="nmap_operating_systems"/>
+    <table id="108" parent="1" name="nmap_os_classes"/>
+    <table id="109" parent="1" name="nmap_os_matches"/>
+    <table id="110" parent="1" name="nmap_ports"/>
+    <table id="111" parent="1" name="nmap_reports"/>
+    <table id="112" parent="1" name="nmap_run_stats"/>
+    <table id="113" parent="1" name="nmap_scripts"/>
+    <table id="114" parent="1" name="nmap_used_ports"/>
+    <table id="115" parent="1" name="notes"/>
+    <table id="116" parent="1" name="ocbs"/>
+    <table id="117" parent="1" name="pocs"/>
+    <table id="118" parent="1" name="reports"/>
+    <table id="119" parent="1" name="schema_migrations"/>
+    <table id="120" parent="1" name="screenshots"/>
+    <table id="121" parent="1" name="settings"/>
+    <table id="122" parent="1" name="sidekiq_errors"/>
+    <table id="123" parent="1" name="sub_engagements"/>
+    <table id="124" parent="1" name="system_admins"/>
+    <table id="125" parent="1" name="user_engagements"/>
+    <table id="126" parent="1" name="users"/>
     <column id="127" parent="8" name="id">
       <mandatory>1</mandatory>
       <data-type>int(11)|0</data-type>
@@ -195,13 +196,13 @@
     <index id="145" parent="9" name="idx_ckeditor_assetable">
       <columns>assetable_type
 assetable_id</columns>
-      <desc-columns />
+      <desc-columns></desc-columns>
     </index>
     <index id="146" parent="9" name="idx_ckeditor_assetable_type">
       <columns>assetable_type
 type
 assetable_id</columns>
-      <desc-columns />
+      <desc-columns></desc-columns>
     </index>
     <key id="147" parent="9" name="PRIMARY">
       <columns>id</columns>
@@ -1631,7 +1632,7 @@ assetable_id</columns>
     </column>
     <column id="548" parent="54" name="is_site_wide_engagement">
       <data-type>tinyint(1)|0</data-type>
-      <default-expression>'0'</default-expression>
+      <default-expression>&apos;0&apos;</default-expression>
     </column>
     <column id="549" parent="54" name="aasm_state">
       <data-type>varchar(255)|0</data-type>
@@ -1647,11 +1648,11 @@ assetable_id</columns>
     </column>
     <index id="553" parent="54" name="index_engagements_on_ancestry">
       <columns>ancestry</columns>
-      <desc-columns />
+      <desc-columns></desc-columns>
     </index>
     <index id="554" parent="54" name="index_engagements_on_customer_id">
       <columns>customer_id</columns>
-      <desc-columns />
+      <desc-columns></desc-columns>
     </index>
     <key id="555" parent="54" name="PRIMARY">
       <columns>id</columns>
@@ -1804,7 +1805,7 @@ assetable_id</columns>
     </column>
     <column id="597" parent="58" name="is_verified">
       <data-type>tinyint(1)|0</data-type>
-      <default-expression>'0'</default-expression>
+      <default-expression>&apos;0&apos;</default-expression>
     </column>
     <column id="598" parent="58" name="custom_file_file_name">
       <data-type>varchar(255)|0</data-type>
@@ -2834,7 +2835,7 @@ assetable_id</columns>
     </column>
     <column id="900" parent="82" name="is_completed">
       <data-type>tinyint(1)|0</data-type>
-      <default-expression>'0'</default-expression>
+      <default-expression>&apos;0&apos;</default-expression>
     </column>
     <key id="901" parent="82" name="PRIMARY">
       <columns>id</columns>
@@ -3125,11 +3126,11 @@ assetable_id</columns>
     </column>
     <index id="989" parent="89" name="index_nessus_items_on_host_id">
       <columns>host_id</columns>
-      <desc-columns />
+      <desc-columns></desc-columns>
     </index>
     <index id="990" parent="89" name="index_nessus_items_on_plugin_id">
       <columns>plugin_id</columns>
-      <desc-columns />
+      <desc-columns></desc-columns>
     </index>
     <key id="991" parent="89" name="PRIMARY">
       <columns>id</columns>
@@ -3391,7 +3392,7 @@ assetable_id</columns>
     </column>
     <index id="1072" parent="94" name="index_nessus_references_on_plugin_id">
       <columns>plugin_id</columns>
-      <desc-columns />
+      <desc-columns></desc-columns>
     </index>
     <key id="1073" parent="94" name="PRIMARY">
       <columns>id</columns>
@@ -3931,7 +3932,7 @@ assetable_id</columns>
     </column>
     <column id="1226" parent="111" name="is_completed">
       <data-type>tinyint(1)|0</data-type>
-      <default-expression>'0'</default-expression>
+      <default-expression>&apos;0&apos;</default-expression>
     </column>
     <key id="1227" parent="111" name="PRIMARY">
       <columns>id</columns>
@@ -4080,7 +4081,7 @@ assetable_id</columns>
     </column>
     <column id="1267" parent="116" name="is_active">
       <data-type>tinyint(1)|0</data-type>
-      <default-expression>'1'</default-expression>
+      <default-expression>&apos;1&apos;</default-expression>
     </column>
     <key id="1268" parent="116" name="PRIMARY">
       <columns>id</columns>
@@ -4136,7 +4137,7 @@ assetable_id</columns>
     </column>
     <index id="1282" parent="118" name="index_reports_on_customer_id">
       <columns>customer_id</columns>
-      <desc-columns />
+      <desc-columns></desc-columns>
     </index>
     <key id="1283" parent="118" name="PRIMARY">
       <columns>id</columns>
@@ -4154,7 +4155,7 @@ assetable_id</columns>
     </column>
     <index id="1286" parent="119" name="unique_schema_migrations">
       <columns>version</columns>
-      <desc-columns />
+      <desc-columns></desc-columns>
       <unique>1</unique>
     </index>
     <key id="1287" parent="119" name="unique_schema_migrations">
@@ -4350,7 +4351,7 @@ assetable_id</columns>
     </column>
     <column id="1339" parent="126" name="admin">
       <data-type>tinyint(1)|0</data-type>
-      <default-expression>'0'</default-expression>
+      <default-expression>&apos;0&apos;</default-expression>
     </column>
     <column id="1340" parent="126" name="reset_digest">
       <data-type>varchar(255)|0</data-type>

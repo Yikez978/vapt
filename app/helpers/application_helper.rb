@@ -5,13 +5,13 @@ module ApplicationHelper
     if page_title.empty?
       base_title
     else
-      page_title + " | " + base_title
+      page_title + '|'  + base_title
     end
   end
   
   def highlited_calendar_class(date)
     if ((date.year == Date.today.year) && (date.month.to_i == Date.today.month.to_i))
-      "remove-highlited-calendar"
+      'remove-highlited-calendar'
     end    
   end
   

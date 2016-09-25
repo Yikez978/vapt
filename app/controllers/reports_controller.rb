@@ -46,7 +46,7 @@ class ReportsController < ApplicationController
 
   def remove_penetration
     @report.options[:penetrations].delete(params[:penetration_id])
-    @report.save
+    @report.save!
     render nothing: true
   end
 
@@ -60,7 +60,7 @@ class ReportsController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render pdf: "New_Report", footer: {right: '[page]'}
+        render pdf: 'New_Report', footer: {right: '[page]'}
       end
     end
   end
@@ -118,7 +118,7 @@ class ReportsController < ApplicationController
     report.set_screenshots(Screenshot.where(report_id: @report.id))
 
     pdf = report.generate!
-    timestamp = Time.now.strftime("%F_%T")
+    timestamp = Time.now.strftime('%F_%T')
 
     report_name = !@report.options['report_name'].blank? ? @report.options['report_name'] : "untitled_report_#{timestamp}"
 

@@ -5,7 +5,7 @@ vapt.value('CONFIG', {
 	'METALMAN_USER_NAME' : "VAPT"
 });
 
-vapt.controller('OcbCtrl', function ($scope, $compile, $http, CONFIG) {
+vapt.controller('OcbCtrl', function ($scope, $compile, $http) {
 	$scope.messages_header = '';
 	// $scope.master = {};
 	$scope.engagement_id = 0;
@@ -37,7 +37,7 @@ vapt.controller('OcbCtrl', function ($scope, $compile, $http, CONFIG) {
 	};
 	
 	$scope.saveOcbDetail = function($event, ocb, engagement_id, ocb_id){
-		$scope.messages_header = 'Saving OCB detail..'
+		$scope.messages_header = 'Saving OCB detail..';
 		if (ocb == undefined) {
 			$scope.messages_header = 'OCB Number & Start Date can\'t be blank.'
 		} else if (!ocb.number && (ocb_id == null)) {
@@ -64,20 +64,3 @@ vapt.controller('OcbCtrl', function ($scope, $compile, $http, CONFIG) {
 		
 	};
 });
-
-// hackTheArch.controller('hostScanDetailsCtrl', function ($scope, $compile, $http, CONFIG){
-// 	$scope.getScanDetail = function(engagement_id, host_id){
-// 		$scope.engagement_id = engagement_id
-// 		$scope.host_id = host_id
-// 		$http({
-// 			method: 'GET',
-// 			url: '/engagements/'+$scope.engagement_id+'/host_scan_details/'+$scope.host_id
-// 		}).then(function successCallback(response){
-// 			$('.scan_details').children('ul').html('<li><span>Name</span>'+response.data.name+'</li><li><span>Policy</span>'+response.data.policy+'</li><li><span>Start Time</span>'+response.data.start_time+'</li><li><span>OS</span>'+response.data.os+'</li>')
-// 			$('.nesusScanTable').children('tbody').html('');
-// 			$.each(response.data.host_properties, function(index, item){
-// 				$('.nesusScanTable').children('tbody').append('<tr><td>'+item.name+'</td><td>'+item.value+'</td></tr>')
-// 			})
-// 		})
-// 	}
-// });

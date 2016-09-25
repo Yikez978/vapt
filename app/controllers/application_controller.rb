@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   def is_engagement_state_pending_and_created_by_current_user?
   	engagement = Engagement.find(params[:id])
   	unless engagement.pending? || engagement.created_by?(current_user)
-      flash[:danger] = "Not authorized to change this engagement."
+      flash[:danger] = 'Not authorized to change this engagement.'
   		redirect_to engagement_path(params[:id])
   	end
   end
@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
 	def logged_in_user
 		unless logged_in?
 			store_location
-			flash[:danger] = "Please log in."
+			flash[:danger] = 'Please log in.'
 			redirect_to login_url
 		end
 	end
@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
 	def admin_user
     unless current_user.admin?
 			store_location
-			flash[:danger] = "Access Denied."
+			flash[:danger] = 'Access Denied.'
 			redirect_to root_url
 		end
   end

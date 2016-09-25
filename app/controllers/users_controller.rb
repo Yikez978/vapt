@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-	before_action :logged_in_user, only: [:show, :index, :destroy, :edit, :update, :get_stats]
+	before_action :logged_in_user, only: [:show, :index, :destroy, :edit, :update]
 	before_action :correct_user, only: [:edit, :update]
 	before_action :admin_user, only: [:index, :destroy]
 
@@ -17,25 +17,11 @@ class UsersController < ApplicationController
     if view_other_profiles? || current_user?(user) || admin_user?
       @user = user
     else
-      message  = "Access Denied. "
-      message += "You can only view your profile."
+      message  = 'Access Denied'
+      message += 'You can only view your profile.'
       flash[:warning] = message
       redirect_to root_url
     end
-	end
-
-	def get_stats
-		if @user = User.find_by_id(params[:id])
-
-			@accuracy_data = @user.get_accuracy_data
-			@category_data = @user.get_category_data
-			render :json => { accuracy_data: @accuracy_data.to_json.html_safe,
-												category_data: @category_data.to_json.html_safe,
-												status: :ok}
-		else
-			flash[:warning] = "No such user"
-			redirect_to root_url
-		end
 	end
 
 	def new
@@ -55,7 +41,7 @@ class UsersController < ApplicationController
 
 	def destroy
 		User.find(params[:id]).destroy
-		flash[:success] = "User deleted"
+		flash[:success] = 'User Deleted'
 		redirect_to users_url
 	end
 
@@ -65,7 +51,7 @@ class UsersController < ApplicationController
 
 	def update
 		if @user.update_attributes(user_params)
-			flash[:success] = "Changes saved successfully"
+			flash[:success] = 'Changes saved successfully'
 			redirect_to @user
 		else
 			render 'edit'
@@ -77,13 +63,13 @@ class UsersController < ApplicationController
 		user = User.find(params[:id])
 		user.password = 'password'
 		user.save
-		flash[:success] = "User password has been reset to 'password'. Please change immediately!"
+		flash[:success] = 'User password has been reset to "password". Please change immediately!'
 		redirect_to admin_path
 	end
 
 	# This method is used for https://github.com/loopj/jquery-tokeninput/pull/291, to search using AJAX
 	def find_users
-		@user = User.where("username LIKE ?", "%#{params[:q]}%")
+		@user = User.where('username LIKE ?', "%#{params[:q]}%")
 		@user_json = []
 		@user.each do |user|
 			@user_json << {id: user.id, username: user.username}
@@ -101,7 +87,7 @@ class UsersController < ApplicationController
 	def correct_user
 		@user = User.find(params[:id])
 		unless current_user?(@user)
-			flash[:danger] = "Access denied"
+			flash[:danger] = 'Access Denied'
 			redirect_to root_url
 		end
 	end

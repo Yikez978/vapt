@@ -1,5 +1,5 @@
 class SettingsController < ApplicationController
-	before_action :admin_user, only: [:index, :edit, :update]
+	before_action :admin_user, only: [:edit, :update]
 
 	def edit
 		@categories = Setting.uniq.pluck(:category).sort
@@ -24,9 +24,9 @@ class SettingsController < ApplicationController
 		end
 
 		if error
-			flash[:danger] = "Failed to update database. Try again."
+			flash[:danger] = 'Failed to update database. Try again.'
 		else
-			flash[:success] = "Successfully updated changes."
+			flash[:success] = 'Successfully updated changes.'
 		end
 		redirect_to admin_url
 	end
@@ -35,7 +35,7 @@ class SettingsController < ApplicationController
 		def admin_user
       unless logged_in? && current_user.admin?
 				store_location
-				flash[:danger] = "Access Denied."
+				flash[:danger] = 'Access Denied.'
 				redirect_to root_url
 			end
     end
