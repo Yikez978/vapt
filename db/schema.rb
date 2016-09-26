@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160923140208) do
+ActiveRecord::Schema.define(version: 20160926031210) do
 
   create_table "caches", force: :cascade do |t|
     t.datetime "created_at",              null: false
@@ -473,19 +473,18 @@ ActiveRecord::Schema.define(version: 20160923140208) do
   end
 
   create_table "engagements", force: :cascade do |t|
-    t.string   "engagement_name",         limit: 255
-    t.datetime "created_at",                                            null: false
-    t.datetime "updated_at",                                            null: false
-    t.text     "note",                    limit: 65535
+    t.string   "engagement_name",    limit: 255
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.text     "note",               limit: 65535
     t.date     "note_add_date"
-    t.integer  "engagement_type_id",      limit: 4
+    t.integer  "engagement_type_id", limit: 4
     t.date     "start_date"
     t.date     "end_date"
-    t.boolean  "is_site_wide_engagement", limit: 1,     default: false
-    t.string   "aasm_state",              limit: 255
-    t.integer  "user_id",                 limit: 4
-    t.string   "ancestry",                limit: 255
-    t.integer  "customer_id",             limit: 4
+    t.string   "aasm_state",         limit: 255
+    t.integer  "user_id",            limit: 4
+    t.string   "ancestry",           limit: 255
+    t.integer  "customer_id",        limit: 4
   end
 
   add_index "engagements", ["ancestry"], name: "index_engagements_on_ancestry", using: :btree

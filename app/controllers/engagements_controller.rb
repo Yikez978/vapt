@@ -44,19 +44,14 @@ class EngagementsController < ApplicationController
 
       if params[:engagement][:ip_file]
         uploaded_file = params[:engagement][:ip_file]
-        @file_content = uploaded_file.read.chomp
+        @file_content = uploaded_file.read
+        ip = Ip.create_new(@file_content, @engagement.id)
       end
 
       if params[:engagement][:ip]
         @file_content = params[:engagement][:ip]
+        ip = Ip.create_new(@file_content, @engagement.id)
       end
-
-      ips = Ip.create_new(@file_content, @engagement.id)
-
-      ips.each do |ip|
-        EngagementMain.create! host: ip.ip, engagement: @engagement, user: current_user, vulns: 0
-      end
-
 
       @poc = Poc.create_new(params[:engagement][:poc], @engagement.id)
       @system_admin = SystemAdmin.create_new(params[:engagement][:system_admin], @engagement.id)
@@ -76,12 +71,21 @@ class EngagementsController < ApplicationController
     @engagement = Engagement.includes(
         :ocbs, :nmap_reports, :nessus_policies, metasploit_reports: [metasploit_hosts: [metasploit_host_vulns: [:metasploit_refs]]], engagement_mains: [:engagement_main_users]
     ).find(params[:id])
+    # @notes = Note.where("engagement_id = ?", params[:id])
     @ocbs = @engagement.ocbs
     @nmap_reports = @engagement.nmap_reports
     @nessus_policies = @engagement.nessus_policies
     @engagement_users = @engagement.users
     @metasploit_reports = @engagement.metasploit_reports
     @metasploit_hosts = MetasploitHost.all.map {|m| [m.metasploit_id, m.name]}
+
+    # @nessus_plugins = @engagement.nessus_plugins
+    #
+    # @nessus_reports = @engagement.nessus_reports
+    # @nessus_hosts = @engagement.nessus_hosts
+    # unless @nessus_hosts.blank?
+    #   @nessus_host_properties = @nessus_hosts.first.host_properties.where.not(name: nil)
+    # end
   end
 
   def edit
