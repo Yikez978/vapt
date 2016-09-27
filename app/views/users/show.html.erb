@@ -11,7 +11,7 @@
 				<%= content_tag :h2, class: 'text-right' do %>
 	        <%= "#{@user.fname} #{@user.lname}" %>
 				<% end %>
-				
+
 			<% end %>
 		<% end %>
 	<% end %>
@@ -30,7 +30,7 @@
     <%= h @date.strftime("%B %Y") %>
     <%= link_to ">", :month => (@date.end_of_month+1).strftime("%Y-%m-01") %>
   </h2>
-	
+
 	<%= calendar_for(@user_engagements, :year => @date.year, :month => @date.month ) do |t| %>
 		<%= t.head('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday')%>
     <% t.day(:day_method => :start_date) do |date, engagements| %>
@@ -45,7 +45,7 @@
 </div>
 
 <h3 class="text-center mBot25">Engagements and Status's</h3><hr>
-<%= content_tag :div, class: '', 'ng-app' => 'vaptSearch' do %>
+<%= content_tag :div, class: '', 'ng-app' => '' do %>
 	<table class="engagement_datatable table table-striped">
 		<thead>
 			<tr>
