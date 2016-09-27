@@ -98,13 +98,19 @@ Start Server
 --------------------------------
 - passenger start -p 3000 -b 0.0.0.0 -e production -d
 
-- Install & Prepare background worker & queue 
+- Install & Prepare background worker & queue
 -------------------------------------------------
 * Note:	Install & run redis on default redis port, make sure it is running after system boot.
 - sudo yum install redis
-- sudo systemctl start redis.service 
+- sudo systemctl start redis.service
 - redis-cli (to check if installed and running redis)
 Run sidekiq service as background demon
 ------------------------------------------
 - bundle exec sidekiq -e production –d
 
+Start Development Server
+========================
+ - `echo "RAILS_ENV=development" > .env`
+ - `spring rails db:setup`
+ - `gem install foreman`
+ - `foreman start`

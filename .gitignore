@@ -53,3 +53,4 @@ config/database.yml
 .idea/dbnavigator.xml
 
 .idea/*
+.env
