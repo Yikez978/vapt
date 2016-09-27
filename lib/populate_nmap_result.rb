@@ -6,6 +6,26 @@
 require 'nmap/xml'
 require 'open3'
 
+class Nmap::Host
+
+  alias_method :original_mac, :mac
+
+  def mac
+    val = original_mac
+    return val if val.present?
+    ports.each do |port|
+      script = port.scripts["snmp-info"]
+      next if script.blank?
+      data = script.split("\n").detect{|i|i =~ /engineIDData/}
+      next if data.blank?
+      val = data.strip.gsub("engineIDData: ", "")
+      return val if val.present?
+    end
+    return nil
+  end
+  
+end
+
 class PopulateNmapResult
   def initialize(file_path)
     @xml_doc = Nmap::XML.new(file_path)
