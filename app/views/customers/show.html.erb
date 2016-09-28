@@ -1,7 +1,47 @@
 <h1><%= @customer %></h1>
 
 <h3 class="text-center">Engagements</h3>
-<%= render 'engagements/engagement_table', engagements: @customer.engagements %>
+
+<%= content_tag :div do %>
+    <table class="engagement_datatable table table-striped">
+      <thead>
+      <tr>
+        <th>Engagement Name</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Status</th>
+        <th>Type</th>
+        <th>Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @customer.engagements.each do |engagement| %>
+          <tr>
+            <td>
+              <%= link_to engagement.engagement_name, engagement_path(engagement.id) %>
+            </td>
+            <td>
+              <%= engagement.start_date %>
+            </td>
+            <td>
+              <%= engagement.end_date %>
+            </td>
+            <td>
+              <%= engagement.aasm_state %>
+            </td>
+            <td>
+              <%= engagement.engagement_type.name %>
+            </td>
+            <td>
+
+            </td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+<% end %>
+
+
 
 <h3 class="text-center">Reports</h3>
 <%= render partial: 'reports/report', collection: @customer.reports %>
