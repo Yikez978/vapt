@@ -54,3 +54,5 @@ config/database.yml
 
 .idea/*
 .env
+.idea
+lib/exploit-database
