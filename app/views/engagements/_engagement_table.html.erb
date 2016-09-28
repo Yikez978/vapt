@@ -21,6 +21,14 @@
           </td>
           <td>
             <%= engagement.end_date %>
+            <% if engagement.end_date <= Time.zone.today && current_user.engagements.exists?(:id => engagement.id) %>
+                <br/>
+                <%= link_to("Change End Date", [:edit, engagement], :class => 'btn btn-warning') %>
+                <%= link_to("Mark as ended", [:complete, engagement], :method => :put, :class => 'btn btn-success', :data => {
+                    :confirm => "Are you sure?",
+                    :disable_with => '...'
+                }) %>
+            <% end %>
           </td>
           <td>
             <%= engagement.aasm_state %>

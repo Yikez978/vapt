@@ -6,14 +6,14 @@
 
   </div>
   <div>
-    <h3 class="text-center mBot25">Engagements I Joined</h3><hr>
+    <h3 class="text-center mBot25">Active Engagements</h3><hr>
     <%= render 'engagements/engagement_table', engagements: @engagements %>
   </div>
 </div>
 
 <div class="row">
   <div class="col-md-12">
-    <h3 class="text-center mBot25">Engagements created by me</h3><hr>
+    <h3 class="text-center mBot25">Completed Engagements </h3><hr>
 
     <table class="engagement_datatable table table-striped">
       <thead>
@@ -27,7 +27,7 @@
       </tr>
       </thead>
       <tbody>
-      <% @user_created_engagements.each do |engagement| %>
+      <% @user_completed_engagements.each do |engagement| %>
           <tr>
             <td>
               <%= link_to engagement.engagement_name, engagement_path(engagement.id) %>

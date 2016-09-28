@@ -23,6 +23,9 @@ Rails.application.routes.draw do
   resources :custom_exploits, only: [:index]
   resources :nmap
   resources :engagements do
+    member do
+      put :complete
+    end
     resources :ocbs, only: [:create]
     resources :nmap, only: [:new, :create, :show] do
       resources :nmap_reports, only: [:index]

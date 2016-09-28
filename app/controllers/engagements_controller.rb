@@ -5,9 +5,16 @@ class EngagementsController < ApplicationController
   before_action :is_engagement_state_pending_and_created_by_current_user?, only: [:edit, :update, :destroy]
   before_action :not_sub_engagement, only: [:edit]
 
+  def complete
+    @engagement = current_user.engagements.find(params[:id])
+    @engagement.ended
+    @engagement.save!
+    redirect_to :engagements
+  end
+
   def index
-    @engagements = current_user.engagements
-    @user_created_engagements = current_user.user_created_engagements.find_all_except_canceled
+    @engagements = Engagement.where(aasm_state: [:pending, :active] )
+    @user_completed_engagements = current_user.engagements.where(aasm_state: :completed)
   end
 
   def new

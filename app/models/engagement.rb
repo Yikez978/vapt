@@ -71,19 +71,16 @@ class Engagement < ActiveRecord::Base
   validates_presence_of :ocb_start_date, on: :create
 
   scope :find_all_except_canceled, -> {where.not(aasm_state: :canceled) }
-
+  scope :where_pending, -> {where(aasm_state: :pending)}
   has_ancestry
 
 
   def self.change_engagements_status
-    all.each do |engagement|
+    where_pending.each do |engagement|
       # Skip if already Completed
       unless engagement.completed?
-        # Check if completed
-        if (engagement.start_date <= Date.today) && (engagement.end_date < Date.today)
-          engagement.ended
           # Check if started & active
-        elsif (engagement.start_date <= Date.today) && (engagement.end_date > Date.today)
+        if (engagement.start_date <= Date.today)
           engagement.activate
         end
       end
