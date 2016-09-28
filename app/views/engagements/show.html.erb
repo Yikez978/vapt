@@ -19,6 +19,7 @@
 					<%= raw "#{link_to(@engagement.parent.engagement_name, engagement_path(@engagement.parent))} > " if @engagement.sub_engagement? %>
           <div>Customer Name: <strong><%= @engagement.customer.name %></strong></div>
           Engagement: <strong><%= @engagement.engagement_name %></strong>
+          <div>POCs: <strong><%= @engagement.pocs.pluck(:name).join(", ") %></strong></div>
 				</div>
 				<% if @engagement.children.size > 0 %>
 				<div class="col-md-12 mTop100">
