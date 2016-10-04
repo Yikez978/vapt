@@ -1,7 +1,6 @@
 class User < ActiveRecord::Base
 	include SettingsHelper
 	attr_accessor :remember_token, :reset_token
-  #before_save   :downcase_email
 
 	has_many :reports, dependent: :destroy
 	has_many :exploits, dependent: :destroy
@@ -23,10 +22,7 @@ class User < ActiveRecord::Base
 	validates :lname,  presence: true, length: { maximum: 50 }
 	validates :username, presence: true, length: { maximum: 128 },
 											 uniqueness: {case_sensitive: true}
-	#VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
-	#validates :email, presence: true, length: { maximum: 255 },
-	#									format: { with: VALID_EMAIL_REGEX },
-	#									uniqueness: { case_sensitive: false }
+
 	has_secure_password
 	validates :password, presence: true, length: { minimum:6 }, allow_nil: true
 	has_attached_file :avatar, styles: { thumb: "80x80", medium: "200x200" }, default_url: "/assets/missing.png"
@@ -65,36 +61,14 @@ class User < ActiveRecord::Base
     update_attribute(:reset_sent_at, Time.zone.now)
   end
 
-	def send_password_reset_email
-    UserMailer.password_reset(self).deliver_now
-  end
-
-	def password_reset_expired?
-    reset_sent_at < 2.hours.ago
-  end
-
-	def get_accuracy_data
-		result = Array.new
-
-		result.push(['Correct', self.submissions.where(correct: true).count])
-		result.push(['Incorrect', self.submissions.where.not(correct: true).count])
-
-		result
-	end
-
   def full_name
     get_full_name
   end
 
 	def get_full_name
-		return self.fname + " "+  self.lname
+		self.fname + " "+  self.lname
 	end
 
 	private
-
-    # Converts email to all lower-case.
-    # def downcase_email
-    #   self.email = email.downcase
-    # end
 
 end

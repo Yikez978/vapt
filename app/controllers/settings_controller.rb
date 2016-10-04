@@ -10,18 +10,18 @@ class SettingsController < ApplicationController
 	def update
 		error = false
 		settings = params[:admin]
-		for setting in settings
+		settings.each { |setting|
 			setting = setting[1]
 			to_update = Setting.find(setting[:id])
 
 			if to_update.setting_type == 'boolean'
- 				to_update.value = (setting[:value]) ? "1" : "0"
+				to_update.value = (setting[:value]) ? '1' : '0'
 			else
 				to_update.value = setting[:value]
 			end
 
 			error = (to_update.save) ? false : true
-		end
+		}
 
 		if error
 			flash[:danger] = 'Failed to update database. Try again.'
@@ -33,7 +33,7 @@ class SettingsController < ApplicationController
 
 	private
 		def admin_user
-      unless logged_in? && current_user.admin?
+      unless logged_in? && current_user.admin.user?
 				store_location
 				flash[:danger] = 'Access Denied.'
 				redirect_to root_url

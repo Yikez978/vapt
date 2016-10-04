@@ -35,4 +35,4 @@ $(document).ready(function(){
 	$("#nmap_host_traceroute").dataTable({
 		responsive: true
 	});
-})
+});

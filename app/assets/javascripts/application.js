@@ -110,16 +110,6 @@ $(document).ready(function() {
 		checkout.hide();
 	}).data('datepicker');
 
-	//Engagement Datatable
-
-	$(".engagement_datatable").dataTable({
-		"columnDefs": [ {
-			"targets": 5,
-			"orderable": false
-		} ],
-		responsive: true
-	});
-
 	$("#pageLoading").hide();
   	$("#backdropPageLoading").hide();
 

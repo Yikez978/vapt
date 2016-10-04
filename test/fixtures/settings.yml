@@ -1,8 +1,8 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-setting_competition_name:
+setting_project_name:
   id: 1
-  name: "competition_name"
+  name: "project_name"
   value: "VAPT"
   setting_type: "text"
 

@@ -1,7 +1,7 @@
 module ApplicationHelper
 	# Returns full title on per-page basis
   def full_title(page_title = '')
-    base_title = competition_name
+    base_title = project_name
     if page_title.empty?
       base_title
     else
@@ -10,7 +10,7 @@ module ApplicationHelper
   end
   
   def highlited_calendar_class(date)
-    if ((date.year == Date.today.year) && (date.month.to_i == Date.today.month.to_i))
+    if (date.year == Date.today.year) && (date.month.to_i == Date.today.month.to_i)
       'remove-highlited-calendar'
     end    
   end
@@ -20,17 +20,17 @@ module ApplicationHelper
   def bootstrap_class_for(flash_type)
     case flash_type
       when :success
-        "alert-success"
+        'alert-success'
       when :error
-        "alert-danger"
+        'alert-danger'
       when :danger
-        "alert-danger"
+        'alert-danger'
       when :alert
-        "alert-block"
+        'alert-block'
       when :notice
-        "alert-info"
+        'alert-info'
       when :warning
-        "alert-warning"
+        'alert-warning'
       else
         flash_type.to_s
     end

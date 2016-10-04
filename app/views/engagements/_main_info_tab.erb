@@ -23,11 +23,7 @@
 			</td>
 			<td class="pRelative mWidth">
 				<span class="pointer eHover">
-					<%# if engagement_main.ports.blank? %>
-						<%#= best_in_place engagement_main, "No ports were found", url: engagement_engagement_main_path(@engagement, engagement_main) %>
-					<%# else %>
-						<%= best_in_place engagement_main, :ports, url: engagement_engagement_main_path(@engagement, engagement_main), nil: "No ports were found" %>
-					<%# end %>
+						<%= best_in_place engagement_main, :ports, url: engagement_engagement_main_path(@engagement, engagement_main), place_holder: "No ports were found" %>
 				</span>
 				<i class="glyphicon glyphicon-pencil editIcon"></i>
 			</td>
