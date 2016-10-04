@@ -41,4 +41,4 @@ $(document).ready(function(){
 	$("#metasploit_credential_privates").dataTable({
 		responsive: true
 	});
-});
+})

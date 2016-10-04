@@ -1,5 +1,5 @@
 class EndEngagementsController < ApplicationController
-	before_action :check_user_created_engagement
+	before_action :check_if_current_user_created_engagement
 
 	def update
 		@engagement.end_date = params["end_engagement_date"]
@@ -10,8 +10,12 @@ class EndEngagementsController < ApplicationController
 
 	private
 
-	def check_user_created_engagement
+	def check_if_current_user_created_engagement
 		@engagement = Engagement.find(params[:id])
-		(!@engagement.completed? && @engagement.created_by?(current_user)) ? true : redirect_to engagement_path(params[:id])
+		if !@engagement.completed? && @engagement.created_by?(current_user)
+			return true
+		else
+			redirect_to engagement_path(params[:id])
+		end
 	end
 end

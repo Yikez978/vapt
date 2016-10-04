@@ -13,8 +13,8 @@ module SettingsHelper
 		competition_started? && !competition_ended?
 	end
 
-	def project_name
-		Setting.find_by(name: 'project_name').try(:value) || ''
+	def competition_name
+		Setting.find_by(name: 'competition_name').try(:value) || ''
 	end
 
 	def view_other_profiles?

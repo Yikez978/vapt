@@ -20,7 +20,6 @@
           <div>Customer Name: <strong><%= @engagement.customer.name %></strong></div>
           Engagement: <strong><%= @engagement.engagement_name %></strong>
           <div>POCs: <strong><%= @engagement.pocs.pluck(:name).join(", ") %></strong></div>
-          <div>Sys Admins: <strong><%= @engagement.system_admins.pluck(:name).join(", ") %></strong></div>
 				</div>
 				<% if @engagement.children.size > 0 %>
 				<div class="col-md-12 mTop100">

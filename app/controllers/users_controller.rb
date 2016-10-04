@@ -32,7 +32,7 @@ class UsersController < ApplicationController
 		@user = User.new(user_params)
 		if @user.save
       log_in(@user)
-      flash[:success] = "Welcome to #{project_name}!"
+      flash[:success] = "Welcome to #{competition_name}!"
       redirect_to @user
 		else
 			render 'new'
@@ -58,6 +58,15 @@ class UsersController < ApplicationController
 		end
 	end
 
+	def reset_password
+		redirect_to root_path unless current_user.admin?
+		user = User.find(params[:id])
+		user.password = 'password'
+		user.save
+		flash[:success] = 'User password has been reset to "password". Please change immediately!'
+		redirect_to admin_path
+	end
+
 	# This method is used for https://github.com/loopj/jquery-tokeninput/pull/291, to search using AJAX
 	def find_users
 		@user = User.where('username LIKE ?', "%#{params[:q]}%")
@@ -72,7 +81,7 @@ class UsersController < ApplicationController
 
 	private
 	def user_params
-		params.require(:user).permit(:fname, :lname, :username, :password, :avatar)
+		params.require(:user).permit(:fname, :lname, :username, :password, :password_confirmation, :discount_code, :avatar)
 	end
 
 	def correct_user

@@ -23,7 +23,9 @@ class EvidencesController < ApplicationController
   # POST   /engagements/:engagement_id/hosts/:host_id/evidences/upload(.:format)            evidences#upload
   def upload
     destination = params[:destination]
-
+    sub_folders = destination.split('/').reject { |c| c.empty? }
+    leaf_dir_name = (destination.split('/').reject { |c| c.empty? }).last
+    
     params_keys = params.keys
     file_keys = params_keys.select{ |i| i[/file-\d*/] }
     
@@ -33,9 +35,11 @@ class EvidencesController < ApplicationController
       file_full_path = (destination == '/') ? "/#{filename}" : "#{destination}/#{filename}"
       
       parent_evidence = Evidence.find_by(full_path: destination, dir_type: 'dir')
-      parent_evidence ?
-          parent_evidence.children.create(engagement_id: @engagement.id, engagement_main_id: @main.id, name: filename, asset: file, dir_type: 'file', date: Time.now, full_path: file_full_path) :
-          Evidence.create(engagement_id: @engagement.id, engagement_main_id: @main.id, name: filename, asset: file, dir_type: "file", date: Time.now, full_path: file_full_path)
+      if parent_evidence
+        parent_evidence.children.create(engagement_id: @engagement.id, engagement_main_id: @main.id, name: filename, asset: file, dir_type: "file", date: Time.now, full_path: file_full_path)
+      else
+        Evidence.create(engagement_id: @engagement.id, engagement_main_id: @main.id, name: filename, asset: file, dir_type: "file", date: Time.now, full_path: file_full_path)
+      end
     end
     
     render json: { result: { success: true, error: nil } }
@@ -78,12 +82,12 @@ class EvidencesController < ApplicationController
     leaf_dir_name = (new_path.split('/').reject { |c| c.empty? }).last
     
     if sub_folders.size == 1
-      Evidence.create(engagement_id: @engagement.id, engagement_main_id: @main.id, name: sub_folders.first, :dir_type => "dir", date: Time.now, full_path: new_path)
+      Evidence.create(engagement_id: @engagement.id, engagement_main_id: @main.id, name: sub_folders.first, dir_type: "dir", date: Time.now, full_path: new_path)
     else
       last_parent_folders = sub_folders
       last_parent_folders.pop # remove last element from array
       parent_evidence = Evidence.find_by(full_path: (last_parent_folders.size == 1) ? "/#{last_parent_folders.first}" : "/#{last_parent_folders.join('/')}")
-      parent_evidence.children.create(engagement_id: @engagement.id, engagement_main_id: @main.id, name: leaf_dir_name, dir_type: 'dir', date: Time.now, full_path: new_path)
+      parent_evidence.children.create(engagement_id: @engagement.id, engagement_main_id: @main.id, name: leaf_dir_name, dir_type: "dir", date: Time.now, full_path: new_path)
     end
     
     render json: { result: { success: true, error: nil } }
@@ -91,6 +95,7 @@ class EvidencesController < ApplicationController
   
   # POST   /engagements/:engagement_id/hosts/:host_id/evidences/download(.:format)          evidences#download
   def download
+    action = params[:action]
     download_path = params[:path]
     
     evidence = Evidence.find_by(full_path: download_path)
