@@ -2,7 +2,7 @@ require 'test_helper'
 
 class SettingsControllerTest < ActionController::TestCase
 	def setup
-		@setting = settings(:setting_competition_name)
+		@setting = settings(:setting_vapt_project)
 		@non_admin = users(:archer)
 		@admin = users(:example_user)
 	end

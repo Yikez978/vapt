@@ -64,7 +64,7 @@ $(document).ready(function(){
 		
 		// Show the new link
 		$('#new-main-link').removeClass('disabled');
-	})
+	});
 
 	// Edit row
 	function editMainRow ( moTable, mnRow ){
@@ -117,7 +117,7 @@ $(document).ready(function(){
 		e.preventDefault();
 
 		var mnRow = $(this).parents('tr')[0];
-		var mainId = $(this).attr("data-obj-id")
+		var mainId = $(this).attr("data-obj-id");
 		$.ajax({
 			url: '/engagements/'+engId+'/engagement_mains/'+mainId,
 			type: 'DELETE',
@@ -259,7 +259,7 @@ $(document).ready(function(){
 		else if($(this).children('span').hasClass('label-success')){
 			$(this).children("span").removeClass("label-success");
 		}
-	})
+	});
 
 	//Datatable for nessus start
 	$("#nessusDataTable").dataTable({
@@ -295,7 +295,7 @@ $(document).ready(function(){
 	$(".exploit_status").bind("ajax:success", function(){
 		var element = $(this);
 		setTimeout(function(){
-			console.log($(element).text())
+			console.log($(element).text());
 			if($(element).text() == "Not Exploited"){
 				$(element).removeClass();
 				$(element).addClass("best_in_place eFontSize exploit_status label label-danger");
@@ -310,4 +310,4 @@ $(document).ready(function(){
 			}
 		},400)
 	});
-})
+});

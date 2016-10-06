@@ -2,31 +2,31 @@ require 'test_helper'
 
 class StaticPagesControllerTest < ActionController::TestCase
 	def setup
-		@competition_name = settings(:setting_competition_name)
+		@vapt_project = settings(:setting_vapt_project)
 	end
 
   test "should get home" do
     get :home
     assert_response :success
-		assert_select "title", @competition_name.value
+		assert_select "title", @vapt_project.value
   end
 
   test "should get contact" do
     get :contact
     assert_response :success
-		assert_select "title", "Contact | #{@competition_name.value}"
+		assert_select "title", "Contact | #{@vapt_project.value}"
   end
 
   test "should get help" do
     get :help
     assert_response :success
-		assert_select "title", "Help | #{@competition_name.value}"
+		assert_select "title", "Help | #{@vapt_project.value}"
   end
 
 	test "should get about" do
     get :about
     assert_response :success
-		assert_select "title", "About | #{@competition_name.value}"
+		assert_select "title", "About | #{@vapt_project.value}"
   end
 
 end

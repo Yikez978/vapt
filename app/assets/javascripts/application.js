@@ -47,7 +47,7 @@ $(document).ready(function() {
 	// });
 	//Join Engagements
 	$('.accept_engagement').click(function(){
-		var element = $(this)
+		var element = $(this);
 		$.ajax({
 			url: '/engagement_statuses/accept',
 			type: 'POST',
@@ -56,11 +56,11 @@ $(document).ready(function() {
 				$(element).parent('td').parent('tr').remove();
 			}
 		})
-	})
+	});
 
 	//Remove Notes
 	$('.remove_note').click(function(){
-		var element = $(this)
+		var element = $(this);
 		$.ajax({
 			url: '/notes/'+$(this).attr('note_id'),
 			type: 'DELETE',
@@ -69,7 +69,7 @@ $(document).ready(function() {
 				$(element).parent('li').remove();
 			}
 		})
-	})
+	});
 
 	$(".ajaxLoader").hide();
 	$("#cve_db").dataTable({
@@ -90,7 +90,7 @@ $(document).ready(function() {
 		}
 	}).on('changeDate', function(ev) {
 		if (ev.date.valueOf() > checkout.viewDate.valueOf()){
-			var newDate = new Date(ev.date)
+			var newDate = new Date(ev.date);
 			newDate.setDate(newDate.getDate() + 1);
 			checkout.setDate(newDate);		
 		}
