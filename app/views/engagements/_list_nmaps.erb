@@ -18,7 +18,7 @@
 			<% nmap_report.nmap_hosts.includes(:nmap_ports).each do |nmap_host| %>
 				<% nmap_host.nmap_ports.each do |p| %>
 					<tr>
-						<td><%= nmap_host.ip %></td>
+						<td><%= link_to nmap_host.ip, engagement_host_path(@engagement, nmap_host) %></td>
 						<td><%= p.port %></td>
 						<td><%= p.protocol %></td>
 						<td><%= p.state %></td>
