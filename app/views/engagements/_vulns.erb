@@ -1,10 +1,3 @@
-<%# unless nessus_policy.blank? %>
-	<%# nessus_report = Risu::Models::NessusReport.find_by(policy_id: nessus_policy.id, user_id: current_user.id, engagement_id: engagement.id) %>
-<%# end %>
-<%# unless nessus_report.blank? %>
-	<%# nessus_hosts = Risu::Models::Host.where(nessus_report_id: nessus_report.id, user_id: current_user.id, engagement_id: engagement.id ) %>
-<%# end %>
-
 <% unless nessus_policy.blank? %>
 	<% nessus_report = Risu::Models::NessusReport.find_by(policy_id: nessus_policy.id, engagement_id: engagement.id) %>
 <% end %>

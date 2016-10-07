@@ -44,7 +44,7 @@
 			<div class="profileUiList">
 				<ul>
 					<% if @engagement.notes.blank? %>
-					<div>No Notes Have been added yet.</div>
+					<p>No Notes Have been added yet.</p>
 					<% else %>
 					<% @engagement.notes.each do |note| %>
 					<li>
