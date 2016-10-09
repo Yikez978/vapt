@@ -31,7 +31,7 @@ Rails.application.routes.draw do
       resources :nmap_reports, only: [:index]
     end
     resources :engagement_creds, only: [:create, :destroy, :index]
-    resources :engagement_mains, only: [:create, :destroy, :update] do
+    resources :engagement_mains, only: [:create, :destroy, :update, :index] do
       resources :host_vulns, only: [:create, :update, :destroy]
       resources :engagement_main_users, only: [:index, :create]
       resources :host_creds, only: [:create, :update, :destroy]

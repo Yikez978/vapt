@@ -1,9 +1,15 @@
 class EngagementMainsController < ApplicationController
   
   before_action :logged_in_user
+
+  def index
+    respond_to do |format|
+      format.html
+      format.json { render json: EngagementMainsDatatable.new(view_context) }
+    end
+  end
   
-  
-	#POST   /engagements/:engagement_id/engagement_mains(.:format)
+	# POST /engagements/:engagement_id/engagement_mains(.:format)
 	def create
 		@engagement = Engagement.find(params[:engagement_id])
     @engagement_main = @engagement.engagement_mains.new(engagement_params)
