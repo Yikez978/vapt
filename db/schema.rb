@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160926031210) do
+ActiveRecord::Schema.define(version: 20161008150240) do
 
   create_table "caches", force: :cascade do |t|
     t.datetime "created_at",              null: false
@@ -45,6 +45,15 @@ ActiveRecord::Schema.define(version: 20160926031210) do
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
     t.string   "block_nature",                 limit: 255
+  end
+
+  create_table "common_ports", force: :cascade do |t|
+    t.string   "service_name",       limit: 255
+    t.integer  "port_number",        limit: 4
+    t.string   "transport_protocol", limit: 255
+    t.string   "description",        limit: 255
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
   end
 
   create_table "custom_findings", force: :cascade do |t|

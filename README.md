@@ -14,6 +14,13 @@ This is a framework built for penters and teams to collect and corrilate data du
     *Note: Custom user created exploites can be added to your local database through the gui.
   - Common Vulnerabilities and Exposures (CVE)
   - Common Weakness Enumeration (CWE)
+  
+Features that will be added
+===========================
+1. NIST 800-53 DB gui with search :status Complete - will be released in next major update
+2. NIST 800-60 DB gui with search :status Complete - will be released in next major update
+3. Vulnerability mapping to NIST controls :Working
+
 
 Setup Instruction
 ===================
@@ -114,3 +121,4 @@ Start Development Server
  - `spring rails db:setup`
  - `gem install foreman`
  - `foreman start`
+ 
