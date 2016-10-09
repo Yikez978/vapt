@@ -2,7 +2,7 @@
 	<%= link_to "Add new", "#", id: "new-main-link", class: "pull-right btn btn-primary btn-xs" %>
 	<span class="clearfix"></span>
 </div>
-<table class="main_datatable table table-striped" id="mainTabView" data-eng-id=<%= @engagement.id %> data-usr-id=<%= current_user.username %> >
+<table class="main_datatable table table-striped" id="mainTabViewEngagement" data-eng-id="<%= @engagement.id %>" data-usr-id="<%= current_user.username %>" data-source="<%= engagement_engagement_mains_url(engagement_id: @engagement.id, format: "json") %>" >
 	<thead> 
 		<tr>
 			<th>Host/IP</th>
@@ -16,58 +16,9 @@
 		</tr>
 	</thead> 
 	<tbody>
-		<% @engagement.engagement_mains.each do |engagement_main| %>
-		<tr>
-			<td>
-				<%= link_to engagement_main.host, engagement_host_path(@engagement, engagement_main) %>
-			</td>
-			<td class="pRelative mWidth">
-				<span class="pointer eHover">
-					<%# if engagement_main.ports.blank? %>
-						<%#= best_in_place engagement_main, "No ports were found", url: engagement_engagement_main_path(@engagement, engagement_main) %>
-					<%# else %>
-						<%= best_in_place engagement_main, :ports, url: engagement_engagement_main_path(@engagement, engagement_main), nil: "No ports were found" %>
-					<%# end %>
-				</span>
-        <a class="editInline"><i class="glyphicon glyphicon-pencil editIcon"></i></a>
-			</td>
-			<td class="pRelative mWidth">
-				<span class="pointer eHover">
-					<%= best_in_place engagement_main, :services, url: engagement_engagement_main_path(@engagement, engagement_main) %>
-				</span>
-				<a class="editInline"><i class="glyphicon glyphicon-pencil editIcon"></i></a>
-			</td>
-			<td class="pRelative">
-				<span class="pointer eHover">
-					<%= best_in_place engagement_main, :vulns, url: engagement_engagement_main_path(@engagement, engagement_main) %>
-				</span>
-        <a class="editInline"><i class="glyphicon glyphicon-pencil editIcon"></i></a>
-			</td>
-			<td class="pRelative">
-				<span class="truncateHostName pointer eHover">
-					<%= best_in_place engagement_main, :host_name, url: engagement_engagement_main_path(@engagement, engagement_main) %>
-				</span>
-        <a class="editInline"><i class="glyphicon glyphicon-pencil editIcon"></i></a>
-			</td>
-			<td class="pRelative">
-				<span class="pointer eHover">
-					<%= best_in_place engagement_main, :os, url: engagement_engagement_main_path(@engagement, engagement_main) %>
-				</span>
-        <a class="editInline"><i class="glyphicon glyphicon-pencil editIcon"></i></a>
-			</td>
-			<td>
-				<span class="pointer eHover">
-					<%= best_in_place engagement_main, :aasm_state, url: engagement_engagement_main_path(@engagement, engagement_main), as: :select, collection: [["not_exploited", "Not Exploited"], ["exploited", "Exploited"], ["working", "Working"]], class: "eFontSize exploit_status #{add_badge(engagement_main.aasm_state)}" %>
-				</span>
-        <a class="editInline"><i class="glyphicon glyphicon-pencil editIcon"></i></a>
-			</td>
-			<td>
-				<%= link_to "Delete", "#", class: "delete-main-link", "data-obj-id" => engagement_main.id %>
-			</td>
-		</tr>
-		<% end %>
 	</tbody>
 </table>
+
 <% content_for :head_javascript do %>
 	<script type="text/javascript">
     $(document).ready(function(){
@@ -81,6 +32,15 @@
       $('td').on('mouseover mouseout',function(){
         $(this).find('.editInline').toggle();
       });
+
+			$('#mainTabViewEngagement').dataTable({
+				sPaginationType: "full_numbers",
+				bJQueryUI: true,
+				bProcessing: true,
+				bServerSide: true,
+				sAjaxSource: $('#mainTabViewEngagement').data('source'),
+				responsive: true
+			});
     });
 	</script>
 <% end %>

@@ -5,15 +5,16 @@
 $(document).ready(function(){
 	//Datatable and manual entry for mai tab start
 	var mnEditing = null;
-	var engId = $(moTable).attr('data-eng-id');
+	var engId = $('#mainTabViewEngagement').attr('data-eng-id')
 
-	var moTable = $('#mainTabView').dataTable({
-		"columnDefs": [{
-			"targets": 7,
-			"orderable": false
-		}],
-		responsive: true
-	});
+	// var moTable = $('#mainTabView').dataTable({
+	// 	"columnDefs": [{
+	// 		"targets": 7,
+	// 		"orderable": false
+	// 	}],
+	// 	responsive: true
+	// });
+
 
 	$('#mainTabView').on('click', '.save-main-link', function(e){
 		e.preventDefault();
