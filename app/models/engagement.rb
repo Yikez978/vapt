@@ -44,6 +44,8 @@ class Engagement < ActiveRecord::Base
   has_many :user_engagements
   has_many :users, through: :user_engagements
 
+  has_many :reports
+
   default_scope { order(:created_at => :desc) }
 
   accepts_nested_attributes_for :ips, reject_if: :all_blank, allow_destroy: true
@@ -80,7 +82,7 @@ class Engagement < ActiveRecord::Base
       # Skip if already Completed
       unless engagement.completed?
           # Check if started & active
-        if (engagement.start_date <= Date.today)
+        if engagement.start_date <= Date.today
           engagement.activate
         end
       end
