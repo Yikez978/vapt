@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161008150240) do
+ActiveRecord::Schema.define(version: 20161011151806) do
 
   create_table "caches", force: :cascade do |t|
     t.datetime "created_at",              null: false
@@ -45,15 +45,6 @@ ActiveRecord::Schema.define(version: 20161008150240) do
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
     t.string   "block_nature",                 limit: 255
-  end
-
-  create_table "common_ports", force: :cascade do |t|
-    t.string   "service_name",       limit: 255
-    t.integer  "port_number",        limit: 4
-    t.string   "transport_protocol", limit: 255
-    t.string   "description",        limit: 255
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
   end
 
   create_table "custom_findings", force: :cascade do |t|
@@ -1284,14 +1275,16 @@ ActiveRecord::Schema.define(version: 20161008150240) do
   end
 
   create_table "reports", force: :cascade do |t|
-    t.text     "options",     limit: 16777215
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
-    t.integer  "user_id",     limit: 4
-    t.integer  "customer_id", limit: 4
+    t.text     "options",       limit: 16777215
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.integer  "user_id",       limit: 4
+    t.integer  "customer_id",   limit: 4
+    t.integer  "engagement_id", limit: 4
   end
 
   add_index "reports", ["customer_id"], name: "index_reports_on_customer_id", using: :btree
+  add_index "reports", ["engagement_id"], name: "index_reports_on_engagement_id", using: :btree
 
   create_table "screenshots", force: :cascade do |t|
     t.string   "file",             limit: 255
@@ -1364,4 +1357,5 @@ ActiveRecord::Schema.define(version: 20161008150240) do
 
   add_foreign_key "engagements", "customers"
   add_foreign_key "reports", "customers"
+  add_foreign_key "reports", "engagements"
 end
