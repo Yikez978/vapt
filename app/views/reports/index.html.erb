@@ -3,7 +3,7 @@
 <h1>Listing Reports</h1>
 
 <% @reports.each do |report| %>
-    <%= render 'reports/report', report:report %>
+    <%= render 'reports/report', { report:report, customer_view: false } %>
 <% end %>
 
 <br>

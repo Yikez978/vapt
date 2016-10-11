@@ -44,4 +44,4 @@
 
 
 <h3 class="text-center">Reports</h3>
-<%= render partial: 'reports/report', collection: @customer.reports %>
+<%= render partial: 'reports/report', collection: @customer.reports, locals: {customer_view: true} %>
