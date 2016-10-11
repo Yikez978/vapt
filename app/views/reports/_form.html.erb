@@ -16,12 +16,11 @@
         </div>
     <% end %>
 
+    <div class="field form-group">
+      <%= f.select :engagement_id, current_user.engagements.where_pending.collect {|e| [e.engagement_name, e.id] }.unshift(["Select Engagement", nil])%>
+    </div>
+
     <%= f.fields_for :options, OpenStruct.new(f.object.options || {}) do |f2| %>
-
-        <div class="field form-group">
-
-          <%= f2.select :enagegment_id, current_user.engagements.where_pending.collect {|e| [e.engagement_name, e.id] }.unshift(["Select Engagement", nil])%>
-        </div>
 
         <div class="field form-group">
           <%= f2.label :report_name %><br>

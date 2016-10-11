@@ -11,7 +11,7 @@
         <th>End Date</th>
         <th>Status</th>
         <th>Type</th>
-        <th>Action</th>
+        <th>Reports</th>
       </tr>
       </thead>
       <tbody>
@@ -33,15 +33,14 @@
               <%= engagement.engagement_type.name %>
             </td>
             <td>
-
+              <span>
+                <%= link_to get_pdf_path(engagement.reports.try(:first), format: :pdf) do %>
+                  <i class="glyphicon glyphicon-save"></i> Download as PDF
+                <% end %>
+              </span>
             </td>
           </tr>
       <% end %>
       </tbody>
     </table>
 <% end %>
-
-
-
-<h3 class="text-center">Reports</h3>
-<%= render partial: 'reports/report', collection: @customer.reports, locals: {customer_view: true} %>
