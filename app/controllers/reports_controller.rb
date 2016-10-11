@@ -26,7 +26,6 @@ class ReportsController < ApplicationController
 
     vulnerability_ids = @report.options['penetrations'].keys
     @screenshots = Screenshot.where(vulnerability_id: vulnerability_ids)
-
     @report.user = current_user
     @report.save!
     redirect_to edit_report_path(@report)
@@ -54,6 +53,7 @@ class ReportsController < ApplicationController
   def edit
     vulnerability_ids = @report.options['penetrations'].keys
     @screenshots = Screenshot.where(vulnerability_id: vulnerability_ids)
+    @engagement = @report.engagement
   end
 
   def get_pdf

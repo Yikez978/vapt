@@ -39,7 +39,6 @@ class ReportHelper
       else
         # set default indentation for paragraphs
         opts[:indent_paragraphs] = opts[:indent_paragraphs] || opts[:indent_paragraphs] = 30
-        pdf.text(line, opts)
       end
     end
   end
