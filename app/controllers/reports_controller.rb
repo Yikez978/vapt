@@ -87,15 +87,16 @@ class ReportsController < ApplicationController
   # PATCH/PUT /reports/1.json
   def update
     respond_to do |format|
+
       attributes = report_params
       attributes[:customer] = Customer.find_or_initialize_by(name: attributes[:customer]) if attributes[:customer].present?
       if @report.update(attributes)
         save_report_audit
         format.html { redirect_to reports_url, notice: 'Report was successfully updated.' }
-        format.json { render :show, status: :ok, location: @report }
+        format.pdf { render :show, status: :ok, location: @report }
       else
         format.html { render reports_url }
-        format.json { render json: @report.errors, status: :unprocessable_entity }
+        format.pdf { render json: @report.errors, status: :unprocessable_entity }
       end
     end
   end
