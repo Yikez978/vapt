@@ -20,6 +20,11 @@
       <%= f.select :engagement_id, current_user.engagements.where_pending.collect {|e| [e.engagement_name, e.id] }.unshift(["Select Engagement", nil])%>
     </div>
 
+    <div class="field form-group">
+      <%= f.label :user_name, "Tester Name" %><br>
+      <%= f.select :user_id, [@report.user].collect { |u| [u.fname, u.id] }  %>
+    </div>
+
     <%= f.fields_for :options, OpenStruct.new(f.object.options || {}) do |f2| %>
 
         <div class="field form-group">
@@ -30,15 +35,6 @@
         <div class="field form-group">
           <%= f2.label "Customer" %><br>
           <%= f.autocomplete_field :customer, autocomplete_customer_name_customers_path %>
-        </div>
-
-        <%= render 'show_hide', target: :student_name %>
-        <div class="field form-group">
-          <%= f2.label :student_name, "Tester Name" %><br>
-          <div class="student_name_toggle">
-            <%= render "example_text", example: :student_name %>
-            <%= f2.text_field :student_name, class: 'form-control'  %>
-          </div>
         </div>
 
         <%= render 'show_hide', target: :introduction %>
