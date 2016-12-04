@@ -540,12 +540,6 @@ ActiveRecord::Schema.define(version: 20161204022932) do
     t.datetime "custom_file_updated_at"
   end
 
-  create_table "family_selections", force: :cascade do |t|
-    t.integer "policy_id",   limit: 4
-    t.string  "family_name", limit: 255
-    t.string  "status",      limit: 255
-  end
-
   create_table "host_creds", force: :cascade do |t|
     t.string   "ip",                 limit: 255
     t.text     "pwdump",             limit: 65535
@@ -1272,30 +1266,12 @@ ActiveRecord::Schema.define(version: 20161204022932) do
     t.boolean  "is_active",     limit: 1,   default: true
   end
 
-  create_table "plugins_preferences", force: :cascade do |t|
-    t.integer "policy_id",         limit: 4
-    t.integer "plugin_id",         limit: 4
-    t.string  "plugin_name",       limit: 255
-    t.string  "fullname",          limit: 255
-    t.string  "preference_name",   limit: 255
-    t.string  "preference_type",   limit: 255
-    t.string  "preference_values", limit: 255
-    t.string  "selected_values",   limit: 255
-  end
-
   create_table "pocs", force: :cascade do |t|
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
     t.integer  "engagement_id",     limit: 4
     t.integer  "sub_engagement_id", limit: 4
     t.string   "name",              limit: 255
-  end
-
-  create_table "policies", force: :cascade do |t|
-    t.string "name",       limit: 255
-    t.text   "comments",   limit: 65535
-    t.string "owner",      limit: 255
-    t.string "visibility", limit: 255
   end
 
   create_table "reports", force: :cascade do |t|
@@ -1318,12 +1294,6 @@ ActiveRecord::Schema.define(version: 20161204022932) do
     t.datetime "updated_at",                     null: false
     t.integer  "index",            limit: 4
     t.text     "caption",          limit: 65535
-  end
-
-  create_table "server_preferences", force: :cascade do |t|
-    t.integer "policy_id", limit: 4
-    t.string  "name",      limit: 255
-    t.text    "value",     limit: 4294967295
   end
 
   create_table "settings", force: :cascade do |t|

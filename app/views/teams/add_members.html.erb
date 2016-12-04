@@ -1,0 +1,16 @@
+<h2> Add more members to the team</h2>
+<%= form_for(@team) do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
+
+    <%= f.label "Team Name"  %>
+    <%= f.text_field :name, class: 'form-control' %>
+    <br/>
+    <%= f.label "Add Users to Team" %>
+    <%= select_tag 'user_ids', options_from_collection_for_select(@users_without_team, "id", "full_name"), multiple: true, class: 'form-control chosen-it' %>
+    <br/>
+    <%= f.submit "Add users to team", class: "btn btn-primary" %>
+<% end %>
+
+<script type="text/javascript">
+  $('.chosen-it').chosen();
+</script>

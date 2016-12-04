@@ -49,7 +49,6 @@
 				<th>End Date</th>
 				<th>Status</th>
 				<th>Type</th>
-				<th>Site Wide</th>
 				<th>Action</th>
 			</tr>
 		</thead>
@@ -70,9 +69,6 @@
 					</td>
 					<td>
 						<%= engagement.engagement_type.name %>
-					</td>
-					<td>
-						<%= engagement.is_site_wide_engagement %>
 					</td>
 					<td>
 						<%= link_to_if((engagement.active? || engagement.pending?), "Join", "javascript:void(0)", class: "btn btn-success btn-xs accept_engagement", "eng-id" => engagement.id ){} %>

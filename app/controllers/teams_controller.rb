@@ -27,32 +27,38 @@ class TeamsController < ApplicationController
 	end
 
 	def update
+		@team = Team.find(params[:id])
 		if @team.update_attributes(team_params)
-			flash[:success] = "Changes saved successfully"
+			if params[:user_ids].present?
+				params[:user_ids].each do |user_id|
+					@team.users << User.find(user_id)
+				end
+				flash[:success] = "Users added to the team"
+			end
 			redirect_to @team
 		else
-			render 'edit'
+			render "teams/add_members"
 		end
 	end
 
 	def create
-		@user = current_user
 		@team = Team.new(team_params)
 		if @team.save
-			@user.team_id = @team.id
-			@user.save
+			params[:user_ids].each do |user_id|
+				@team.users << User.find(user_id)
+			end
       flash[:success] = @team.name + " created!"
-      redirect_to @team
+      redirect_to admin_path
 		else
-			render 'new'
+			render 'settings/edit'
 		end
 	end
 
 	def remove_member
 		@team = Team.find(params[:team_id])
 		@user = User.find(params[:user_id])
-		if !(current_user.team == @team) && !current_user.admin?
-			flash[:danger] = "You can only remove members from your team"
+		if !current_user.admin?
+			flash[:danger] = "You are not authorized to remove members from a team"
 			redirect_to @team
 		else
 			@user.leave_team
@@ -64,29 +70,23 @@ class TeamsController < ApplicationController
 	def join
 		@team = Team.find(params[:team_id])
 		@user = User.find(params[:user_id])
-		if @user != current_user
-			flash[:danger] = "You can only add yourself"
+		if admin_user? && @user.join_team(@team)
+			flash[:success] = "#{@user.username} added to #{@team.name}"
 			redirect_to @team
-		elsif @user.team_id
-			flash[:danger] = "You already have a team"
-			redirect_to @team
-		elsif !@team.authenticate(params[:passphrase])
-			flash[:danger] = "Incorrect passphrase"
-			redirect_to @team
-		elsif @team.name == "admins" && !@user.admin?
-			flash[:danger] = "Access denied"
-			redirect_to root_url
 		else
-			if @user.join_team(@team)
-				flash[:success] = "Welcome to " + @team.name
-				redirect_to @team
-			end
+			flash[:danger] = "You are not authorized to add members to a team"
+			redirect_to root_url
 		end
+	end
+
+	def add_members
+		@team = Team.find(params[:team_id])
+		@users_without_team = User.where(team_id: nil)
 	end
 
 	private
 		def team_params
-			params.require(:team).permit(:name, :passphrase)
+			params.require(:team).permit(:name)
 		end
 
 		def member_of_team

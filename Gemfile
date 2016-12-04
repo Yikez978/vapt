@@ -61,6 +61,7 @@ gem 'pry'
 gem 'pry-nav'
 gem 'pry-stack_explorer'
 gem 'thin'
+gem 'chosen-rails', '~> 1.5', '>= 1.5.2'
 
 group :development, :test do
   gem 'mysql2', '~> 0.3.20'

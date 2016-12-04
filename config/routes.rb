@@ -87,7 +87,9 @@ Rails.application.routes.draw do
   delete 'logout'					=> 'sessions#destroy'
 
   patch 'settings' => 'settings#update'
-  resources :teams
+  resources :teams do
+    get 'add_members'
+  end
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :users do
