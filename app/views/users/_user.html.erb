@@ -1,13 +1,15 @@
 <%= content_tag :li, class: 'searchable' do %>
-	<%= gravatar_for user, size: 50 %>
-	<%= link_to user.username, user %>
-	<% if current_user.admin? && !current_user?(user) %>
-    | <%= link_to "delete", user, method: :delete,
-                                  data: { confirm: "You sure?" } %>
-		| <%= link_to "Reset Password", reset_user_password_path(user),
-		 																data: { confirm: "You sure? This will reset his or her password to 'password' (no quotes)." } %>
-		<br />
-		<%#= mail_to user.email %>
-    <%= content_tag :div, "User active.", class: "text-success" %>
-  <% end %>
+    <%= gravatar_for user, size: 50 %>
+    <%= link_to user.username, user %>
+    <% if current_user.admin? && !current_user?(user) %>
+        <%= content_tag :span, class: 'pull-right' do %>
+            <%= link_to user, method: :delete, class: 'btn btn-danger',
+                        title: "Delete",
+                        data: { confirm: 'Are you sure?', toggle: "tooltip", placement: "bottom" },
+                        form: {style: 'display:inline-block;'} do %>
+                <span class='glyphicon glyphicon-trash' aria-hidden='true'></span>
+            <% end %>
+        <% end %>
+
+    <% end %>
 <% end %>

@@ -1,29 +1,39 @@
 
 <%= form_tag settings_path, method: 'patch', class: 'form-inline col-md-12' do %>
 
-	<!-- Nav tabs -->
-	<%= content_tag :ul, class: 'nav nav-tabs vTabs', role: 'tablist' do %>
-		<%= content_tag :li, class: 'active' do %>
-			<%= content_tag :a, 'Users', href: "#users", 'aria-controls' => "users", role: 'tab', 'data-toggle' => 'tab' %>
-		<% end %>
+    <!-- Nav tabs -->
+    <%= content_tag :ul, class: 'nav nav-tabs', role: 'tablist' do %>
+        <%= content_tag :li do %>
+            <%= content_tag :a, 'Teams', href: "#teams", 'aria-controls' => "teams", role: 'tab', 'data-toggle' => 'tab' %>
+        <% end %>
+        <%= content_tag :li do %>
+            <%= content_tag :a, 'Users', href: "#users", 'aria-controls' => "users", role: 'tab', 'data-toggle' => 'tab' %>
+        <% end %>
 
-		<%= content_tag :div, id: 'filter_container', class: 'input-group pull-right' do %>
-			<%= content_tag :span, 'Search', class: 'input-group-addon' %>
-			<input id="filter" type="text" class="filter form-control">
-		<% end %>
-	<% end %>
+        <%= content_tag :div, id: 'filter_container', class: 'input-group pull-right', style: 'display:none' do %>
+            <%= content_tag :span, 'Search', class: 'input-group-addon' %>
+            <input id="filter" type="text" class="filter form-control">
+        <% end %>
+    <% end %>
 
-	<!-- Tab panes -->
-	<%= content_tag :div, class: 'tab-content' do %>
-		<%= content_tag :div, class: 'tab-pane active', id: 'users' do %>
-			<%= content_tag :h4, "Count: #{@users.count}", class: 'text-center' %>
-			<%= content_tag :ul, class: 'users row filter_list' do %>
-				<%= render @users %>
-			<% end %>
-		<% end %>
-	<% end %>
+    <!-- Tab panes -->
+    <%= content_tag :div, class: 'tab-content' do %>
 
-	<%= tag :br %>
-	<%= submit_tag 'Save Changes', class: 'form-control col-md-3 btn btn-primary' %>
+        <%= content_tag :div, class: 'tab-pane', id: 'teams' do %>
+            <%= content_tag :h4, "Count: #{@teams.count}", class: 'text-center' %>
+            <%= content_tag :ul, class: 'teams row filter_list' do %>
+                <%= render partial: 'teams/team', collection: @teams, locals: {num_challenges: @num_challenges } %>
+            <% end %>
+        <% end %>
+        <%= content_tag :div, class: 'tab-pane', id: 'users' do %>
+            <%= content_tag :h4, "Count: #{@users.count}", class: 'text-center' %>
+            <%= content_tag :ul, class: 'users row filter_list' do %>
+                <%= render @users %>
+            <% end %>
+        <% end %>
+    <% end %>
+
+    <%= tag :br %>
+    <%= submit_tag 'Save Changes', class: 'form-control col-md-3 btn btn-primary' %>
 
 <% end %>

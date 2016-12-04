@@ -84,11 +84,26 @@ class UsersController < ApplicationController
 		params.require(:user).permit(:fname, :lname, :username, :password, :password_confirmation, :discount_code, :avatar)
 	end
 
+	def logged_in_user
+		unless logged_in?
+			store_location
+			flash[:danger] = "Please log in."
+			redirect_to login_url
+		end
+	end
+
 	def correct_user
 		@user = User.find(params[:id])
 		unless current_user?(@user)
-			flash[:danger] = 'Access Denied'
+			flash[:danger] = "Access denied"
 			redirect_to root_url
 		end
 	end
+
+	def admin_user
+		unless admin_user?
+			flash[:danger] = "Access denied"
+			redirect_to root_url
+		end
+		end
 end

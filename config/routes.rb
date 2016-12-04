@@ -81,16 +81,22 @@ Rails.application.routes.draw do
   get 'user/:id/reset_password' => 'users#reset_password', as: :reset_user_password
 
   post 'login' 		 			=> 'sessions#create'
+  post 'join'           => 'teams#join'
+  post 'remove_member'  => 'teams#remove_member'
 
   delete 'logout'					=> 'sessions#destroy'
 
   patch 'settings' => 'settings#update'
-
+  resources :teams
+  resources :account_activations, only: [:edit]
+  resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :users do
     collection do
       get 'find_users'
     end
   end
+  resources :users
+  resources :teams
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
 

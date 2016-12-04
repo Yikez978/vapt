@@ -16,11 +16,12 @@ Setting.find_or_create_by(label: "Allow users to view profiles other than their 
 													name: "view_other_profiles", value: "1", setting_type: "boolean", category: "General")
 
 
-user = User.new(id: Random.rand(10000),fname:  "admin",lname: "user",username: "admin",admin: true)
+user = User.new(id: Random.rand(10000),fname:  "admin",lname: "user",username: "admin",admin: true, team_id: team.id)
 user.password = "password"
 user.password_confirmation = "password"
 user.save
 
+user.join_team(team)
 
 EngagementType.find_or_create_by(name: "Reaccuring")
 EngagementType.find_or_create_by(name: "Top 100")

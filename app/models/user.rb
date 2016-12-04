@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
 	include SettingsHelper
 	attr_accessor :remember_token, :reset_token
-  #before_save   :downcase_email
+	belongs_to :team
 
 	has_many :reports, dependent: :destroy
 	has_many :exploits, dependent: :destroy
@@ -44,6 +44,19 @@ class User < ActiveRecord::Base
 		SecureRandom.urlsafe_base64
 	end
 
+	def is_member?(team)
+		self.team.id == team.id
+	end
+
+	def leave_team
+		update_attribute(:team_id, nil)
+	end
+
+	def join_team(team)
+		self.team = team
+		self.save
+	end
+
 	def remember
 		self.remember_token = User.new_token
 		update_attribute :remember_digest, User.digest(remember_token)
@@ -65,22 +78,9 @@ class User < ActiveRecord::Base
     update_attribute(:reset_sent_at, Time.zone.now)
   end
 
-	def send_password_reset_email
-    UserMailer.password_reset(self).deliver_now
-  end
-
 	def password_reset_expired?
     reset_sent_at < 2.hours.ago
   end
-
-	def get_accuracy_data
-		result = Array.new
-
-		result.push(['Correct', self.submissions.where(correct: true).count])
-		result.push(['Incorrect', self.submissions.where.not(correct: true).count])
-
-		result
-	end
 
   def full_name
     get_full_name
@@ -91,10 +91,5 @@ class User < ActiveRecord::Base
 	end
 
 	private
-
-    # Converts email to all lower-case.
-    # def downcase_email
-    #   self.email = email.downcase
-    # end
 
 end

@@ -1,4 +1,6 @@
 module ApplicationHelper
+  include SettingsHelper
+  include SessionsHelper
 	# Returns full title on per-page basis
   def full_title(page_title = '')
     base_title = vapt_project

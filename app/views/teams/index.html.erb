@@ -1,0 +1,34 @@
+<% provide(:title, 'All teams') %>
+<h1>All teams</h1>
+<div class="input-group"> 
+	<span class="input-group-addon">Search</span>
+	<input id="filter" type="text" class="filter form-control">
+</div>
+<br />
+<div>
+	<!-- Nav tabs -->
+	<ul class="nav nav-tabs" role="tablist">
+  	<li role="presentation" class="active"><a href="#all" aria-controls="all" role="tab" data-toggle="tab">All</a></li>
+		<% for bracket in @brackets do %>
+  		<li role="presentation">
+				<%= link_to bracket.name, "##{add_id('bracket',bracket)}", 'aria-controls' => add_id('bracket',bracket), role: 'tab', 'data-toggle' => 'tab' %>
+			</li>
+		<% end %>
+	</ul>
+
+	<!-- Tab panes -->
+	<div class="tab-content">
+  	<div role="tabpanel" class="tab-pane active" id="all">
+			<ul class="teams row filter_list">
+				<%= render partial: 'teams/team', collection: @teams, locals: {num_challenges: @num_challenges } %>
+			</ul>
+		</div>
+		<% for bracket in @brackets do %>
+			<%= content_tag :div, role: 'tabpanel', class: 'tab-pane', id: add_id('bracket', bracket) do %>
+				<ul class="teams row filter_list">
+					<%= render @teams.select { |b| b.bracket_id == bracket.id } %>
+				</ul>
+			<% end %>
+		<% end %>
+	</div>
+</div>
