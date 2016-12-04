@@ -1,14 +1,10 @@
 <li class='searchable'>
-		<h3 class='col-md-1 col-xs-1'>
-			<%= @sorted_teams.index(team) + 1 %>
-		</h3>
 		<div class='col-md-8 col-xs-6'>
 			<h3> <%= link_to team.name, team %> </h3>
 			<h5 class='text-muted'> (<%= pluralize(team.users.count, "member") %>) </h5>
 		</div>
 
-    <h3> 
-      <%= link_to team.name, team %> 
+    <h3>
       <% if admin_user? %>
         <span class="pull-right">
           <%= link_to team, method: :delete, class: 'btn btn-danger',

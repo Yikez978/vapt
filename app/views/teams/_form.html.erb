@@ -4,8 +4,5 @@
 	<%= f.label "Team Name"  %>
 	<%= f.text_field :name, class: 'form-control' %>
 
-	<%= f.label "Passphrase" %>
-	<%= f.password_field :passphrase, class: 'form-control' %>
-
   <%= f.submit yield(:button_text), class: "btn btn-primary" %>
 <% end %>

@@ -11,6 +11,7 @@ class SettingsController < ApplicationController
 		@settings = @general + @other_settings
 
 		@users = User.all
+		@users_without_team = User.where(team_id: nil)
 		@teams = Team.all
 	end
 

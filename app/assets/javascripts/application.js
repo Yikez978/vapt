@@ -36,6 +36,8 @@
 //= require best_in_place.jquery-ui
 //= require Chart.min
 //= require bootstrap-tabcollapse
+//= require chosen-jquery
+//= require scaffold
 //= require_tree .
 	
 var mouseover = false;

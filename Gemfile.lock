@@ -101,6 +101,10 @@ GEM
       json (>= 1.7)
       mime-types (>= 1.16)
     charlock_holmes (0.7.3)
+    chosen-rails (1.5.2)
+      coffee-rails (>= 3.2)
+      railties (>= 3.0)
+      sass-rails (>= 3.2)
     chronic (0.10.2)
     climate_control (0.0.3)
       activesupport (>= 3.0)
@@ -453,6 +457,7 @@ DEPENDENCIES
   byebug
   c3-rails (= 0.4.10)
   carrierwave (= 0.10.0)
+  chosen-rails (~> 1.5, >= 1.5.2)
   ckeditor!
   cocoon
   coffee-rails (~> 4.1.0)
