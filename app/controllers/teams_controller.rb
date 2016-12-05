@@ -44,10 +44,12 @@ class TeamsController < ApplicationController
 	def create
 		@team = Team.new(team_params)
 		if @team.save
-			params[:user_ids].each do |user_id|
-				@team.users << User.find(user_id)
+			if params[:user_ids].present?
+				params[:user_ids].each do |user_id|
+					@team.users << User.find(user_id)
+				end
+				flash[:success] = @team.name + " created!"
 			end
-      flash[:success] = @team.name + " created!"
       redirect_to admin_path
 		else
 			render 'settings/edit'
