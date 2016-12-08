@@ -65,7 +65,7 @@ gem 'chosen-rails', '~> 1.5', '>= 1.5.2'
 
 group :development, :test do
   gem 'mysql2', '~> 0.3.20'
-  gem 'byebug'
+  gem 'pry-byebug'
   gem 'web-console', '~> 2.0'
 end
 
