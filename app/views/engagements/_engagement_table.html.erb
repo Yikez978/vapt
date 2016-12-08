@@ -22,7 +22,7 @@
             <%= engagement.customer.name %>
           </td>
           <td>
-            <%= engagement.ocbs.first.number %>
+            <%= engagement.ocbs.try(:first).try(:number) %>
           </td>
           <td>
             <%= engagement.start_date %>

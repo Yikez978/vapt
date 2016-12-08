@@ -36,6 +36,7 @@ class EngagementsController < ApplicationController
       engagement_type.save
       @engagement.engagement_type_id = engagement_type.id
     end
+
     if @engagement.save
       if params[:engagement][:user]
         params[:engagement][:user].each do |user|

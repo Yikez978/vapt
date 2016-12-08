@@ -72,6 +72,8 @@ class Engagement < ActiveRecord::Base
   validates_presence_of :ocb_number, on: :create
   validates_presence_of :ocb_start_date, on: :create
 
+  validate :unique_ocb_number
+
   scope :find_all_except_canceled, -> {where.not(aasm_state: :canceled) }
   scope :where_pending, -> {where(aasm_state: :pending)}
   has_ancestry
@@ -102,5 +104,13 @@ class Engagement < ActiveRecord::Base
 
   def sub_engagement?
     self.ancestry ? true : false
+  end
+
+  private
+
+  def unique_ocb_number
+    if Ocb.pluck(:number).include? self.ocb_number
+      errors.add(:base, "ocb number has to be unique")
+    end
   end
 end
