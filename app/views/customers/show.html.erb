@@ -34,8 +34,12 @@
             </td>
             <td>
               <span>
-                <%= link_to get_pdf_path(engagement.reports.try(:first), format: :pdf) do %>
-                  <i class="glyphicon glyphicon-save"></i> Download as PDF
+                <% if engagement.reports.any? %>
+                  <%= link_to get_pdf_path(engagement.reports.first, format: :pdf) do %>
+                    <i class="glyphicon glyphicon-save"></i> Download as PDF
+                  <% end %>
+                <% else %>
+                  <p> No saved reports </p>
                 <% end %>
               </span>
             </td>
