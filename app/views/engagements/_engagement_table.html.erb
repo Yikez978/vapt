@@ -3,6 +3,7 @@
     <thead>
       <tr>
         <th>Engagement Name</th>
+        <th>OCB Number</th>
         <th>Start Date</th>
         <th>End Date</th>
         <th>Status</th>
@@ -15,6 +16,9 @@
         <tr>
           <td>
             <%= link_to engagement.engagement_name, engagement_path(engagement.id) %>
+          </td>
+          <td>
+            <%= engagement.ocbs.first.number %>
           </td>
           <td>
             <%= engagement.start_date %>
