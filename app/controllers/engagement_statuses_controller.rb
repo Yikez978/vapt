@@ -20,7 +20,7 @@ class EngagementStatusesController < ApplicationController
 			@user_engagement = UserEngagement.find_by_user_id_and_engagement_id(current_user.id, @engagement.id)
 
 			if @user_engagement.present?
-				@engagement_status.destroy
+				@user_engagement.destroy
 				flash[:success] = "You have left the engagement successfully!"
 			else
 				flash[:success] = "You are not a part of this engagement!"
