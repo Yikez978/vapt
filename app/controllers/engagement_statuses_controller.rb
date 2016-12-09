@@ -9,11 +9,23 @@ class EngagementStatusesController < ApplicationController
 	end
 
 	def destroy
-		@engagement = UserEngagement.find_by_user_id_and_engagement_id(current_user.id, params[:id])
-		@engagement.destroy
+		@engagement = Engagement.find(params[:id])
+
+		if @engagement.users.count == 1 && @engagement.users.first == current_user
+			flash[:success] = "You can't leave the engagement until someone else joins it!"
+		else
+			@user_engagement = UserEngagement.find_by_user_id_and_engagement_id(current_user.id, @engagement.id)
+
+			if @user_engagement.present?
+				@engagement_status.destroy
+				flash[:success] = "You have left the engagement successfully!"
+			else
+				flash[:success] = "You are not a part of this engagement!"
+			end
+		end
 		respond_to do |format|
-			format.html {redirect_to request.referer}
-			format.json {render json: {data: {}}}
+			format.html { redirect_to request.referer }
+			format.json { render json: { data: {} } }
 		end
 	end
 end
