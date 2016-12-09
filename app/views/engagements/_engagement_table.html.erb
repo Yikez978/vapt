@@ -45,7 +45,11 @@
             <%= engagement.engagement_type.name %>
           </td>
           <td>
-            <%= link_to "Leave", engagement_status_path(engagement.id), class: "btn btn-danger btn-xs", method: :delete, data: {confirm: "Are you sure ?"} %>
+            <% if engagement.users.include? current_user %>
+                <%= link_to "Leave", engagement_status_path(engagement.id), class: "btn btn-danger btn-xs", method: :delete, data: { confirm: "Are you sure ?" } %>
+            <% else %>
+                <%= link_to "Join", accept_engagement_status_path(engagement.id), class: "btn btn-primary btn-xs", method: :post, data: { confirm: "Are you sure ?" } %>
+            <% end %>
           </td>
         </tr>
       <% end %>

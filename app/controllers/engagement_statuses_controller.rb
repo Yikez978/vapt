@@ -1,9 +1,12 @@
 class EngagementStatusesController < ApplicationController
 	def accept
-		@user_engagement = UserEngagement.find_or_create_by(user_id: current_user.id, engagement_id: params[:engagement_id])
+		@user_engagement = UserEngagement.find_or_create_by(user_id: current_user.id, engagement_id: params[:id])
+
 		if @user_engagement.save
+			flash[:success] = "You have successfully joined the engagement!"
 			respond_to do |format|
-				format.json {render json: {data: @user_engagement}}
+				format.html { redirect_to request.referer }
+				format.json { render json: { data: {} } }
 			end
 		end
 	end

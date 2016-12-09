@@ -52,7 +52,7 @@ Rails.application.routes.draw do
   end
 
   resources :engagement_statuses do
-    collection do
+    member do
       post :accept
     end
   end
