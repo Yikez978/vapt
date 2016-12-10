@@ -53,7 +53,6 @@ class Engagement < ActiveRecord::Base
   accepts_nested_attributes_for :hosts, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :system_admins, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :ocbs, reject_if: :all_blank, allow_destroy: true
-  accepts_nested_attributes_for :sub_engagements, allow_destroy: true
 
   has_many :children, class_name: 'Engagement'
   # accepts_nested_attributes_for :children, allow_destroy: true
@@ -90,7 +89,6 @@ class Engagement < ActiveRecord::Base
       end
 
       engagement.save
-
     end
   end
 

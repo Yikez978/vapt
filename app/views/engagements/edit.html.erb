@@ -30,19 +30,6 @@
 					<%= f.text_field :system_admin, value: @system_admin_names_engagement.join(" , ") %>
 				</div>
 			</div>
-			<div>
-				<h4>Sub Engagements (If any)</h4>
-				<div id="sub_engagements">
-					<% @sub_engagements.each_with_index do |sub_engagement, index| %>
-						<%= render 'edit_sub_engagement_fields', f: sub_engagement, i: index %>
-						<div class="links addAnother">
-							<%#= link_to_add_association f, :sub_engagements do %>
-								<i class="glyphicon glyphicon-plus-sign"></i> Add Another
-							<%# end %>
-						</div>
-					<% end %>
-				</div>
-			</div>
 		</div>
 		<div class="col-md-4">
 			<div class="field">

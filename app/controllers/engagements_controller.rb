@@ -3,7 +3,6 @@ class EngagementsController < ApplicationController
 
   before_action :logged_in_user
   before_action :is_engagement_state_pending_and_created_by_current_user?, only: [:edit, :update, :destroy]
-  before_action :not_sub_engagement, only: [:edit]
 
   def complete
     @engagement = current_user.engagements.find(params[:id])
@@ -19,7 +18,6 @@ class EngagementsController < ApplicationController
 
   def new
     @engagement = Engagement.new
-    @sub_engagement = @engagement.sub_engagements.new
     @engagement_types = EngagementType.all.by_name
     @users = User.all
   end
@@ -64,11 +62,7 @@ class EngagementsController < ApplicationController
       @poc = Poc.create_new(params[:engagement][:poc], @engagement.id)
       @system_admin = SystemAdmin.create_new(params[:engagement][:system_admin], @engagement.id)
       @ocb = Ocb.create_new(params[:engagement][:ocb_number], params[:engagement][:ocb_start_date], @engagement.id)
-      params[:engagement][:sub_engagements_attributes].each do |sub_engagement_param|
-        unless sub_engagement_param[1]['sub_engagement_name'].blank?
-          sub_engagement = SubEngagement.create_new(sub_engagement_param[1], @engagement)
-        end
-      end
+
       redirect_to engagements_path
     else
       render 'new'
@@ -99,7 +93,6 @@ class EngagementsController < ApplicationController
 
   def edit
     @engagement = Engagement.find(params[:id])
-    @sub_engagements = @engagement.children
     @engagement_types = EngagementType.all.by_name
     @users = User.all
 
@@ -112,7 +105,6 @@ class EngagementsController < ApplicationController
 
   def update
     @engagement = Engagement.find(params[:id])
-    @sub_engagements = @engagement.children
     @engagement_types = EngagementType.all.by_name
     @users = User.all
 
@@ -152,31 +144,6 @@ class EngagementsController < ApplicationController
       @engagement.system_admins.destroy_all
       @system_admin = SystemAdmin.create_new(params[:engagement][:system_admin], @engagement.id)
 
-      if params[:engagement][:sub_engagements_attributes]
-        params[:engagement][:sub_engagements_attributes].each do |sub_engagement_param|
-          sub_engagement_attr = sub_engagement_param[1]
-          sub_engagement = Engagement.find(sub_engagement_attr["id"])
-          sub_engagement.engagement_name = sub_engagement_attr["engagement_name"]
-          sub_engagement.save
-
-          sub_engagement.ips.destroy_all
-          sub_engagement.pocs.destroy_all
-          sub_engagement.system_admins.destroy_all
-
-          sub_engagement_attr["ip"].split(',').each do |ip_address|
-            sub_engagement.ips.create(engagement_id: @engagement.id, ip: ip_address)
-          end
-
-          sub_engagement_attr["poc"].split(',').each do |poc|
-            sub_engagement.pocs.create(engagement_id: @engagement.id, name: poc)
-          end
-
-          sub_engagement_attr["system_admin"].split(',').each do |system_admin|
-            sub_engagement.system_admins.create(engagement_id: @engagement.id, name: system_admin)
-          end
-        end
-      end
-
       redirect_to engagement_path(@engagement)
     else
       render 'edit'
@@ -193,14 +160,6 @@ class EngagementsController < ApplicationController
   private
 
   def engagement_params
-    params.require(:engagement).permit(:engagement_name, :engagement_type_id, :ip, :ocb_number, :ocb_start_date, :poc, :system_admin, :start_date, :end_date, :user, :is_creator, sub_engagements_attributes: [:id, :sub_engagement_name, :ip, :poc, :system_admin, :engagement_id, :_destroy])
-  end
-
-  def not_sub_engagement
-    @engagement = Engagement.find(params[:id])
-    if @engagement.sub_engagement?
-      flash[:danger] = "This is a sub engagement, and can be edited from main engagement page."
-      redirect_to engagement_path(params[:id])
-    end
+    params.require(:engagement).permit(:engagement_name, :engagement_type_id, :ip, :ocb_number, :ocb_start_date, :poc, :system_admin, :start_date, :end_date, :user, :is_creator)
   end
 end

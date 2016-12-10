@@ -77,21 +77,6 @@
           </ul>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-4">
-          <h4>Add Sub Engagement (If any)</h4>
-          <div id="sub_engagements">
-            <%= f.fields_for :sub_engagements do |sub_engagement| %>
-                <%= render 'sub_engagement_fields', f: sub_engagement %>
-                <div class="links addAnother">
-                  <%= link_to_add_association f, :sub_engagements do %>
-                      <i class="glyphicon glyphicon-plus-sign"></i> Add Another
-                  <% end %>
-                </div>
-            <% end %>
-          </div>
-        </div>
-      </div>
     </div>
 
     <!-- Modal -->
