@@ -77,8 +77,18 @@ class EngagementsController < ApplicationController
 
   def show
     @engagement = Engagement.includes(
-        :ocbs, :nmap_reports, :nessus_policies, metasploit_reports: [metasploit_hosts: [metasploit_host_vulns: [:metasploit_refs]]], engagement_mains: [:engagement_main_users]
+      :ocbs,
+      :nmap_reports,
+      :nessus_policies,
+      metasploit_reports: [metasploit_hosts: [metasploit_host_vulns: [:metasploit_refs]]],
+      engagement_mains: [:engagement_main_users]
     ).find(params[:id])
+
+    unless @engagement.users.include? current_user
+      flash[:success] = "You need to join the engagement before entering!"
+      redirect_to request.referer
+    end
+
     @ocbs = @engagement.ocbs
     @nmap_reports = @engagement.nmap_reports
     @nessus_policies = @engagement.nessus_policies
