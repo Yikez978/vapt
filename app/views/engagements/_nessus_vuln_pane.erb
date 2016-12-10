@@ -1,0 +1,18 @@
+<table class="table table-striped" id="nessusDataTable">
+  <thead>
+    <th>Severity</th>
+    <th>Plugin name</th>
+    <th>Count</th>
+  </thead>
+  <tbody>
+  <% unless nessus_host_items.blank? %>
+      <% nessus_host_items.each do |item| %>
+      <tr>
+        <td><%= vuln_label(item.severity) %></span></td>
+        <td><%= item.plugin_name %></td>
+        <td><% %></td>
+      </tr>
+    <% end %>
+  <% end %>
+  </tbody>
+</table>

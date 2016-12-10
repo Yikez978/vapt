@@ -3,112 +3,46 @@
 <% end %>
 <% unless nessus_report.blank? %>
 <% nessus_hosts = Risu::Models::Host.where(nessus_report_id: nessus_report.id, user_id: current_user.id, engagement_id: engagement.id ) %>
+<% nessus_host_items = nessus_hosts.joins('LEFT JOIN nessus_items ON nessus_hosts.id = nessus_items.host_id').select('nessus_hosts.*, nessus_items.*').group('nessus_items.plugin_name').order('nessus_items.severity desc') %>
 <% end %>
 <%# unless nessus_hosts.blank? %>
 <%# nessus_host_properties = Risu::Models::HostProperty.where(host_id: nessus_hosts.map{|h| h.id}, user_id: current_user.id, engagement_id: engagement.id) %>
 <%# end %>
 
-	<!-- Get host Vulnerabelity Comparison -->
-	<% unless nessus_hosts.blank? %>
-		<% total_severity_as_array = (nessus_hosts.map {|h| h.items}).flatten.map {|i| i.severity} %>
-		<% grouped_severity_count = Hash.new 0 %>
-		<% total_severity_as_array.each.map {|s| grouped_severity_count[s] += 1} %>
+<div>
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#nessus_host_tabview" aria-controls="nessus_host_tabview" role="tab" data-toggle="tab">Hosts</a></li>
+    <li role="presentation"><a href="#nessus_vulns_tabview" aria-controls="nessus_vulns_tabview" role="tab" data-toggle="tab">Vulnerabilities</a></li>
+    <li role="presentation"><a href="#nessus_compliance_tabview" aria-controls="nessus_compliance_tabview" role="tab" data-toggle="tab">Compliance</a></li>
+    <li role="presentation"><a href="#nessus_remediations_tabview" aria-controls="nessus_remediations_tabview" role="tab" data-toggle="tab">Remediations</a></li>
+  </ul>
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="nessus_host_tabview">
+      <div class="mTop10">
+        <div id="nessus_host">
+          <%= render partial: 'nessus_host_pane', locals: { nessus_hosts: nessus_hosts, engagement: engagement } %>
+        </div>
+      </div>
+    </div>
+    <div role="tabpanel" class="tab-pane active" id="nessus_vulns_tabview">
+      <div class="mTop10">
+        <div id="nessus_vulns">
+          <%= render partial: 'nessus_vuln_pane', locals: { nessus_host_items: nessus_host_items } %>
+        </div>
+      </div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="nessus_compliance_tabview">
+      <div class="mTop10">
+        <div id="nessus_compliance">
+        </div>
+      </div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="nessus_remediations_tabview">
+      <div class="mTop10">
+        <div id="nessus_remediations">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-		<!-- Get Operating System Comparison -->
-		<% grouped_os_count = Hash.new 0 %>
-		<% total_os_as_array = nessus_hosts.map {|h| h.os} %>
-		<% total_os_as_array.each.map {|s| grouped_os_count[s] += 1} %>
-	<% end %>
-	<% unless nessus_hosts.blank? %>
-		<div class="row pTop10 padded10">
-			<div class="col-md-2 bg-color-critical">
-				<div class="vulns-big-font pAll10">
-					<%= results_summary_critical_count(grouped_severity_count) %>
-				</div>
-				<div class="vulns-sub-font pAll5">
-					CRITICAL
-				</div>
-			</div>
-			<div class="col-md-2 bg-color-high">
-				<div class="vulns-big-font pAll10">
-					<%= results_summary_high_count(grouped_severity_count) %>
-				</div>
-				<div class="vulns-sub-font pAll5">
-					HIGH
-				</div>
-			</div>
-			<div class="col-md-2 bg-color-medium">
-				<div class="vulns-big-font pAll10">
-					<%= results_summary_medium_count(grouped_severity_count) %>
-				</div>
-				<div class="vulns-sub-font pAll5">
-					MEDIUM
-				</div>
-			</div>
-			<div class="col-md-2 bg-color-low">
-				<div class="vulns-big-font pAll10">
-					<%= results_summary_low_count(grouped_severity_count) %>
-				</div>
-				<div class="vulns-sub-font pAll5">
-					LOW
-				</div>
-			</div>
-			<div class="col-md-2 bg-color-info">
-				<div class="vulns-big-font pAll10">
-					<%= results_summary_info_count(grouped_severity_count) %>
-				</div>
-				<div class="vulns-sub-font pAll5">
-					INFO
-				</div>
-			</div>
-			<div class="col-md-2 bg-color-total">
-				<div class="vulns-big-font pAll10">
-					<%= results_summary_total_count(grouped_severity_count) %>
-				</div>
-				<div class="vulns-sub-font pAll5">
-					TOTAL
-				</div>
-			</div>
-		</div>
-	<% end %>
-
-<table class="table table-striped" id="nessusDataTable">
-	<thead>
-		<th>Host</th>
-		<th>IP</th>
-		<th>MAC</th>
-		<th>critical</th>
-		<th>high</th>
-		<th>medium</th>
-		<th>low</th>
-		<th>info</th>
-		<th>total</th>
-	</thead>
-	<tbody>
-		<% unless nessus_hosts.blank? %>
-		<% nessus_hosts.each do |nessus_host| %>
-		<% n_items = nessus_host.items.map {|i| i.severity} %>
-		<% grouped_h_count = Hash.new 0 %>
-		<% n_items.each.map {|s| grouped_h_count[s] += 1} %>
-		<tr>
-			<td>
-				<%= link_to nessus_host.name, engagement_host_scan_detail_path(engagement.id, nessus_host.id) %>
-			</td>
-			<td>
-				<%= nessus_host.ip %>
-			</td>
-			<td>
-				<%= nessus_host.mac %>
-			</td>
-			<td class="color-critical"><%= results_summary_critical_count grouped_h_count %></td>
-			<td class="color-high"><%= results_summary_high_count grouped_h_count %></td>
-			<td class="color-medium"><%= results_summary_medium_count grouped_h_count %></td>
-			<td class="color-low"><%= results_summary_low_count grouped_h_count %></td>
-			<td class="color-info"><%= results_summary_info_count grouped_h_count %></td>
-			<td class="color-total"><%= results_summary_total_count grouped_h_count %></td>
-		</tr>
-		<!-- </a> -->
-		<% end %>
-		<% end %>
-	</tbody>
-</table>
