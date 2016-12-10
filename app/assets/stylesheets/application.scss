@@ -28,7 +28,6 @@
 @import "style";
 @import "shCore";
 @import "shThemeDefault";
-@import "vstyle";
 @import "calendar-ui";
 @import "token-input-facebook";
 @import "engagment_info";
@@ -69,3 +68,8 @@ $brand-danger:  #d9534f;
 .progress-bar-medium {background-color: $brand-medium; color: black;}
 .progress-bar-low {background-color: $brand-success;}
 .progress-bar-info {background-color: $brand-primary;}
+
+.padded10 {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}

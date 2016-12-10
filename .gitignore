@@ -20,7 +20,7 @@
 
 # Ignore development updloaded images
 /public/uploads
-
+/public/assets/*
 /pdfs
 notes
 
