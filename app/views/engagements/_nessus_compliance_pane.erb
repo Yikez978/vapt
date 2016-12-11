@@ -1,0 +1,20 @@
+<table class="table table-striped" id="nessusComplianceDataTable">
+  <thead>
+    <th>Status</th>
+    <th>Plugin Name</th>
+    <th>Plugin Family</th>
+    <th>Count</th>
+  </thead>
+  <tbody>
+  <% unless nessus_host_items.blank? %>
+      <% nessus_host_items.each do |item| %>
+      <tr>
+        <td><%=  %></span></td>
+        <td><%=  %></td>
+	<td><%=  %></td>
+        <td><% %></td>
+      </tr>
+    <% end %>
+  <% end %>
+  </tbody>
+</table>

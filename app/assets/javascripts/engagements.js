@@ -3,6 +3,21 @@
 // You can use CoffeeScript in this file: http://coffeescript.org/
 
 $(document).ready(function(){
+	//Datatable for nessus start
+	$("#nessusDataTable").dataTable({
+		responsive: true
+	});
+	$("#nessusHostDataTable").dataTable({
+		responsive: true
+	});
+	$("#nessusVulnDataTable").dataTable({
+		responsive: true
+	});
+	$("#nessusComplianceDataTable").dataTable({
+		responsive: true
+	});
+	//Datatable for nessus end
+	
 	//Datatable and manual entry for mai tab start
 	var mnEditing = null;
 	var engId = $('#mainTabViewEngagement').attr('data-eng-id')
@@ -262,12 +277,6 @@ $(document).ready(function(){
 		}
 	});
 
-	//Datatable for nessus start
-	$("#nessusDataTable").dataTable({
-		responsive: true
-	});
-	//Datatable for nessus end
-	
 	//Tab to accordion start
 	$('.vTabs').tabCollapse({
 		tabsClass: 'hidden-xs',

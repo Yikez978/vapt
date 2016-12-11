@@ -1,4 +1,4 @@
-<table class="table table-striped" id="nessusDataTable">
+<table class="table table-striped" id="nessusVulnDataTable">
   <thead>
     <th>Severity</th>
     <th>Plugin name</th>
@@ -10,7 +10,7 @@
       <tr>
         <td><%= vuln_label(item.severity) %></span></td>
         <td><%= item.plugin_name %></td>
-        <td><% %></td>
+        <td><%= item.total %></td>
       </tr>
     <% end %>
   <% end %>
