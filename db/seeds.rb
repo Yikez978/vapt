@@ -21,7 +21,9 @@ user.password = "password"
 user.password_confirmation = "password"
 user.save
 
+puts "USER CREATED: #{user.inspect}"
 
-EngagementType.find_or_create_by(name: "Reaccuring")
-EngagementType.find_or_create_by(name: "Top 100")
-EngagementType.find_or_create_by(name: "Accreditation")
+
+EngagementType.find_or_create_by!(name: "Reaccuring")
+EngagementType.find_or_create_by!(name: "Top 100")
+EngagementType.find_or_create_by!(name: "Accreditation")
