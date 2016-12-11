@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   resources :engagements do
     member do
       put :complete
+      get :vuln_details
     end
     resources :ocbs, only: [:create]
     resources :nmap, only: [:new, :create, :show] do

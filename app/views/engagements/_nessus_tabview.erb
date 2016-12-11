@@ -31,7 +31,7 @@
     <div role="tabpanel" class="tab-pane active" id="nessus_vulns_tabview">
       <div class="mTop10">
         <div id="nessus_vulns">
-          <%= render partial: 'nessus_vuln_pane', locals: { nessus_host_items: nessus_host_items } %>
+          <%= render partial: 'nessus_vuln_pane', locals: { engagement: engagement, nessus_host_items: nessus_host_items } %>
         </div>
       </div>
     </div>

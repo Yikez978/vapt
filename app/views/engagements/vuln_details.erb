@@ -1,0 +1,111 @@
+<% @item = Risu::Models::Item.find(params[:item_id]) %>
+<% nessus_hosts = Risu::Models::Host.where(user_id: current_user.id, engagement_id: params[:id]).
+  joins("LEFT JOIN nessus_items ON nessus_items.host_id = nessus_hosts.id AND nessus_items.plugin_id = #{params[:item_id]}") %>
+<%= link_to "Back to engagement vulnerabilities", engagement_path(params[:id], anchor: 'nessus_vulns_tabview'), class: "btn btn-primary mBot9" %>
+
+<div class="panel panel-default">
+  <div class="col-md-12 classh1">
+    <div class="col-md-10 list">
+      <span class="label <%= label_by_severity(@item.severity) %> w29 diBlock vMiddle mRight9">&nbsp;</span>
+      <span class="diBlock vMiddle plugin_name">
+        <%= @item.plugin.plugin_id %>-<%= @item.plugin.plugin_name %>
+      </span>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <h2 class="classh1">Synopsis</h2>
+      <span class="classtext">
+        <%= @item.plugin.synopsis %>
+      </span>
+    </div>
+    <div class="col-md-12">
+      <h2 class="classh1">Description</h2>
+      <span class="classtext">
+        <%= simple_format(@item.plugin.description) %>
+      </span>
+    </div>
+    <% @item.plugin.references.each do |reference| %>
+      <% if reference.reference_name == 'see_also' %>
+        <div class="col-md-12">
+          <h2 class="classh1">See Also</h2>
+          <span class="classtext">
+            <% reference.value.split('http').each do |ref| %>
+              <% unless ref.blank? %>
+                <%= link_to "http#{ref}", "http#{ref}" %><br>
+              <% end %>
+            <% end %>
+          </span>
+        </div>
+      <% end %>
+    <% end %>
+    <div class="col-md-12">
+      <h2 class="classh1">Solution</h2>
+      <span class="classtext">
+        <%= @item.plugin.solution %>
+      </span>
+    </div>
+    <div class="col-md-12">
+      <h2 class="classh1">Risk Factor</h2>
+      <span class="classtext">
+        <%= get_risk_factor(@item.severity) %>
+      </span>
+    </div>
+    <% unless @item.plugin.cvss_vector.nil? || @item.plugin.cvss_base_score == 0 %>
+      <div class="col-md-12">
+        <h2 class="classh1">CVSS Base Score</h2>
+        <span class="classtext">
+          <%= @item.plugin.cvss_base_score %>(<%= @item.plugin.cvss_vector %>)
+        </span>
+      </div>
+    <% end %>
+    <% unless @item.plugin.cvss_temporal_vector.nil? || @item.plugin.cvss_temporal_score == 0 %>
+      <div class="col-md-12">
+        <h2 class="classh1">CVSS Temporal Score</h2>
+        <span class="classtext">
+          <%= @item.plugin.cvss_temporal_score %>(<%= @item.plugin.cvss_temporal_vector %>)
+        </span>
+      </div>
+    <% end %>
+    <% unless @item.plugin.references.blank? || @item.plugin.references.length == 1 %>
+      <div class="col-md-12">
+        <h2 class="classh1">References</h2>
+        <% @item.plugin.references.each do |reference| %>
+          <% unless reference.reference_name == 'see_also' %>
+            <div class="col-md-6 fBold pBot10 classcell">
+              <%= reference.reference_name.upcase %>
+            </div>
+            <div class="col-md-6 pBot10 classcell">
+              <% if reference.reference_name.upcase == "CVE" %>
+                <%= link_to reference.value, cfe_path(reference.value), target: '_blank' %>
+              <% else %>
+                <%= reference.value %>
+              <% end %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+    <div class="col-md-12">
+      <h2 class="classh1">Plugin Information</h2>
+      <span class="classtext">
+        Publication Date : <%= @item.plugin.plugin_publication_date.try(:strftime, "%Y/%m/%d") %>, Modification Date : <%= @item.plugin.plugin_modification_date.try(:strftime, "%Y/%m/%d") %>
+    </span>
+  </div>
+  <div class="col-md-12">
+    <h2 class="classh1">Hosts</h2>
+    <span class="classpre">
+      <%= nessus_hosts.map(&:ip).uniq.join(', ') %>
+    </span>
+  </div>
+  <div class="col-md-12">
+    <h2 class="classh1">Ports</h2>
+    <h2 class="classh2">
+      <%= @item.port[1] %>/<%= @item.port[0] %>
+    </h2>
+    <span class="classpre">
+      <%= simple_format(@item.plugin_output) %>
+    </span>
+  </div>
+</div>

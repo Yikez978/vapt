@@ -157,6 +157,10 @@ class EngagementsController < ApplicationController
     redirect_to engagements_path
   end
 
+  def vul_details
+    raise 'ok'
+  end
+
   private
 
   def engagement_params

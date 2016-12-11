@@ -9,7 +9,7 @@
       <% nessus_host_items.each do |item| %>
       <tr>
         <td><%= vuln_label(item.severity) %></span></td>
-        <td><%= item.plugin_name %></td>
+        <td><%= link_to item.plugin_name, vuln_details_engagement_path(engagement.id, item_id: item.id) %></td>
         <td><%= item.total %></td>
       </tr>
     <% end %>
