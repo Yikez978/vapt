@@ -69,6 +69,10 @@ class EngagementsController < ApplicationController
     end
   end
 
+  def ivas
+    @engagement = Engagement.find(params[:id])
+  end
+
   def show
     @engagement = Engagement.includes(
       :ocbs,

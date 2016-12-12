@@ -1,0 +1,24 @@
+<% nessus_hosts = Risu::Models::Host.where(user_id: current_user.id, engagement_id: params[:id] ) %>
+<% nessus_references = nessus_hosts.
+joins('LEFT JOIN nessus_items ON nessus_hosts.id = nessus_items.host_id').
+joins('LEFT JOIN nessus_plugins ON nessus_items.plugin_id = nessus_plugins.id').
+joins('LEFT JOIN nessus_references ON nessus_references.plugin_id = nessus_plugins.id').
+select("nessus_hosts.*, nessus_items.*, nessus_plugins.*, nessus_references.*") %>
+
+<% @references = Risu::Models::Reference.where(engagement_id: @engagement) %>
+<div class="avas">
+  <%= @references.map(&:value).select {|v| v =~ /IAVA:(.*)/}.uniq.join(", ") %>
+</div>
+
+<table class="ip_avas">
+  <tr>
+  <th>Ip address</th>
+  <th>IAVA</th>
+  </tr>
+  <% nessus_references.group("ip").each do |ref| %>
+  <tr>
+    <td><%= ref.ip %></td>
+    <td><%= ref.value %></td>
+  </tr>
+<% end %>
+</table>
