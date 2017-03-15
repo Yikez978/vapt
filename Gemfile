@@ -18,7 +18,7 @@ gem 'gollum', '~> 4.0.1'
 gem 'jquery-ui-rails'
 gem 'ckeditor', github: 'galetahub/ckeditor'
 gem 'nokogiri'
-gem 'ruby-nmap', github: 'rajib/ruby-nmap'
+gem 'ruby-nmap', git: "https://github.com/GoodWorkLabs/ruby-nmap"
 gem "cocoon"
 gem 'bootstrap-datepicker-rails'
 gem 'jquery-datatables-rails', '~> 3.3.0'
@@ -51,7 +51,7 @@ gem 'ruby-filemagic'
 gem "paperclip"
 gem 'rails4-autocomplete'
 gem "watu_table_builder", require: "table_builder"
-gem 'risu', git: "https://github.com/UjjalGWL/risu"
+gem 'risu', git: "https://github.com/GoodWorkLabs/risu" 
 gem 'best_in_place'
 gem 'ancestry'
 gem 'sidekiq'
