@@ -71,6 +71,8 @@ Setup RVM & Ruby
 - gem install bundler
 - gem install passenger
 
+git clone https://github.com/anpseftis/vapt.git
+
 Configure APP
 --------------------------------------
 - cd /vapt
@@ -82,6 +84,7 @@ Configure APP
 - rake db:create RAILS_ENV=production
 - rake db:migrate RAILS_ENV=production
 - rake db:seed RAILS_ENV=production
+- rake db:populate RAILS_ENV=production
 - mkdir /tmp/pids
 - bundle exec rake tmp:create
 - cd lib
