@@ -7,15 +7,7 @@ GIT
       orm_adapter (~> 0.5.0)
 
 GIT
-  remote: git://github.com/rajib/ruby-nmap.git
-  revision: a987458c377bf3433ea449e63185b714e0ca7e02
-  specs:
-    ruby-nmap (0.9.0)
-      nokogiri (~> 1.3)
-      rprogram (~> 0.3)
-
-GIT
-  remote: https://github.com/UjjalGWL/risu
+  remote: https://github.com/GoodWorkLabs/risu
   revision: 466d0d58d36f5736fa25eb31262947d764a05607
   specs:
     risu (1.7.6)
@@ -28,6 +20,14 @@ GIT
       rails (~> 4.2)
       rmagick (~> 2.15)
       sqlite3 (~> 1.3)
+
+GIT
+  remote: https://github.com/GoodWorkLabs/ruby-nmap
+  revision: a987458c377bf3433ea449e63185b714e0ca7e02
+  specs:
+    ruby-nmap (0.9.0)
+      nokogiri (~> 1.3)
+      rprogram (~> 0.3)
 
 GEM
   remote: https://rubygems.org/
@@ -366,7 +366,7 @@ GEM
     redis (3.3.0)
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
-    rmagick (2.15.4)
+    rmagick (2.16.0)
     rouge (1.10.1)
     rprogram (0.3.2)
     ruby-filemagic (0.7.1)
@@ -411,7 +411,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    sqlite3 (1.3.11)
+    sqlite3 (1.3.13)
     stringex (2.5.2)
     subexec (0.2.3)
     temple (0.7.7)
@@ -511,4 +511,4 @@ DEPENDENCIES
   wkhtmltopdf-binary
 
 BUNDLED WITH
-   1.13.6
+   1.14.6

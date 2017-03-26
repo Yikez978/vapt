@@ -26,7 +26,7 @@ Rails.application.routes.draw do
     member do
       put :complete
       get :vuln_details
-      get :ivas
+      get :iava
     end
     resources :ocbs, only: [:create]
     resources :nmap, only: [:new, :create, :show] do
