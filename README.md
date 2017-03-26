@@ -45,11 +45,13 @@ Git Clone project
 
 sudo yum install update
 -------------------
-- git clone https://github.com/anpseftis/vapt.git
-
 - Install required packages
 --------------------------------
-sudo yum install -y git-core zlib zlib-devel gcc-c++ patch readline readline-devel libyaml-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison curl sqlite-devel libicu-devel ImageMagick ImageMagick-devel libxslt libxslt-devel libxml2-devel mariadb-server mariadb-devel postgresql-libs postgresql-devel file-devel rake epel-release nodejs npm nodejs redis
+sudo yum install -y git-core zlib zlib-devel gcc-c++ patch readline readline-devel libyaml-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison curl sqlite-devel libicu-devel ImageMagick ImageMagick-devel libxslt libxslt-devel libxml2-devel mariadb-server mariadb-devel postgresql-libs postgresql-devel file-devel rake epel-release
+
+sudo yum install -y nodejs 
+sudo yum install -y npm 
+sudo yum install -y redis
 
 Start Services
 -------------------------------
@@ -71,6 +73,8 @@ Setup RVM & Ruby
 - gem install bundler
 - gem install passenger
 
+git clone https://github.com/anpseftis/vapt.git
+
 Configure APP
 --------------------------------------
 - cd /vapt
@@ -82,18 +86,11 @@ Configure APP
 - rake db:create RAILS_ENV=production
 - rake db:migrate RAILS_ENV=production
 - rake db:seed RAILS_ENV=production
+- rake db:populate RAILS_ENV=production
 - mkdir /tmp/pids
 - bundle exec rake tmp:create
 - cd lib
 - git clone https://github.com/offensive-security/exploit-database.git
-
-Populate Databases
------------------------------------------
-*Note: The path to the .xml needs to be the full path
-- rails c production
-- PopulateExploit.populate_exploits_from_exploit_db
-- CveDatabase.populate_data_from_csv_xml("~/Downloads/allitems.xml")
-- CweWeaknessCatalog.populate_data_from_cwe_xml("~/Downloads/cwec_v2.9.xml")
 
 Config Risu
 --------------------------------------------
@@ -122,3 +119,10 @@ Start Development Server
  - `gem install foreman`
  - `foreman start`
  
+ Populate Databases manually
+-----------------------------------------
+*Note: The path to the .xml needs to be the full path
+- rails c production
+- PopulateExploit.populate_exploits_from_exploit_db
+- CveDatabase.populate_data_from_csv_xml("~/Downloads/allitems.xml")
+- CweWeaknessCatalog.populate_data_from_cwe_xml("~/Downloads/cwec_v2.9.xml")
