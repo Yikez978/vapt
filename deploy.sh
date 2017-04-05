@@ -3,18 +3,46 @@
 set -e
 set -x
 
+# OS SETUP
+yum update -y
+yum install -y sudo
+yum install -y git-core zlib zlib-devel gcc-c++ patch readline readline-devel libyaml-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison curl sqlite-devel libicu-devel ImageMagick ImageMagick-devel libxslt libxslt-devel libxml2-devel mariadb-server mariadb-devel postgresql-libs postgresql-devel file-devel rake epel-release npm
+yum install -y redis
+yum install -y nodejs
+systemctl disable firewalld
+systemctl enable mariadb
+systemctl restart mariadb
+systemctl restart redis.service
+systemctl enable redis.service
+systemctl stop firewalld
+if ! mysqladmin -u root password vapt; then
+  echo 'The mysql root password could not be set. It will be updated.'
+  mysqladmin -u root -p'vapt' password vapt
+  echo 'The mysql root password was updated.'
+fi
+systemctl restart mariadb
+if ! id -u dev >/dev/null 2>&1; then
+  useradd -G wheel dev
+fi
+
+# APP SETUP AS DEV USER
+exec sudo -i -u dev /bin/bash - << EOF
+  set -e
+  set -x
+
+  git clone https://github.com/anpseftis/vapt.git
 
   curl -#LO https://rvm.io/mpapis.asc
   gpg --import mpapis.asc
   curl -sSL https://get.rvm.io | bash -s stable
   source ~/.rvm/scripts/rvm
   echo source ~/.rvm/scripts/rvm >> /home/dev/.bashrc
-  
+
   rvm requirements
   rvm install 2.2.2
   gem install bundler --no-ri --no-rdoc
   gem install passenger --no-ri --no-rdoc
-  
+
   cd /home/dev/vapt/
   rvm --default use 2.2.2
   gem install passenger
