@@ -6,7 +6,8 @@
 <% nessus_host_items = nessus_hosts.
   joins('LEFT JOIN nessus_items ON nessus_hosts.id = nessus_items.host_id').
   select('nessus_hosts.*, nessus_items.*, COUNT(nessus_items.plugin_name) as total').
-  group('nessus_items.plugin_name').
+    where('nessus_items.cm_compliance_result IS NOT NULL').
+  group('nessus_items.plugin_name, nessus_items.cm_compliance_result').
   order('nessus_items.severity desc') %>
 <% end %>
 <%# unless nessus_hosts.blank? %>
@@ -45,6 +46,7 @@
     <div role="tabpanel" class="tab-pane" id="nessus_remediations_tabview">
       <div class="mTop10">
         <div id="nessus_remediations">
+          <%= render partial: 'nessus_remediations_pane', locals: { nessus_host_items: nessus_host_items, nessus_hosts: nessus_hosts } %>
         </div>
       </div>
     </div>

@@ -1,19 +1,35 @@
 <table class="table table-striped" id="nessusRemediationsDataTable">
   <thead>
-    <th>Status</th>
     <th>Plugin Name</th>
-    <th>Plugin Family</th>
+    <th>Solution</th>
     <th>Count</th>
   </thead>
   <tbody>
   <% unless nessus_host_items.blank? %>
       <% nessus_host_items.each do |item| %>
+        <% if item.cm_compliance_result == 'FAILED' %>
       <tr>
-        <td><%=  %></span></td>
-        <td><%=  %></td>
-	<td><%=  %></td>
-        <td><% %></td>
+        <td><%= item.plugin_name   %></td>
+        <td>
+          <% if item.cm_compliance_solution %>
+           <%= item.cm_compliance_solution  %>
+          <% else %>
+              <% host_items = nessus_hosts.
+                  joins('LEFT JOIN nessus_items ON nessus_hosts.id = nessus_items.host_id').
+                  select('nessus_hosts.*, nessus_items.*').
+                  where('nessus_items.cm_compliance_result IS NOT NULL', "nessus_items.plugin_name = '#{item.plugin_name}'", "nessus_items.cm_compliance_result = 'FAILED'").
+                  order('nessus_items.severity desc') %>
+              <% host_items.each do |h_item| %>
+                <pre>
+                  <%= h_item.cm_compliance_actual_value %>
+                </pre>
+                  <br/> <br/>
+              <% end %>
+          <% end %>
+         </td>
+        <td><%= item.total %></td>
       </tr>
+      <% end %>
     <% end %>
   <% end %>
   </tbody>

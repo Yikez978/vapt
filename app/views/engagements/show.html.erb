@@ -23,7 +23,7 @@
           <div>POCs: <strong><%= @engagement.pocs.pluck(:name).join(", ") %></strong></div>
           <div>Sys Admins: <strong><%= @engagement.system_admins.pluck(:name).join(", ") %></strong></div>
           <div style="border: 1px solid red; width: 100px; height: 100px; text-align: center;">
-            <%= link_to do %>
+            <%= link_to  "/engagements/#{@engagement.id}/iava" do %>
             <strong><%= @references.map(&:value).select {|v| v =~ /IAVA:(.*)/}.uniq.count %></strong><br>
             <h4>IAVAs</h4>
             <% end %>

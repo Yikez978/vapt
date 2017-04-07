@@ -9,10 +9,10 @@
   <% unless nessus_host_items.blank? %>
       <% nessus_host_items.each do |item| %>
       <tr>
-        <td><%=  %></span></td>
-        <td><%=   %></td>
-	<td><%=  %></td>
-        <td><% %></td>
+        <td><%= item.cm_compliance_result  %></span></td>
+        <td><%= item.plugin_name   %></td>
+    	  <td><%= Plugin.find(item.plugin_id).family_name  %></td>
+        <td><%= item.total %></td>
       </tr>
     <% end %>
   <% end %>
