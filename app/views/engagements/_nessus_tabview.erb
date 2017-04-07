@@ -6,9 +6,14 @@
 <% nessus_host_items = nessus_hosts.
   joins('LEFT JOIN nessus_items ON nessus_hosts.id = nessus_items.host_id').
   select('nessus_hosts.*, nessus_items.*, COUNT(nessus_items.plugin_name) as total').
-    where('nessus_items.cm_compliance_result IS NOT NULL').
-  group('nessus_items.plugin_name, nessus_items.cm_compliance_result').
+  group('nessus_items.plugin_name').
   order('nessus_items.severity desc') %>
+<% nessus_host_items_compliance = nessus_hosts.
+    joins('LEFT JOIN nessus_items ON nessus_hosts.id = nessus_items.host_id').
+    select('nessus_hosts.*, nessus_items.*, COUNT(nessus_items.plugin_name) as total').
+    where('nessus_items.cm_compliance_result IS NOT NULL').
+    group('nessus_items.plugin_name, nessus_items.cm_compliance_result').
+    order('nessus_items.severity desc') %>
 <% end %>
 <%# unless nessus_hosts.blank? %>
 <%# nessus_host_properties = Risu::Models::HostProperty.where(host_id: nessus_hosts.map{|h| h.id}, user_id: current_user.id, engagement_id: engagement.id) %>
@@ -39,7 +44,7 @@
     <div role="tabpanel" class="tab-pane" id="nessus_compliance_tabview">
       <div class="mTop10">
         <div id="nessus_compliance"> 
-          <%= render partial: 'nessus_compliance_pane', locals: { nessus_host_items: nessus_host_items } %>
+          <%= render partial: 'nessus_compliance_pane', locals: { nessus_host_items: nessus_host_items_compliance } %>
         </div>
       </div>
     </div>
