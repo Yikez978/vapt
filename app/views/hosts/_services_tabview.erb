@@ -46,7 +46,11 @@
 				</td>
 				<td class="pRelative">
 					<span class="pointer eHover">
-						<%= best_in_place host_info, :service_banner, url: engagement_host_host_service_path(@engagement, engagement_main, host_info) %>
+            <% nmap_port = NmapHost.where(ip: host_info.ip).first.nmap_ports.where(port: host_info.service_port, service_name: host_info.service_name) %>
+            <% if nmap_port.any? %>
+                <%= nmap_port.first.banner_text %>
+               <%#= best_in_place nmap_port.first.banner_text, url: engagement_host_host_service_path(@engagement, engagement_main, host_info) %>
+                <% end %>
 					</span>
 					<i class="glyphicon glyphicon-pencil editIcon"></i>
 				</td>

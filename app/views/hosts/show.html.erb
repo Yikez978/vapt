@@ -107,7 +107,9 @@
 				<%= render partial: 'services_tabview', locals: {engagement_id: params[:engagement_id], host_id: params[:id], engagement_main: @engagement_main, host_infos: @host_infos} %>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="vulns">
-				<%= render partial: 'vulns_tabview', locals: {host_vulns: @engagement_main.host_vulns.sort_by(&:severity).reverse, eng_main_id: @engagement_main.id} %>
+        <% nisu_host = Risu::Models::Host.where(ip: @engagement_main.host).first %>
+        <% items = nisu_host.nil? ? nil : nisu_host.items.sort_by(&:severity).reverse %>
+				<%= render partial: 'vulns_tabview', locals: {host_vulns: items, eng_main_id: @engagement_main.id} %>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="creds">
 				<%= render partial: 'creds_tabview', locals: {eng_main_id: @engagement_main.id, host_creds: @engagement_main.host_creds} %>

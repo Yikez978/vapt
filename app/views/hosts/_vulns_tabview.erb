@@ -25,11 +25,11 @@
 			<th>Port</th>
 			<th>Severity</th>
 			<th>Name</th>
-			<th>Status</th>
+			<th>-</th>
 			<th>Synopsis</th>
 			<th>CVE</th>
 			<th>CWE</th>
-			<th>Level of Access</th>
+			<th>-</th>
 			<th>Action</th>
 		</tr>
 	</thead>
@@ -48,35 +48,41 @@
 					</td>
 					<td class="pRelative">
 						<span class="pointer eHover">
-							<%= best_in_place host_vuln, :vuln_name, url: engagement_engagement_main_host_vuln_path(@engagement_main.engagement, @engagement_main, host_vuln) %>
+							<%= best_in_place host_vuln, :plugin_name, url: engagement_engagement_main_host_vuln_path(@engagement_main.engagement, @engagement_main, host_vuln) %>
 						</span>
 						<i class="glyphicon glyphicon-pencil editIcon"></i>
 					</td>
 					<td class="pRelative">
 						<span class="pointer eHover">
-							<%= best_in_place host_vuln, :aasm_state, url: engagement_engagement_main_host_vuln_path(@engagement_main.engagement, @engagement_main, host_vuln), as: :select, collection: [["not_verified", "Not Verified"], ["vulnerable", "Vulnerable"], ["false_positive", "False Positive"]] %>
+							<%#= best_in_place host_vuln, :aasm_state, url: engagement_engagement_main_host_vuln_path(@engagement_main.engagement, @engagement_main, host_vuln), as: :select, collection: [["not_verified", "Not Verified"], ["vulnerable", "Vulnerable"], ["false_positive", "False Positive"]] %>
 						</span>
 						<i class="glyphicon glyphicon-pencil editIcon"></i>
 					</td>
 					<td class="pRelative">
 						<span class="pointer eHover">
-							<%= best_in_place host_vuln, :synopsis, url: engagement_engagement_main_host_vuln_path(@engagement_main.engagement, @engagement_main, host_vuln), as: :textarea %>
+							<%= best_in_place host_vuln, :plugin_output, url: engagement_engagement_main_host_vuln_path(@engagement_main.engagement, @engagement_main, host_vuln), as: :textarea %>
 							<i class="glyphicon glyphicon-pencil editIcon"></i>
 						</span>
 					</td>
 					<td>
-						<% if host_vuln.cve %>
-							<%= link_to host_vuln.cve, cfe_path(host_vuln.cve), target: '_blank' %>
-						<% end %>
+            <% cves = host_vuln.plugin.references.where(reference_name: 'cve') %>
+						<% if cves.any? %>
+                <% for cve in cves %>
+							    <%= link_to cve.id, cfe_path(cve), target: '_blank' %>
+						  <% end %>
+             <% end %>
 					</td>
-					<td>
-						<% if host_vuln.cwe %>
-							<%= link_to host_vuln.cwe, cwe_path(host_vuln.cwe), target: '_blank' %>
-						<% end %>
-					</td>
+          <td>
+            <% cwes = host_vuln.plugin.references.where(reference_name: 'cwe') %>
+               <% if cwes.any? %>
+                <% for cwe in cwes %>
+                    <%= link_to cwe.id, cfe_path(cwe), target: '_blank' %>
+                <% end %>
+            <% end %>
+          </td>
 					<td class="pRelative">
 						<span class="pointer eHover">
-							<%= best_in_place host_vuln, :level_of_access, url: engagement_engagement_main_host_vuln_path(@engagement_main.engagement, @engagement_main, host_vuln), as: :select, collection: [["", ""],["user", "User"], ["system", "System"], ["admin", "Admin"], ["domain", "Domain"], ["root", "Root"]] %>
+							<%#= best_in_place host_vuln, :level_of_access, url: engagement_engagement_main_host_vuln_path(@engagement_main.engagement, @engagement_main, host_vuln), as: :select, collection: [["", ""],["user", "User"], ["system", "System"], ["admin", "Admin"], ["domain", "Domain"], ["root", "Root"]] %>
 						</span>
 						<i class="glyphicon glyphicon-pencil editIcon"></i>
 					</td>

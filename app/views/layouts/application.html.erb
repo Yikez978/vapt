@@ -10,12 +10,12 @@
 		
   <%= javascript_include_tag 'application' %>
   <!-- third party -->
-<script src="../../../bower_components/angular-translate/angular-translate.min.js"></script>
-<script src="../../../bower_components/ng-file-upload/ng-file-upload.min.js"></script>
+<script src="/bower_components/angular-translate/angular-translate.min.js"></script>
+<script src="/bower_components/ng-file-upload/ng-file-upload.min.js"></script>
 
 <!-- angular-filemanager -->
-<link rel="stylesheet" href="../../../bower_components/angular-filemanager/dist/angular-filemanager.min.css">
-<script src="../../../bower_components/angular-filemanager/dist/angular-filemanager.min.js"></script>
+<link rel="stylesheet" href="/bower_components/angular-filemanager/dist/angular-filemanager.min.css">
+<script src="/bower_components/angular-filemanager/dist/angular-filemanager.min.js"></script>
 	<%= yield :head_javascript %>
 	
   <%= csrf_meta_tags %>
@@ -33,7 +33,6 @@
     <%= yield %>
     <div id="backdropPageLoading" style="display: block;"></div>
 		<div id="pageLoading" align="center">
-		  <!-- <img src="assets/img/big-loader.gif" class="img-polaroid img-rounded"> -->
 		  <%= image_tag "big-loader.gif", class: "img-polaroid img-rounded" %>
 		</div>
     <%= render 'layouts/footer' %>

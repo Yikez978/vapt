@@ -26,7 +26,7 @@
 			<span>End Time :</span>
 		</div>
 		<div class="col-md-8">
-			<%= @nessus_host.end.strftime("%a %B %d %H:%M:%S %Y") %>
+			<%= @nessus_host.end.strftime("%a %B %d %H:%M:%S %Y") if @nessus_host.end %>
 		</div>
 	</div>
 </div>
