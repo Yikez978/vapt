@@ -7,7 +7,6 @@
 
 <%# @references = Risu::Models::Reference.where(engagement_id: @engagement) %>
 <% @references = nessus_references %>
-
 <div class="avas">
   <%= @references.map(&:value).select {|v| v =~ /IAVA:(.*)/}.uniq.join(", ") %>
 </div>
@@ -27,4 +26,4 @@
   <% end %>
 </table>
 
-<%= link_to 'Export to CSV', download_engagements_path(id: params[:id]), class: 'btn btn-success' %>
+<%= link_to 'Export to CSV', download_engagements_path(id: params[:id]), class: 'btn btn-success', 'target': '_blank' %>
