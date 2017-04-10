@@ -84,7 +84,7 @@ class EngagementsController < ApplicationController
       data << "#{row.ip}, #{row.reference_name}, #{row.value}"
     end
 
-    send_data data.join("\n"), type: 'text', filename: 'test.csv'
+    send_data data.join("\n"), type: 'text', filename: 'IAVA.csv'
   end
 
   def ivas
