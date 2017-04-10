@@ -1,24 +1,30 @@
 <% nessus_hosts = Risu::Models::Host.where(user_id: current_user.id, engagement_id: params[:id] ) %>
 <% nessus_references = nessus_hosts.
-joins('LEFT JOIN nessus_items ON nessus_hosts.id = nessus_items.host_id').
-joins('LEFT JOIN nessus_plugins ON nessus_items.plugin_id = nessus_plugins.id').
-joins('LEFT JOIN nessus_references ON nessus_references.plugin_id = nessus_plugins.id').
-select("nessus_hosts.*, nessus_items.*, nessus_plugins.*, nessus_references.*") %>
+    joins('LEFT JOIN nessus_items ON nessus_hosts.id = nessus_items.host_id').
+    joins('LEFT JOIN nessus_plugins ON nessus_items.plugin_id = nessus_plugins.id').
+    joins('LEFT JOIN nessus_references ON nessus_references.plugin_id = nessus_plugins.id').where('nessus_references.reference_name IN (?)', ['iava', 'iavb']).
+    select("nessus_hosts.*, nessus_items.*, nessus_plugins.*, nessus_references.*") %>
 
-<% @references = Risu::Models::Reference.where(engagement_id: @engagement) %>
+<%# @references = Risu::Models::Reference.where(engagement_id: @engagement) %>
+<% @references = nessus_references %>
+
 <div class="avas">
   <%= @references.map(&:value).select {|v| v =~ /IAVA:(.*)/}.uniq.join(", ") %>
 </div>
 
-<table class="ip_avas">
+<table class="ip_avas table table-striped">
   <tr>
-  <th>Ip address</th>
-  <th>IAVA</th>
+    <th>Ip address</th>
+    <th>Reference</th>
+    <th>IAVA</th>
   </tr>
-  <% nessus_references.group("ip").each do |ref| %>
-  <tr>
-    <td><%= ref.ip %></td>
-    <td><%= ref.value %></td>
-  </tr>
-<% end %>
+  <% @references.group("ip").each do |ref| %>
+      <tr>
+        <td><%= ref.ip %></td>
+        <td><%= ref.reference_name %></td>
+        <td><%= ref.value %></td>
+      </tr>
+  <% end %>
 </table>
+
+<%= link_to 'Export to CSV', download_engagements_path(id: params[:id]), class: 'btn btn-success' %>

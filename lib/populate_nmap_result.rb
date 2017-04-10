@@ -1,8 +1,4 @@
-# 2.1.5 :001 > file_path = '/Users/rajib/Downloads/nmap.xml'
-#  => "/Users/rajib/Downloads/nmap.xml"
-# 2.1.5 :002 > @xml_doc = Nmap::XML.new(file_path)
-
-
+z
 require 'nmap/xml'
 require 'open3'
 
@@ -50,7 +46,7 @@ class PopulateNmapResult
     nmap_report.save
     # has_one :nmap_host
     # has_many :nmap_run_stats
-    
+
     # nmap_run_stats
     @xml_doc.each_run_stat do |rs|
       run_stat = nmap_report.nmap_run_stats.new
@@ -78,7 +74,7 @@ class PopulateNmapResult
       # has_many :nmap_host_tcpsequences
       # has_many :nmap_host_ipidsequences
       # has_many :nmap_host_traceroutes
-      
+
       # nmap_hostnames
       host.each_hostname do |h|
         nmap_hostname = nmap_host.nmap_hostnames.new
@@ -106,7 +102,7 @@ class PopulateNmapResult
         nmap_port.save
         # has_many :nmap_cpes
         # has_one :nmap_script
-          
+
         # nmap_script
         nmap_script = nmap_port.build_nmap_script
         nmap_script.key = p.scripts.keys.try(:first)
@@ -133,7 +129,7 @@ class PopulateNmapResult
       # has_many :nmap_used_ports
       # has_many :nmap_os_matches
       # has_many :nmap_os_classes
-      
+
       # nmap_used_ports
       unless host.os.blank?
         host.os.each_ports_used do |portused|

@@ -69,6 +69,24 @@ class EngagementsController < ApplicationController
     end
   end
 
+  def download
+    data = []
+    data << 'IP, Reference_name, Value'
+    nessus_hosts = Risu::Models::Host.where(user_id: current_user.id, engagement_id: params[:id])
+
+    nessus_references = nessus_hosts.
+        joins('LEFT JOIN nessus_items ON nessus_hosts.id = nessus_items.host_id').
+        joins('LEFT JOIN nessus_plugins ON nessus_items.plugin_id = nessus_plugins.id').
+        joins('LEFT JOIN nessus_references ON nessus_references.plugin_id = nessus_plugins.id').where('nessus_references.reference_name IN (?)', ['iava', 'iavb']).
+        select("nessus_hosts.*, nessus_items.*, nessus_plugins.*, nessus_references.*")
+
+    nessus_references.group('ip').each do |row|
+      data << "#{row.ip}, #{row.reference_name}, #{row.value}"
+    end
+
+    send_data data.join("\n"), type: 'text', filename: 'test.csv'
+  end
+
   def ivas
     @engagement = Engagement.find(params[:id])
   end

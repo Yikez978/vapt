@@ -23,6 +23,9 @@ Rails.application.routes.draw do
   resources :custom_exploits, only: [:index]
   resources :nmap
   resources :engagements do
+    collection do
+      get 'download'
+    end
     member do
       put :complete
       get :vuln_details
