@@ -59,6 +59,8 @@ ActiveRecord::Schema.define(version: 20161204010623) do
     t.datetime "updated_at",                       null: false
   end
 
+  add_index "custom_findings", ["engagement_main_id"], name: "custom_findings_engagement_mains_id_fk", using: :btree
+
   create_table "customers", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.datetime "created_at",             null: false
@@ -435,6 +437,9 @@ ActiveRecord::Schema.define(version: 20161204010623) do
     t.datetime "updated_at",                  null: false
   end
 
+  add_index "engagement_creds", ["engagement_id"], name: "engagement_creds_engagements_id_fk", using: :btree
+  add_index "engagement_creds", ["user_id"], name: "engagement_creds_users_id_fk", using: :btree
+
   create_table "engagement_files", force: :cascade do |t|
     t.integer  "user_id",            limit: 4
     t.integer  "engagement_id",      limit: 4
@@ -446,10 +451,16 @@ ActiveRecord::Schema.define(version: 20161204010623) do
     t.datetime "asset_updated_at"
   end
 
+  add_index "engagement_files", ["engagement_id"], name: "engagement_files_engagements_id_fk", using: :btree
+  add_index "engagement_files", ["user_id"], name: "engagement_files_users_id_fk", using: :btree
+
   create_table "engagement_main_users", force: :cascade do |t|
     t.integer "user_id",            limit: 4
     t.integer "engagement_main_id", limit: 4
   end
+
+  add_index "engagement_main_users", ["engagement_main_id"], name: "engagement_main_users_engagement_mains_id_fk", using: :btree
+  add_index "engagement_main_users", ["user_id"], name: "engagement_main_users_users_id_fk", using: :btree
 
   create_table "engagement_mains", force: :cascade do |t|
     t.string   "host",          limit: 255
@@ -465,6 +476,9 @@ ActiveRecord::Schema.define(version: 20161204010623) do
     t.string   "aasm_state",    limit: 255
     t.string   "mac",           limit: 255
   end
+
+  add_index "engagement_mains", ["engagement_id"], name: "engagement_mains_engagements_id_fk", using: :btree
+  add_index "engagement_mains", ["user_id"], name: "engagement_mains_users_id_fk", using: :btree
 
   create_table "engagement_types", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -489,6 +503,8 @@ ActiveRecord::Schema.define(version: 20161204010623) do
 
   add_index "engagements", ["ancestry"], name: "index_engagements_on_ancestry", using: :btree
   add_index "engagements", ["customer_id"], name: "index_engagements_on_customer_id", using: :btree
+  add_index "engagements", ["engagement_type_id"], name: "engagements_engagement_types_id_fk", using: :btree
+  add_index "engagements", ["user_id"], name: "engagements_users_id_fk", using: :btree
 
   create_table "evidences", force: :cascade do |t|
     t.string   "name",               limit: 255
@@ -507,6 +523,9 @@ ActiveRecord::Schema.define(version: 20161204010623) do
     t.integer  "engagement_main_id", limit: 4
     t.string   "full_path",          limit: 255
   end
+
+  add_index "evidences", ["engagement_id"], name: "evidences_engagements_id_fk", using: :btree
+  add_index "evidences", ["engagement_main_id"], name: "evidences_engagement_mains_id_fk", using: :btree
 
   create_table "exploit_platforms", force: :cascade do |t|
     t.string   "title",      limit: 255
@@ -550,6 +569,8 @@ ActiveRecord::Schema.define(version: 20161204010623) do
     t.datetime "updated_at",                       null: false
   end
 
+  add_index "host_creds", ["engagement_main_id"], name: "host_creds_engagement_mains_id_fk", using: :btree
+
   create_table "host_infos", force: :cascade do |t|
     t.string   "ip",                 limit: 255
     t.string   "mac",                limit: 255
@@ -565,6 +586,8 @@ ActiveRecord::Schema.define(version: 20161204010623) do
     t.string   "service_status",     limit: 255
   end
 
+  add_index "host_infos", ["engagement_main_id"], name: "host_infos_engagement_mains_id_fk", using: :btree
+
   create_table "host_vulns", force: :cascade do |t|
     t.integer  "port",               limit: 4
     t.integer  "severity",           limit: 4
@@ -579,6 +602,8 @@ ActiveRecord::Schema.define(version: 20161204010623) do
     t.string   "vuln_name",          limit: 255
   end
 
+  add_index "host_vulns", ["engagement_main_id"], name: "host_vulns_engagement_mains_id_fk", using: :btree
+
   create_table "hosts", force: :cascade do |t|
     t.string   "name",          limit: 255
     t.string   "mac",           limit: 255
@@ -586,6 +611,8 @@ ActiveRecord::Schema.define(version: 20161204010623) do
     t.datetime "updated_at",                null: false
     t.integer  "engagement_id", limit: 4
   end
+
+  add_index "hosts", ["engagement_id"], name: "hosts_engagements_id_fk", using: :btree
 
   create_table "ips", force: :cascade do |t|
     t.string   "ip",                limit: 255
@@ -676,6 +703,9 @@ ActiveRecord::Schema.define(version: 20161204010623) do
     t.datetime "updated_at",                          null: false
   end
 
+  add_index "metasploit_events", ["host_id"], name: "metasploit_events_metasploit_hosts_id_fk", using: :btree
+  add_index "metasploit_events", ["metasploit_report_id"], name: "metasploit_events_metasploit_reports_id_fk", using: :btree
+
   create_table "metasploit_exploit_attempts", force: :cascade do |t|
     t.integer  "exploit_attempt_id", limit: 4
     t.integer  "service_id",         limit: 4
@@ -711,6 +741,8 @@ ActiveRecord::Schema.define(version: 20161204010623) do
     t.datetime "updated_at",                          null: false
   end
 
+  add_index "metasploit_host_notes", ["metasploit_host_id"], name: "metasploit_host_notes_metasploit_hosts_id_fk", using: :btree
+
   create_table "metasploit_host_services", force: :cascade do |t|
     t.integer  "service_id",            limit: 4
     t.integer  "metasploit_host_id",    limit: 4
@@ -724,6 +756,8 @@ ActiveRecord::Schema.define(version: 20161204010623) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
   end
+
+  add_index "metasploit_host_services", ["metasploit_host_id"], name: "metasploit_host_services_metasploit_hosts_id_fk", using: :btree
 
   create_table "metasploit_host_vulns", force: :cascade do |t|
     t.integer  "vuln_id",                  limit: 4
@@ -746,6 +780,8 @@ ActiveRecord::Schema.define(version: 20161204010623) do
     t.datetime "updated_at",                             null: false
     t.integer  "metasploit__ref_id",       limit: 4
   end
+
+  add_index "metasploit_host_vulns", ["metasploit_host_id"], name: "metasploit_host_vulns_metasploit_hosts_id_fk", using: :btree
 
   create_table "metasploit_hosts", force: :cascade do |t|
     t.string   "metasploit_created_at", limit: 255
@@ -786,6 +822,8 @@ ActiveRecord::Schema.define(version: 20161204010623) do
     t.datetime "updated_at",                              null: false
     t.integer  "metasploit_module_detail_id", limit: 4
   end
+
+  add_index "metasploit_module_arches", ["module_archs_id"], name: "metasploit_module_arches_metasploit_module_details_id_fk", using: :btree
 
   create_table "metasploit_module_authors", force: :cascade do |t|
     t.integer  "author_id",                   limit: 4
@@ -863,6 +901,9 @@ ActiveRecord::Schema.define(version: 20161204010623) do
     t.boolean  "is_completed",    limit: 1,   default: false
   end
 
+  add_index "metasploit_reports", ["engagement_id"], name: "metasploit_reports_engagements_id_fk", using: :btree
+  add_index "metasploit_reports", ["user_id"], name: "metasploit_reports_users_id_fk", using: :btree
+
   create_table "metasploit_services", force: :cascade do |t|
     t.integer  "service_id",            limit: 4
     t.integer  "host_id",               limit: 4
@@ -888,6 +929,9 @@ ActiveRecord::Schema.define(version: 20161204010623) do
     t.integer "engagement_id", limit: 4
   end
 
+  add_index "nessus_attachments", ["engagement_id"], name: "nessus_attachments_engagements_id_fk", using: :btree
+  add_index "nessus_attachments", ["user_id"], name: "nessus_attachments_users_id_fk", using: :btree
+
   create_table "nessus_family_selections", force: :cascade do |t|
     t.integer "policy_id",     limit: 4
     t.string  "family_name",   limit: 255
@@ -896,6 +940,10 @@ ActiveRecord::Schema.define(version: 20161204010623) do
     t.integer "engagement_id", limit: 4
   end
 
+  add_index "nessus_family_selections", ["engagement_id"], name: "nessus_family_selections_engagements_id_fk", using: :btree
+  add_index "nessus_family_selections", ["policy_id"], name: "nessus_family_selections_nessus_policies_id_fk", using: :btree
+  add_index "nessus_family_selections", ["user_id"], name: "nessus_family_selections_users_id_fk", using: :btree
+
   create_table "nessus_host_properties", force: :cascade do |t|
     t.integer "host_id",       limit: 4
     t.string  "name",          limit: 255
@@ -903,6 +951,10 @@ ActiveRecord::Schema.define(version: 20161204010623) do
     t.integer "user_id",       limit: 4
     t.integer "engagement_id", limit: 4
   end
+
+  add_index "nessus_host_properties", ["engagement_id"], name: "nessus_host_properties_engagements_id_fk", using: :btree
+  add_index "nessus_host_properties", ["host_id"], name: "nessus_host_properties_nessus_hosts_id_fk", using: :btree
+  add_index "nessus_host_properties", ["user_id"], name: "nessus_host_properties_users_id_fk", using: :btree
 
   create_table "nessus_hosts", force: :cascade do |t|
     t.integer  "nessus_report_id", limit: 4
@@ -920,6 +972,10 @@ ActiveRecord::Schema.define(version: 20161204010623) do
     t.integer  "engagement_id",    limit: 4
   end
 
+  add_index "nessus_hosts", ["engagement_id"], name: "nessus_hosts_engagements_id_fk", using: :btree
+  add_index "nessus_hosts", ["nessus_report_id"], name: "nessus_hosts_nessus_reports_id_fk", using: :btree
+  add_index "nessus_hosts", ["user_id"], name: "nessus_hosts_users_id_fk", using: :btree
+
   create_table "nessus_individual_plugin_selections", force: :cascade do |t|
     t.string  "policy_id",     limit: 255
     t.integer "plugin_id",     limit: 4
@@ -929,6 +985,9 @@ ActiveRecord::Schema.define(version: 20161204010623) do
     t.integer "user_id",       limit: 4
     t.integer "engagement_id", limit: 4
   end
+
+  add_index "nessus_individual_plugin_selections", ["engagement_id"], name: "nessus_individual_plugin_selections_engagements_id_fk", using: :btree
+  add_index "nessus_individual_plugin_selections", ["user_id"], name: "nessus_individual_plugin_selections_users_id_fk", using: :btree
 
   create_table "nessus_items", force: :cascade do |t|
     t.integer "host_id",                    limit: 4
@@ -958,8 +1017,10 @@ ActiveRecord::Schema.define(version: 20161204010623) do
     t.integer "engagement_id",              limit: 4
   end
 
+  add_index "nessus_items", ["engagement_id"], name: "nessus_items_engagements_id_fk", using: :btree
   add_index "nessus_items", ["host_id"], name: "index_nessus_items_on_host_id", using: :btree
   add_index "nessus_items", ["plugin_id"], name: "index_nessus_items_on_plugin_id", using: :btree
+  add_index "nessus_items", ["user_id"], name: "nessus_items_users_id_fk", using: :btree
 
   create_table "nessus_patches", force: :cascade do |t|
     t.integer "host_id",       limit: 4
@@ -968,6 +1029,10 @@ ActiveRecord::Schema.define(version: 20161204010623) do
     t.integer "user_id",       limit: 4
     t.integer "engagement_id", limit: 4
   end
+
+  add_index "nessus_patches", ["engagement_id"], name: "nessus_patches_engagements_id_fk", using: :btree
+  add_index "nessus_patches", ["host_id"], name: "nessus_patches_nessus_hosts_id_fk", using: :btree
+  add_index "nessus_patches", ["user_id"], name: "nessus_patches_users_id_fk", using: :btree
 
   create_table "nessus_plugins", force: :cascade do |t|
     t.integer  "plugin_id",                    limit: 4
@@ -1017,6 +1082,10 @@ ActiveRecord::Schema.define(version: 20161204010623) do
     t.integer  "policy_id",                    limit: 4
   end
 
+  add_index "nessus_plugins", ["engagement_id"], name: "nessus_plugins_engagements_id_fk", using: :btree
+  add_index "nessus_plugins", ["policy_id"], name: "nessus_plugins_nessus_policies_id_fk", using: :btree
+  add_index "nessus_plugins", ["user_id"], name: "nessus_plugins_users_id_fk", using: :btree
+
   create_table "nessus_plugins_preferences", force: :cascade do |t|
     t.integer "policy_id",         limit: 4
     t.integer "plugin_id",         limit: 4
@@ -1030,6 +1099,10 @@ ActiveRecord::Schema.define(version: 20161204010623) do
     t.integer "engagement_id",     limit: 4
   end
 
+  add_index "nessus_plugins_preferences", ["engagement_id"], name: "nessus_plugins_preferences_engagements_id_fk", using: :btree
+  add_index "nessus_plugins_preferences", ["policy_id"], name: "nessus_plugins_preferences_nessus_policies_id_fk", using: :btree
+  add_index "nessus_plugins_preferences", ["user_id"], name: "nessus_plugins_preferences_users_id_fk", using: :btree
+
   create_table "nessus_policies", force: :cascade do |t|
     t.string  "name",          limit: 255
     t.text    "comments",      limit: 65535
@@ -1039,6 +1112,9 @@ ActiveRecord::Schema.define(version: 20161204010623) do
     t.integer "engagement_id", limit: 4
   end
 
+  add_index "nessus_policies", ["engagement_id"], name: "nessus_policies_engagements_id_fk", using: :btree
+  add_index "nessus_policies", ["user_id"], name: "nessus_policies_users_id_fk", using: :btree
+
   create_table "nessus_references", force: :cascade do |t|
     t.integer "plugin_id",      limit: 4
     t.string  "reference_name", limit: 255
@@ -1047,7 +1123,9 @@ ActiveRecord::Schema.define(version: 20161204010623) do
     t.integer "engagement_id",  limit: 4
   end
 
+  add_index "nessus_references", ["engagement_id"], name: "nessus_references_engagements_id_fk", using: :btree
   add_index "nessus_references", ["plugin_id"], name: "index_nessus_references_on_plugin_id", using: :btree
+  add_index "nessus_references", ["user_id"], name: "nessus_references_users_id_fk", using: :btree
 
   create_table "nessus_reports", force: :cascade do |t|
     t.integer "policy_id",     limit: 4
@@ -1055,6 +1133,10 @@ ActiveRecord::Schema.define(version: 20161204010623) do
     t.integer "user_id",       limit: 4
     t.integer "engagement_id", limit: 4
   end
+
+  add_index "nessus_reports", ["engagement_id"], name: "nessus_reports_engagements_id_fk", using: :btree
+  add_index "nessus_reports", ["policy_id"], name: "nessus_reports_nessus_policies_id_fk", using: :btree
+  add_index "nessus_reports", ["user_id"], name: "nessus_reports_users_id_fk", using: :btree
 
   create_table "nessus_server_preferences", force: :cascade do |t|
     t.integer "policy_id",     limit: 4
@@ -1064,6 +1146,10 @@ ActiveRecord::Schema.define(version: 20161204010623) do
     t.integer "engagement_id", limit: 4
   end
 
+  add_index "nessus_server_preferences", ["engagement_id"], name: "nessus_server_preferences_engagements_id_fk", using: :btree
+  add_index "nessus_server_preferences", ["policy_id"], name: "nessus_server_preferences_nessus_policies_id_fk", using: :btree
+  add_index "nessus_server_preferences", ["user_id"], name: "nessus_server_preferences_users_id_fk", using: :btree
+
   create_table "nessus_service_descriptions", force: :cascade do |t|
     t.string  "name",          limit: 255
     t.integer "port",          limit: 4
@@ -1072,11 +1158,17 @@ ActiveRecord::Schema.define(version: 20161204010623) do
     t.integer "engagement_id", limit: 4
   end
 
+  add_index "nessus_service_descriptions", ["engagement_id"], name: "nessus_service_descriptions_engagements_id_fk", using: :btree
+  add_index "nessus_service_descriptions", ["user_id"], name: "nessus_service_descriptions_users_id_fk", using: :btree
+
   create_table "nessus_versions", force: :cascade do |t|
     t.string  "version",       limit: 255
     t.integer "user_id",       limit: 4
     t.integer "engagement_id", limit: 4
   end
+
+  add_index "nessus_versions", ["engagement_id"], name: "nessus_versions_engagements_id_fk", using: :btree
+  add_index "nessus_versions", ["user_id"], name: "nessus_versions_users_id_fk", using: :btree
 
   create_table "nmap_cpes", force: :cascade do |t|
     t.integer  "nmap_port_id", limit: 4
@@ -1099,6 +1191,8 @@ ActiveRecord::Schema.define(version: 20161204010623) do
     t.datetime "updated_at",                 null: false
   end
 
+  add_index "nmap_host_ipidsequences", ["nmap_host_id"], name: "nmap_host_ipidsequences_nmap_hosts_id_fk", using: :btree
+
   create_table "nmap_host_tcpsequences", force: :cascade do |t|
     t.integer  "nmap_host_id", limit: 4
     t.string   "index",        limit: 255
@@ -1108,6 +1202,8 @@ ActiveRecord::Schema.define(version: 20161204010623) do
     t.datetime "updated_at",                 null: false
   end
 
+  add_index "nmap_host_tcpsequences", ["nmap_host_id"], name: "nmap_host_tcpsequences_nmap_hosts_id_fk", using: :btree
+
   create_table "nmap_host_tcptssequences", force: :cascade do |t|
     t.integer  "nmap_host_id", limit: 4
     t.text     "values",       limit: 65535
@@ -1115,6 +1211,8 @@ ActiveRecord::Schema.define(version: 20161204010623) do
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
   end
+
+  add_index "nmap_host_tcptssequences", ["nmap_host_id"], name: "nmap_host_tcptssequences_nmap_hosts_id_fk", using: :btree
 
   create_table "nmap_host_traceroutes", force: :cascade do |t|
     t.integer  "nmap_host_id", limit: 4
@@ -1128,6 +1226,8 @@ ActiveRecord::Schema.define(version: 20161204010623) do
     t.datetime "updated_at",                 null: false
   end
 
+  add_index "nmap_host_traceroutes", ["nmap_host_id"], name: "nmap_host_traceroutes_nmap_hosts_id_fk", using: :btree
+
   create_table "nmap_host_uptimes", force: :cascade do |t|
     t.integer  "nmap_host_id", limit: 4
     t.string   "seconds",      limit: 255
@@ -1136,6 +1236,8 @@ ActiveRecord::Schema.define(version: 20161204010623) do
     t.datetime "updated_at",               null: false
   end
 
+  add_index "nmap_host_uptimes", ["nmap_host_id"], name: "nmap_host_uptimes_nmap_hosts_id_fk", using: :btree
+
   create_table "nmap_hostnames", force: :cascade do |t|
     t.integer  "nmap_host_id", limit: 4
     t.string   "host_type",    limit: 255
@@ -1143,6 +1245,8 @@ ActiveRecord::Schema.define(version: 20161204010623) do
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
   end
+
+  add_index "nmap_hostnames", ["nmap_host_id"], name: "nmap_hostnames_nmap_hosts_id_fk", using: :btree
 
   create_table "nmap_hosts", force: :cascade do |t|
     t.integer  "nmap_report_id", limit: 4
@@ -1156,11 +1260,15 @@ ActiveRecord::Schema.define(version: 20161204010623) do
     t.datetime "updated_at",                 null: false
   end
 
+  add_index "nmap_hosts", ["nmap_report_id"], name: "nmap_hosts_nmap_reports_id_fk", using: :btree
+
   create_table "nmap_operating_systems", force: :cascade do |t|
     t.integer  "nmap_host_id", limit: 4
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
+
+  add_index "nmap_operating_systems", ["nmap_host_id"], name: "nmap_operating_systems_nmap_hosts_id_fk", using: :btree
 
   create_table "nmap_os_classes", force: :cascade do |t|
     t.integer  "nmap_operating_system_id", limit: 4
@@ -1201,6 +1309,8 @@ ActiveRecord::Schema.define(version: 20161204010623) do
     t.datetime "updated_at",                       null: false
   end
 
+  add_index "nmap_ports", ["nmap_host_id"], name: "nmap_ports_nmap_hosts_id_fk", using: :btree
+
   create_table "nmap_reports", force: :cascade do |t|
     t.string   "path",             limit: 255
     t.string   "name",             limit: 255
@@ -1220,6 +1330,9 @@ ActiveRecord::Schema.define(version: 20161204010623) do
     t.boolean  "is_completed",     limit: 1,     default: false
   end
 
+  add_index "nmap_reports", ["engagement_id"], name: "nmap_reports_engagements_id_fk", using: :btree
+  add_index "nmap_reports", ["user_id"], name: "nmap_reports_users_id_fk", using: :btree
+
   create_table "nmap_run_stats", force: :cascade do |t|
     t.integer  "nmap_report_id", limit: 4
     t.datetime "end_time"
@@ -1230,6 +1343,8 @@ ActiveRecord::Schema.define(version: 20161204010623) do
     t.datetime "updated_at",                   null: false
   end
 
+  add_index "nmap_run_stats", ["nmap_report_id"], name: "nmap_run_stats_nmap_reports_id_fk", using: :btree
+
   create_table "nmap_scripts", force: :cascade do |t|
     t.integer  "nmap_port_id", limit: 4
     t.string   "key",          limit: 255
@@ -1237,6 +1352,8 @@ ActiveRecord::Schema.define(version: 20161204010623) do
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
   end
+
+  add_index "nmap_scripts", ["nmap_port_id"], name: "nmap_scripts_nmap_ports_id_fk", using: :btree
 
   create_table "nmap_used_ports", force: :cascade do |t|
     t.integer  "nmap_operating_system_id", limit: 4
@@ -1257,6 +1374,8 @@ ActiveRecord::Schema.define(version: 20161204010623) do
     t.string   "notable_type", limit: 255
   end
 
+  add_index "notes", ["user_id"], name: "notes_users_id_fk", using: :btree
+
   create_table "ocbs", force: :cascade do |t|
     t.string   "number",        limit: 255
     t.integer  "engagement_id", limit: 4
@@ -1266,6 +1385,8 @@ ActiveRecord::Schema.define(version: 20161204010623) do
     t.boolean  "is_active",     limit: 1,   default: true
   end
 
+  add_index "ocbs", ["engagement_id"], name: "ocbs_engagements_id_fk", using: :btree
+
   create_table "pocs", force: :cascade do |t|
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
@@ -1273,6 +1394,8 @@ ActiveRecord::Schema.define(version: 20161204010623) do
     t.integer  "sub_engagement_id", limit: 4
     t.string   "name",              limit: 255
   end
+
+  add_index "pocs", ["engagement_id"], name: "pocs_engagements_id_fk", using: :btree
 
   create_table "reports", force: :cascade do |t|
     t.text     "options",       limit: 16777215
@@ -1285,6 +1408,7 @@ ActiveRecord::Schema.define(version: 20161204010623) do
 
   add_index "reports", ["customer_id"], name: "index_reports_on_customer_id", using: :btree
   add_index "reports", ["engagement_id"], name: "index_reports_on_engagement_id", using: :btree
+  add_index "reports", ["user_id"], name: "reports_users_id_fk", using: :btree
 
   create_table "screenshots", force: :cascade do |t|
     t.string   "file",             limit: 255
@@ -1295,6 +1419,8 @@ ActiveRecord::Schema.define(version: 20161204010623) do
     t.integer  "index",            limit: 4
     t.text     "caption",          limit: 65535
   end
+
+  add_index "screenshots", ["report_id"], name: "screenshots_reports_id_fk", using: :btree
 
   create_table "settings", force: :cascade do |t|
     t.string   "name",         limit: 255
@@ -1329,6 +1455,8 @@ ActiveRecord::Schema.define(version: 20161204010623) do
     t.string   "name",              limit: 255
   end
 
+  add_index "system_admins", ["engagement_id"], name: "system_admins_engagements_id_fk", using: :btree
+
   create_table "teams", force: :cascade do |t|
     t.string "name", limit: 255
   end
@@ -1339,6 +1467,9 @@ ActiveRecord::Schema.define(version: 20161204010623) do
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
   end
+
+  add_index "user_engagements", ["engagement_id"], name: "user_engagements_engagements_id_fk", using: :btree
+  add_index "user_engagements", ["user_id"], name: "user_engagements_users_id_fk", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "fname",               limit: 255
@@ -1360,7 +1491,96 @@ ActiveRecord::Schema.define(version: 20161204010623) do
     t.integer  "engagement_id",       limit: 4
   end
 
+  add_index "users", ["engagement_id"], name: "users_engagements_engagement_type_id_fk", using: :btree
+  add_index "users", ["team_id"], name: "users_teams_id_fk", using: :btree
+
+  add_foreign_key "custom_findings", "engagement_mains", name: "custom_findings_engagement_mains_id_fk"
+  add_foreign_key "engagement_creds", "engagements", name: "engagement_creds_engagements_id_fk"
+  add_foreign_key "engagement_creds", "users", name: "engagement_creds_users_id_fk"
+  add_foreign_key "engagement_files", "engagements", name: "engagement_files_engagements_id_fk"
+  add_foreign_key "engagement_files", "users", name: "engagement_files_users_id_fk"
+  add_foreign_key "engagement_main_users", "engagement_mains", name: "engagement_main_users_engagement_mains_id_fk"
+  add_foreign_key "engagement_main_users", "users", name: "engagement_main_users_users_id_fk"
+  add_foreign_key "engagement_mains", "engagements", name: "engagement_mains_engagements_id_fk"
+  add_foreign_key "engagement_mains", "users", name: "engagement_mains_users_id_fk"
   add_foreign_key "engagements", "customers"
+  add_foreign_key "engagements", "engagement_types", name: "engagements_engagement_types_id_fk"
+  add_foreign_key "engagements", "users", name: "engagements_users_id_fk"
+  add_foreign_key "evidences", "engagement_mains", name: "evidences_engagement_mains_id_fk"
+  add_foreign_key "evidences", "engagements", name: "evidences_engagements_id_fk"
+  add_foreign_key "host_creds", "engagement_mains", name: "host_creds_engagement_mains_id_fk"
+  add_foreign_key "host_infos", "engagement_mains", name: "host_infos_engagement_mains_id_fk"
+  add_foreign_key "host_vulns", "engagement_mains", name: "host_vulns_engagement_mains_id_fk"
+  add_foreign_key "hosts", "engagements", name: "hosts_engagements_id_fk"
+  add_foreign_key "metasploit_events", "metasploit_hosts", column: "host_id", name: "metasploit_events_metasploit_hosts_id_fk"
+  add_foreign_key "metasploit_events", "metasploit_reports", name: "metasploit_events_metasploit_reports_id_fk"
+  add_foreign_key "metasploit_host_notes", "metasploit_hosts", name: "metasploit_host_notes_metasploit_hosts_id_fk"
+  add_foreign_key "metasploit_host_services", "metasploit_hosts", name: "metasploit_host_services_metasploit_hosts_id_fk"
+  add_foreign_key "metasploit_host_vulns", "metasploit_hosts", name: "metasploit_host_vulns_metasploit_hosts_id_fk"
+  add_foreign_key "metasploit_reports", "engagements", name: "metasploit_reports_engagements_id_fk"
+  add_foreign_key "metasploit_reports", "users", name: "metasploit_reports_users_id_fk"
+  add_foreign_key "nessus_attachments", "engagements", name: "nessus_attachments_engagements_id_fk"
+  add_foreign_key "nessus_attachments", "users", name: "nessus_attachments_users_id_fk"
+  add_foreign_key "nessus_family_selections", "engagements", name: "nessus_family_selections_engagements_id_fk"
+  add_foreign_key "nessus_family_selections", "nessus_policies", column: "policy_id", name: "nessus_family_selections_nessus_policies_id_fk"
+  add_foreign_key "nessus_family_selections", "users", name: "nessus_family_selections_users_id_fk"
+  add_foreign_key "nessus_host_properties", "engagements", name: "nessus_host_properties_engagements_id_fk"
+  add_foreign_key "nessus_host_properties", "nessus_hosts", column: "host_id", name: "nessus_host_properties_nessus_hosts_id_fk"
+  add_foreign_key "nessus_host_properties", "users", name: "nessus_host_properties_users_id_fk"
+  add_foreign_key "nessus_hosts", "engagements", name: "nessus_hosts_engagements_id_fk"
+  add_foreign_key "nessus_hosts", "nessus_reports", name: "nessus_hosts_nessus_reports_id_fk"
+  add_foreign_key "nessus_hosts", "users", name: "nessus_hosts_users_id_fk"
+  add_foreign_key "nessus_individual_plugin_selections", "engagements", name: "nessus_individual_plugin_selections_engagements_id_fk"
+  add_foreign_key "nessus_individual_plugin_selections", "users", name: "nessus_individual_plugin_selections_users_id_fk"
+  add_foreign_key "nessus_items", "engagements", name: "nessus_items_engagements_id_fk"
+  add_foreign_key "nessus_items", "nessus_hosts", column: "host_id", name: "nessus_items_nessus_hosts_id_fk"
+  add_foreign_key "nessus_items", "users", name: "nessus_items_users_id_fk"
+  add_foreign_key "nessus_patches", "engagements", name: "nessus_patches_engagements_id_fk"
+  add_foreign_key "nessus_patches", "nessus_hosts", column: "host_id", name: "nessus_patches_nessus_hosts_id_fk"
+  add_foreign_key "nessus_patches", "users", name: "nessus_patches_users_id_fk"
+  add_foreign_key "nessus_plugins", "engagements", name: "nessus_plugins_engagements_id_fk"
+  add_foreign_key "nessus_plugins", "nessus_policies", column: "policy_id", name: "nessus_plugins_nessus_policies_id_fk"
+  add_foreign_key "nessus_plugins", "users", name: "nessus_plugins_users_id_fk"
+  add_foreign_key "nessus_plugins_preferences", "engagements", name: "nessus_plugins_preferences_engagements_id_fk"
+  add_foreign_key "nessus_plugins_preferences", "nessus_policies", column: "policy_id", name: "nessus_plugins_preferences_nessus_policies_id_fk"
+  add_foreign_key "nessus_plugins_preferences", "users", name: "nessus_plugins_preferences_users_id_fk"
+  add_foreign_key "nessus_policies", "engagements", name: "nessus_policies_engagements_id_fk"
+  add_foreign_key "nessus_policies", "users", name: "nessus_policies_users_id_fk"
+  add_foreign_key "nessus_references", "engagements", name: "nessus_references_engagements_id_fk"
+  add_foreign_key "nessus_references", "users", name: "nessus_references_users_id_fk"
+  add_foreign_key "nessus_reports", "engagements", name: "nessus_reports_engagements_id_fk"
+  add_foreign_key "nessus_reports", "nessus_policies", column: "policy_id", name: "nessus_reports_nessus_policies_id_fk"
+  add_foreign_key "nessus_reports", "users", name: "nessus_reports_users_id_fk"
+  add_foreign_key "nessus_server_preferences", "engagements", name: "nessus_server_preferences_engagements_id_fk"
+  add_foreign_key "nessus_server_preferences", "nessus_policies", column: "policy_id", name: "nessus_server_preferences_nessus_policies_id_fk"
+  add_foreign_key "nessus_server_preferences", "users", name: "nessus_server_preferences_users_id_fk"
+  add_foreign_key "nessus_service_descriptions", "engagements", name: "nessus_service_descriptions_engagements_id_fk"
+  add_foreign_key "nessus_service_descriptions", "users", name: "nessus_service_descriptions_users_id_fk"
+  add_foreign_key "nessus_versions", "engagements", name: "nessus_versions_engagements_id_fk"
+  add_foreign_key "nessus_versions", "users", name: "nessus_versions_users_id_fk"
+  add_foreign_key "nmap_host_ipidsequences", "nmap_hosts", name: "nmap_host_ipidsequences_nmap_hosts_id_fk"
+  add_foreign_key "nmap_host_tcpsequences", "nmap_hosts", name: "nmap_host_tcpsequences_nmap_hosts_id_fk"
+  add_foreign_key "nmap_host_tcptssequences", "nmap_hosts", name: "nmap_host_tcptssequences_nmap_hosts_id_fk"
+  add_foreign_key "nmap_host_traceroutes", "nmap_hosts", name: "nmap_host_traceroutes_nmap_hosts_id_fk"
+  add_foreign_key "nmap_host_uptimes", "nmap_hosts", name: "nmap_host_uptimes_nmap_hosts_id_fk"
+  add_foreign_key "nmap_hostnames", "nmap_hosts", name: "nmap_hostnames_nmap_hosts_id_fk"
+  add_foreign_key "nmap_hosts", "nmap_reports", name: "nmap_hosts_nmap_reports_id_fk"
+  add_foreign_key "nmap_operating_systems", "nmap_hosts", name: "nmap_operating_systems_nmap_hosts_id_fk"
+  add_foreign_key "nmap_ports", "nmap_hosts", name: "nmap_ports_nmap_hosts_id_fk"
+  add_foreign_key "nmap_reports", "engagements", name: "nmap_reports_engagements_id_fk"
+  add_foreign_key "nmap_reports", "users", name: "nmap_reports_users_id_fk"
+  add_foreign_key "nmap_run_stats", "nmap_reports", name: "nmap_run_stats_nmap_reports_id_fk"
+  add_foreign_key "nmap_scripts", "nmap_ports", name: "nmap_scripts_nmap_ports_id_fk"
+  add_foreign_key "notes", "users", name: "notes_users_id_fk"
+  add_foreign_key "ocbs", "engagements", name: "ocbs_engagements_id_fk"
+  add_foreign_key "pocs", "engagements", name: "pocs_engagements_id_fk"
   add_foreign_key "reports", "customers"
   add_foreign_key "reports", "engagements"
+  add_foreign_key "reports", "users", name: "reports_users_id_fk"
+  add_foreign_key "screenshots", "reports", name: "screenshots_reports_id_fk"
+  add_foreign_key "system_admins", "engagements", name: "system_admins_engagements_id_fk"
+  add_foreign_key "user_engagements", "engagements", name: "user_engagements_engagements_id_fk"
+  add_foreign_key "user_engagements", "users", name: "user_engagements_users_id_fk"
+  add_foreign_key "users", "engagements", primary_key: "engagement_type_id", name: "users_engagements_engagement_type_id_fk"
+  add_foreign_key "users", "teams", name: "users_teams_id_fk"
 end
