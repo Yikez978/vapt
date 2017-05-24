@@ -33,13 +33,13 @@ http://isoredirect.centos.org/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1611.
 - Turn off security profiles
 - Finish install
 3. login to vm as root
-  a. choduser -aG wheel dev
-  b. logout
-  c. Login as dev
+- choduser -aG wheel dev
+- logout
+- Login as dev
 4. Copy deploy.sh script into vm.
-  a. chmod +x deploy.sh
+- chmod +x deploy.sh
 5. Run deploy.sh
-  a. ./deploy.sh
+- ./deploy.sh
   
 Congrats you have successfully setup VAPT!
  
