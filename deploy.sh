@@ -21,12 +21,12 @@ if ! mysqladmin -u root password vapt; then
   echo 'The mysql root password was updated.'
 fi
 systemctl restart mariadb
-if ! id -u dev >/dev/null 2>&1; then
-  useradd -G wheel dev
+if ! id -u vapt >/vapt/null 2>&1; then
+  useradd -G wheel vapt
 fi
 
-# APP SETUP AS DEV USER
-exec sudo -i -u dev /bin/bash - << EOF
+# APP SETUP AS vapt USER
+exec sudo -i -u vapt /bin/bash - << EOF
   set -e
   set -x
 
@@ -36,14 +36,14 @@ exec sudo -i -u dev /bin/bash - << EOF
   gpg --import mpapis.asc
   curl -sSL https://get.rvm.io | bash -s stable
   source ~/.rvm/scripts/rvm
-  echo source ~/.rvm/scripts/rvm >> /home/dev/.bashrc
+  echo source ~/.rvm/scripts/rvm >> /home/vapt/.bashrc
 
   rvm requirements
   rvm install 2.2.2
   gem install bundler --no-ri --no-rdoc
   gem install passenger --no-ri --no-rdoc
 
-  cd /home/dev/vapt/
+  cd /home/vapt/vapt/
   rvm --default use 2.2.2
   gem install passenger
   bundle install
