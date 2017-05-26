@@ -1,7 +1,7 @@
-Vulnerability Assessment Penitration Tool (VAPT)
+Vulnerability Assessment Penetration Tool (VAPT) 
 ================================================
 
-This is a framework built for penters and teams to collect and corrilate data during a penitration test.  VAPT has the following capabilities:
+This is a framework built for pen-testers and teams to collect and correlate data during a penetration test. VAPT has the following capabilities:
 - User Registration
 - Project Scheduling
 - Tool parsing
@@ -23,9 +23,7 @@ Features that will be added
 How to deploy from scratch.
 ===========================
 
-<H6>
-NOTE: This is not a secure configuration and should only be used in development. NOT PRODUCTION!
-</H6>
+<H6>NOTE: This is not a secure configuration and should only be used in development. NOT PRODUCTION!
 
 ##
 
