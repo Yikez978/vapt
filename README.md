@@ -267,7 +267,7 @@ I personally use MobaXterm on windows
 yum install git -y
 ```
 ```bash
-password for vapt: vapt 
+password for root: vapt 
 ```
 
 ![](http://i.imgur.com/v4wmpE1.png)
