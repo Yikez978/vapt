@@ -40,6 +40,7 @@ exec sudo -i -u vapt /bin/bash - << EOF
 
   cd /home/vapt/vapt/
   rvm --default use 2.2.2
+  gem install bundler
   gem install passenger
   bundle install
   cp config/database.example.yml config/database.yml
