@@ -119,6 +119,7 @@ Main Configure Page
 ![](http://i.imgur.com/8yc8JJg.png)
 
 ##
+
 <h4>Next Click Network Adaptor
 1. On the left select Bridged
 2. Then select Replicate physical network connection state
@@ -153,7 +154,10 @@ Main Configure Page
 
 1.0 - Configurations cont.
 ===========================
+
 ![](http://i.imgur.com/XIynkJW.png)
+
+##
 
 <h4>Main Screen
 1. Disable KDump
