@@ -264,13 +264,13 @@ I personally use MobaXterm on windows
 ===========================
 
 ```bash
-sudo yum install git -y
+yum install git -y
 ```
 ```bash
 password for vapt: vapt 
 ```
 
-![](http://i.imgur.com/TtB6Y1B.png)
+![](http://i.imgur.com/v4wmpE1.png)
 
 5.0 Git Clone Repo
  ===========================
