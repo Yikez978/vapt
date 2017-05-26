@@ -199,22 +199,30 @@ Click Begin Installation
 4. Password: vapt
 5. Confirm Pasword: vapt
 6. Click Done
+
 ![](http://i.imgur.com/NjsxJkl.png)
 
 <H6>When the install and setup is complete click the "Reboot" button.
 1. Click Reboot
+
 ![](http://i.imgur.com/VZLll2c.png)
 
 3.0 Install Complete. SSH & configure Environment
 ===========================
+
  ![](http://i.imgur.com/Vva0Ma0.png)
+ 
 ##
+
 3.1 Download MobaXterm or your favorite SSH program.
 ===========================
 
 <H6>If you have one then skip this part.
-I personally use MobaXterm on windows(http://mobaxterm.mobatek.net/)
-------------------------------------------------
+I personally use MobaXterm on windows
+(http://mobaxterm.mobatek.net/)
+
+##
+
 4.0 Install Git
 ===========================
 
@@ -224,6 +232,7 @@ sudo yum install git -y
 ```bash
 password for vapt: vapt 
 ```
+
 ![](http://i.imgur.com/TtB6Y1B.png)
 
 5.0 Git Clone Repo
@@ -233,20 +242,33 @@ password for vapt: vapt
 
 ##6.0 Run deploy.sh script
 1. This will take you to the vapt directory.
+
 ```bash
 cd vapt/
 ```
+
 2. This will list whats in the directory.
+
 ```bash
 ls
 ```
+
 ![](http://i.imgur.com/rlcgs2C.png)
+
 ```bash
 sudo ./deploy.sh
 ```
+
+```bash
 Enter password: vapt
---
-Sit back and Drink Coffee!
+```
+
 ##
+
+<h4>Sit back and Drink Coffee!
+
+##
+
 ![](http://68.media.tumblr.com/bd42af65d080509c63e539d589d05fcc/tumblr_o19fboIpq51tzebzdo1_500.png)
+
 ##
