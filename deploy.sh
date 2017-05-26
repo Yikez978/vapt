@@ -21,16 +21,11 @@ if ! mysqladmin -u root password vapt; then
   echo 'The mysql root password was updated.'
 fi
 systemctl restart mariadb
-if ! id -u vapt >/vapt/null 2>&1; then
-  useradd -G wheel vapt
-fi
 
 # APP SETUP AS vapt USER
 exec sudo -i -u vapt /bin/bash - << EOF
   set -e
   set -x
-
-  git clone https://github.com/anpseftis/vapt.git
 
   curl -#LO https://rvm.io/mpapis.asc
   gpg --import mpapis.asc
