@@ -17,13 +17,18 @@ This is a framework built for penters and teams to collect and corrilate data du
   
 Features that will be added
 ===========================
-1. NIST 800-53 DB gui with search :status Complete - will be released in next major update
-2. NIST 800-60 DB gui with search :status Complete - will be released in next major update
-3. Vulnerability mapping to NIST controls :Working
-
+ 1. Auto Vulnerability coloration from Nessus scan, Test Plan, to Nist controls.
+ 2. Auto syncing tools from interface.
 
 How to deploy from scratch.
 ===========================
+
+<H6>
+NOTE: This is not a secure configuration and should only be used in development. NOT PRODUCTION!
+</H6>
+
+##
+
 1. Download CentOS 7 ISO Minimal 
 http://isoredirect.centos.org/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1611.iso
 
