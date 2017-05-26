@@ -138,3 +138,19 @@ password for vapt: vapt
 ###5.0 Git Clone Repo 
 (https://github.com/anpseftis/vapt.git)
 
+##6.0 Run deploy.sh script
+1. This will take you to the vapt directory.
+```bash
+cd vapt/
+```
+2. This will list whats in the directory.
+```bash
+ls
+```
+![](http://i.imgur.com/rlcgs2C.png)
+```bash
+sudo ./deploy.sh
+```
+Enter password: vapt
+
+######Sit Back Drink Coffee. This will take 45 mins to completely build and deploy.
