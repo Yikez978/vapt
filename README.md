@@ -28,6 +28,7 @@ How to deploy from scratch.
 http://isoredirect.centos.org/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1611.iso
 
 2. Open up VMware
+![alt text](https://raw.githubusercontent.com/anpseftis/vapt/master/vapt/README/1.png)
 - Create user: dev
 - Password: vapt
 - Turn off security profiles
