@@ -290,10 +290,10 @@ cd vapt/
 ls
 ```
 
-![](http://i.imgur.com/rlcgs2C.png)
+![](http://i.imgur.com/Q3r4jpf.png)
 
 ```bash
-sudo ./deploy.sh
+./deploy.sh
 ```
 
 ```bash
