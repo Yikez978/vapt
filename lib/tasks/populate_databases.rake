@@ -6,6 +6,6 @@ namespace :db do
     puts "Populating CVE items"
     CveDatabase.populate_data_from_csv_xml("./allitems.xml")
     puts "Populating CWE items"
-    CweWeaknessCatalog.populate_data_from_cwe_xml("./cwec_v2.9.xml")
+    CweWeaknessCatalog.populate_data_from_cwe_xml("./cwec_v2.11.xml")
   end
 end

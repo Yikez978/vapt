@@ -33,6 +33,8 @@ exec sudo -i -u vapt /bin/bash - << EOF
   source ~/.rvm/scripts/rvm
   echo source ~/.rvm/scripts/rvm >> /home/vapt/.bashrc
 
+  cd /etc/opt/
+
   rvm requirements
   rvm install 2.2.2
   gem install bundler --no-ri --no-rdoc
@@ -44,12 +46,8 @@ exec sudo -i -u vapt /bin/bash - << EOF
   gem install passenger
   bundle install
   cp config/database.example.yml config/database.yml
-  cat > config/secrets.yml <<EOFSECRETS
-production:
-  secret_key_base: c6500455c722872da70362a01627e249a1c766b03dfa094389717c607df1c032be5b007f051f2332acd00fde3e5ad500a8c1c0377c9650573e2d0c3c7f6fcc6c
-EOFSECRETS
   export RAILS_ENV=production
-  mkdir -p /tmp/pids
+  mkdir -p tmp/pids
   sed -i 's/password:\s*$/password: vapt/g' config/database.yml
   sed -i 's/password:\s*$/password: vapt/g' risu.cfg
 
