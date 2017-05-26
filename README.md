@@ -111,8 +111,9 @@ You will be configuring the memory, Processors and Network Adaptor
 
 ##
 
-The virtual machine will now go through its startup process. It will take you to the following screen when it is done.
+<H4> The virtual machine will now go through its startup process. It will take you to the following screen when it is done.
 You should now see the "Welcome to CenOS 7 Screen"
+
 1. Default should be English
 2. Click Continue
 
@@ -188,7 +189,9 @@ Click Begin Installation
 1. Root Password: vapt
 2. Confirm: vapt
 3. Click Done
+
 ##
+
 2.2 Click User Creation
 ===========================
 1. Full Name: vapt
