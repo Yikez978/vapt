@@ -302,7 +302,7 @@ Enter password: vapt
 
 ##
 
-<h4>Sit back and Drink Coffee!
+<h4>Sit back and Drink Coffee! This will take 45 mins or so depending on your setup.
 
 ##
 
