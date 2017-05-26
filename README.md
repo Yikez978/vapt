@@ -26,6 +26,8 @@ Features that will be added
 ===========================
  1. Auto Vulnerability coloration from Nessus scan, Test Plan, to Nist controls.
  2. Auto syncing tools from interface.
+ 3. Data Analytics
+ 4. RMF validation / customization
 
 Getting Ready to deploy?
 ===========================
