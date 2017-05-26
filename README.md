@@ -69,7 +69,7 @@ click to download: [CENTOS 7](http://isoredirect.centos.org/centos/7/isos/x86_64
 3. Enter password: vapt
 4. Enter Confirm: vapt
 
-![](http://i.imgur.com/xbHkLv8.png)
+![](http://i.imgur.com/N4KBYBl.png)
 
 ##
 <h4> Name VM
