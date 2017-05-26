@@ -111,8 +111,10 @@ You will be configuring the memory, Processors and Network Adaptor
 
 ##
 
-<H4> The virtual machine will now go through its startup process. It will take you to the following screen when it is done.
+<H4>The virtual machine will now go through its startup process. It will take you to the following screen when it is done.
 You should now see the "Welcome to CenOS 7 Screen"
+
+##
 
 1. Default should be English
 2. Click Continue
@@ -135,6 +137,7 @@ You should now see the "Welcome to CenOS 7 Screen"
 
 1.1 - KDump
 ===========================
+
 1. Disable Kdump by removing the Check mark next to "Enable kdump"
 2. Click Done
 
@@ -153,6 +156,7 @@ You should now see the "Welcome to CenOS 7 Screen"
 
 1.3 - Insulation Destination
 ===========================
+
 1. Just click Done
 
 ![](http://i.imgur.com/PNJC1YL.png)
@@ -194,6 +198,7 @@ Click Begin Installation
 
 2.2 Click User Creation
 ===========================
+
 1. Full Name: vapt
 2. User name: vapt
 3. Check the "Make this user administrator" box.
